@@ -21,6 +21,17 @@ body {
     margin-left: auto;
     margin-right: auto;
     padding: 0 16px;
+    line-height: 160%;
+}
+
+.content p {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 16px;
+    line-height: 160%;
+    font-size: 1.15em;
+    
 }
 
 .content .highlight {
