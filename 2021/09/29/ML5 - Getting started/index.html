@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  
+  <title>ml5.js - Getting Started - Shu-Creative Computing</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+    <link rel='manifest' href='/manifest.json'>
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/cursor.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/components.css">
+
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+    <body>
+        <nav id="theme-nav">
+    <div class="inner">
+        <a class="title" href="/">Shu&#39;s Blog</a>
+        <div class="nav-arrow"></div>
+        <div class="nav-items">
+            <a class="nav-item nav-item-home" href="/">Home</a>
+            
+            
+            <a class="nav-item" href="/categories/essays">Thinking</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/pcomp">Pcomp&amp;AVCE</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/coding">Coding</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/portfolio">Portfolio</a>
+            
+            
+            
+            <a class="nav-item" href="/contact">About</a>
+            
+            
+            
+            <a class="nav-item nav-item-github nav-item-icon" href="https://github.com/ShuSQ" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-codepen nav-item-icon" href="https://codepen.io/shusq" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-patreon nav-item-icon" href="https://www.instagram.com/cheese_shu/" target="_blank">&nbsp;</a>
+            
+            
+        </div>
+    </div>
+</nav>
+        <article class="post">
+    <div class="meta">
+        
+        <div class="date" id="date">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <span>September</span>
+            
+            
+            
+            
+            <span>29,</span>
+            <span>2021</span>
+        </div>
+        
+
+        <h2 class="title">ml5.js - Getting Started</h2>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="content">
+        <blockquote>
+<p>这是一个关于ml5.js的学习笔记，和案例尝试。</p>
+</blockquote>
+<h3 id="什么是ml5-js"><a href="#什么是ml5-js" class="headerlink" title="什么是ml5.js?"></a>什么是ml5.js?</h3><p>ml5.js is a javascript library - friendly machine learning for web.</p>
+<p>ml5.js是可以在web浏览器中运行的机器学习框架，通过web浏览器内置的GPU处理单元计算，这样的运算速度远远快于CPU，shader就是这样的一个解释案例。</p>
+<h3 id="Quickstart"><a href="#Quickstart" class="headerlink" title="Quickstart"></a>Quickstart</h3><p>尝试ml5.js的最快速的方式是：</p>
+<p>1.结合p5.js和ml5.js一起使用，在这里查看<a target="_blank" rel="noopener" href="https://editor.p5js.org/ml5/sketches/qqhYX2QmN">P5.js的web模板</a>，或从GitHub上获取<a target="_blank" rel="noopener" href="https://github.com/ml5js/ml5-library/tree/main/examples/p5js/ml5Boilerplate/ml5Boilerplate_Version">p5.js和ml5.js的模版文件</a>。</p>
+<p>2.当然也可以使用纯ml5.js的文件模板，并从<a target="_blank" rel="noopener" href="https://github.com/ml5js/ml5-library/tree/main/examples/javascript/ml5Boilerplate/ml5Boilerplate_Version">GitHub上获取</a>。</p>
+<p>3.从CDN获取ml5.js的库：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">&quot;https://unpkg.com/ml5@latest/dist/ml5.min.js&quot;</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在index.html文件中，复制粘贴，然后在浏览器中打开文件查看：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Getting Started with ml5.js<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/ml5@latest/dist/ml5.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">      <span class="comment">// Your code will go here</span></span></span><br><span class="line"><span class="javascript">      <span class="comment">// open up your console - if everything loaded properly you should see the correct version number</span></span></span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(<span class="string">&#x27;ml5 version:&#x27;</span>, ml5.version);</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>ml5.js的设计可以与p5.js配合得很好，可以从以下的模版代码开始构建你的项目：</p>
+<p>在index.html文件中，复制粘贴，并且在浏览器中打开该文件：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Getting Started with ml5.js<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- p5 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/addons/p5.sound.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- ml5 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/ml5@latest/dist/ml5.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">      <span class="comment">// Your code will go here</span></span></span><br><span class="line"><span class="javascript">      <span class="comment">// open up your console - if everything loaded properly you should see the latest ml5 version</span></span></span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(<span class="string">&#x27;ml5 version:&#x27;</span>, ml5.version);</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">      <span class="function"><span class="keyword">function</span> <span class="title">setup</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line">        createCanvas(400, 400);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line"><span class="javascript">      <span class="function"><span class="keyword">function</span> <span class="title">draw</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line">        background(200);</span><br><span class="line">      &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="ml5-js-introduction"><a href="#ml5-js-introduction" class="headerlink" title="ml5.js introduction"></a>ml5.js introduction</h3><p>ml5.js目标是让更多的人可以轻松地使用机器学习。ml5的团队也在努力创建更加友好，易于使用的机器学习功能。下面的一个案例介绍了ml5.js实现的机器学习经典用例：图像分类。</p>
+<p>该案例演示了如何在ml5.js中使用MobileNet的预训练模型，以及设置ml5.js的项目。</p>
+<p>要设置一个简单的ml5.js的项目并运行，你需要使用：</p>
+<blockquote>
+<ul>
+<li>📝 一款文本编辑器 (e.g. <a target="_blank" rel="noopener" href="https://atom.io/">Atom</a>, <a target="_blank" rel="noopener" href="https://code.visualstudio.com/">VSCode</a>, <a target="_blank" rel="noopener" href="https://www.sublimetext.com/">Sublimetext</a>)</li>
+<li>💻 你的网页浏览器: 推荐Chrome &amp; Firefox</li>
+<li>🖼 运行分类的图片</li>
+</ul>
+</blockquote>
+<p>你的项目目录看起来会是这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">|_ &#x2F;hello-ml5</span><br><span class="line">  |_ 📂&#x2F;images</span><br><span class="line">    |_ 🖼 bird.png</span><br><span class="line">  |_ 🗒index.html</span><br><span class="line">  |_ 🗒sketch.js</span><br></pre></td></tr></table></figure>
+
+<p>其中：</p>
+<ul>
+<li>Hello-ml5/：是项目文件的根<ul>
+<li>images/：是包含你的图片的文件夹<ul>
+<li>bird.png：是一个鸟类的png图像</li>
+</ul>
+</li>
+<li>index.html：是一个html文件，包含html标记和库的引用</li>
+<li>sketch.js：你正在写的JavaScript</li>
+</ul>
+</li>
+</ul>
+<p>项目的github仓库在<a target="_blank" rel="noopener" href="https://github.com/ml5js/ml5-library/tree/main/examples/javascript/ImageClassification/ImageClassification">这里</a>。</p>
+<h4 id="你的index-html"><a href="#你的index-html" class="headerlink" title="你的index.html"></a>你的index.html</h4><p>在这里你会发现我们读了JavaScript库，这里包含了我们的ml5.js和ps5.js的版本，你可以复制粘接进你的index.html文件，或者手动书写。确认保存，并在存储之后刷新你的浏览器。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Image classification using MobileNet and p5.js<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/ml5@latest/dist/ml5.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Image classification using MobileNet and p5.js<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;sketch.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="你的sketch-js"><a href="#你的sketch-js" class="headerlink" title="你的sketch.js"></a>你的sketch.js</h4><p>在你的sketch.js文件中，你可以输入下列的代码。注意在栗子中我们有引用”images/bird.png”。你可以用自己的图片取代。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Initialize the image classifier method with MobileNet. A callback needs to be passed.</span></span><br><span class="line"><span class="keyword">let</span> classifier;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Avariable to hold the image we want to classify</span></span><br><span class="line"><span class="keyword">let</span> img;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">preload</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  classifier = ml5.imageClassifier(<span class="string">&#x27;MobileNet&#x27;</span>);</span><br><span class="line">  img = loadImage(<span class="string">&#x27;images/bird.png&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setup</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  createCanvas(<span class="number">400</span>, <span class="number">400</span>);</span><br><span class="line">  classifier.classify(img, gotResult);</span><br><span class="line">  image(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// A function torun when we get any errors and the results</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">gotResult</span>(<span class="params">error, results</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// Display error in the console</span></span><br><span class="line">  <span class="keyword">if</span> (error) &#123;</span><br><span class="line">    <span class="built_in">console</span>.error(error);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// The results are in an array ordered by confidence.</span></span><br><span class="line">    <span class="built_in">console</span>.log(results);</span><br><span class="line">    createDiv(<span class="string">&#x27;Label: $&#123;results[0].label&#125;&#x27;</span>);</span><br><span class="line">    createDiv(<span class="string">&#x27;Confidence: $(nf(results[0].confidence, 0, 2))&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="sketch-js在四步骤中被解释"><a href="#sketch-js在四步骤中被解释" class="headerlink" title="sketch.js在四步骤中被解释"></a>sketch.js在四步骤中被解释</h4><h5 id="Step-1-Define-your-variables"><a href="#Step-1-Define-your-variables" class="headerlink" title="Step 1: Define your variables"></a>Step 1: Define your variables</h5><p>这里是我们定义了变量并且注册我们的分类器和图片：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Initialize the Image Classifier method with MobileNet. A callback needs to be passed.</span></span><br><span class="line"><span class="keyword">let</span> classifier;</span><br><span class="line"></span><br><span class="line"><span class="comment">// A variable to hold the image we want to classify</span></span><br><span class="line"><span class="keyword">let</span> img;</span><br></pre></td></tr></table></figure>
+
+<h5 id="Step-2-Load-your-imageClassifer-and-image"><a href="#Step-2-Load-your-imageClassifer-and-image" class="headerlink" title="Step 2: Load your imageClassifer and image"></a>Step 2: Load your imageClassifer and image</h5><p>使用p5的preload()函数，载入我们的图片分类器模型和鸟类图片，在我们运行其他代码之前；因为机器学习的模型可能很大，所以需要一些时间去加载，我们使用preload()，确保我们的分类器在进入到下一步骤之前就准备好了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">preload</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  classifier = ml5.imageCLASSIFIER(<span class="string">&#x27;MobileNet&#x27;</span>);</span><br><span class="line">  img = loadImage(<span class="string">&#x27;images/bird.png&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="Step-3-Setup-classify-and-display"><a href="#Step-3-Setup-classify-and-display" class="headerlink" title="Step 3: Setup, classify, and display"></a>Step 3: Setup, classify, and display</h5><p>在p5.js中，我们使用setup()函数来运行项目所有的函数一次。在本项目中，我们使用setup()函数：</p>
+<ol>
+<li>创建一个canvas来渲染我们的图片</li>
+<li>唤起classifier的.classify()函数，来对图片分类</li>
+<li>将图片渲染到canvas中去</li>
+</ol>
+<p>你会注意到.classify()函数有两个参数：1.你想要分类的图片，2.一个gotResult回调函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setup</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  createCanvas(<span class="number">400</span>, <span class="number">400</span>);</span><br><span class="line">  classifier.classify(img, gotResult);</span><br><span class="line">  image(img, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="Step-4-定义gotResult-回调函数"><a href="#Step-4-定义gotResult-回调函数" class="headerlink" title="Step 4: 定义gotResult()回调函数"></a>Step 4: 定义gotResult()回调函数</h5><p>gotResult()函数也有两个参数：1.error， 2.results。当.classify()函数完成图片的分类之后，会把参数传递给gotResult()。如果有一个错误，错误会被logged。如果我们的分类器管理辨别到图片的内容，result则会被返回。</p>
+<p>在我们的项目中，我们创建了一个div展示标签和分类结果的置信度，nf()函数是一个p5的函数，格式化我们的数字为字符串。</p>
+<h4 id="And-voila"><a href="#And-voila" class="headerlink" title="And voilà!"></a>And voilà!</h4><p>你已经创建了一个简单的机器学习项目：</p>
+<p>1.拿出一张图片</p>
+<p>2.分类图片的内容</p>
+<p>3.在网页浏览器中展示你的结果。</p>
+<p>我们不是所有的案例都像本案例一样结构氢气，但是这个可以让你快速接触ml5.js是如何让机器学习更易于上手，你可以尝试不同的图片然后看他们返回的结果是什么。</p>
+<h3 id="ml5的Promises-and-Callback支持"><a href="#ml5的Promises-and-Callback支持" class="headerlink" title="ml5的Promises and Callback支持"></a>ml5的Promises and Callback支持</h3><p>ml5.js受到p5.js的语法风格启发，ml5.js在所有的方法中都支持错误的优先callback和Promise。</p>
+<h5 id="使用callback"><a href="#使用callback" class="headerlink" title="使用callback"></a>使用callback</h5><p>在p5.js中，回调座位参数传递给经常执行一些异步操作的函数。</p>
+<p>例如，p5.js定义的loadJSON()函数如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">loadJSON(<span class="string">&#x27;https://example.com/data.json&#x27;</span>, <span class="function">(<span class="params">results</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// Do something with the results</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>p5.js回调的结果作为函数的唯一参数给出，不会有报错参数。</p>
+<p>而ml5.js使用错误优先回调的模式：</p>
+<blockquote>
+<p>使用这种模式，回调函数作为参数传递给方法，当操作完成或引发错误时，将调用回调函数，将error对象作为第一个参数传递。如果未引发错误，则第一个参数作为null传递。</p>
+</blockquote>
+<p>例如，你可以使用imageClassifier()方法，则需要按照以下方式构造函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Pass a callback function to constructor</span></span><br><span class="line"><span class="comment">// 将一个回调函数传递给构造器</span></span><br><span class="line"><span class="keyword">const</span> classifier = ml5.imageClassifier(<span class="string">&#x27;MobileNet&#x27;</span>, <span class="function">(<span class="params">err, model</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;Model Loaded!&#x27;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Make a prediction with the selected image and pass a callback function with two argumetns</span></span><br><span class="line"><span class="comment">// 通过选择的图片进行预测，然后传递带有两个参数的回调函数</span></span><br><span class="line">classifier.predict(image, <span class="function">(<span class="params">err, results</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// Check for errors. If no errors, then do something with the results</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h5 id="使用Promise"><a href="#使用Promise" class="headerlink" title="使用Promise"></a>使用Promise</h5><p>ml5.js也支持Promises，如果没有任何异步函数提供回调，则返回一个Promise。</p>
+<p>使用Promises，可以按照以下方式使用图像分类示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// No callback needs to be passed to use Promises.</span></span><br><span class="line">ml5</span><br><span class="line">	.imageClassifier(<span class="string">&#x27;MobileNet&#x27;</span>)</span><br><span class="line">	.then(<span class="function"><span class="params">classifier</span> =&gt;</span> classifier.predict(image))</span><br><span class="line">	.then(results) =&gt; &#123;</span><br><span class="line">  <span class="comment">// Do something with the results</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Neural-Network"><a href="#Neural-Network" class="headerlink" title="Neural Network"></a>Neural Network</h3><p>可以使用<code>ml5.neuralNetwork</code>创建自己的神经网络，并在浏览器中使用。收集数据训练神经网络或者使用已有的数据进行训练。训练完成后，你的神经网络就可以执行<code>classification</code>和<code>regression</code>的任务。</p>
+<p>一般而言，使用<code>ml5.neuralnetwork</code>需要这些步骤：</p>
+<ul>
+<li>第一步：加载数据或创建一些数据</li>
+<li>第二步：设置神经网络并初始化</li>
+<li>第三步：为神经网络添加数据</li>
+<li>第四步：规范化数据</li>
+<li>第五步：训练神经网络</li>
+<li>第六步：使用训练好的模型进行分类</li>
+<li>第七步：对结果进行使用</li>
+</ul>
+<p>我们可以从下面的一个例子来进行实际的了解：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Step 1: load data or create some data</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> data = [  </span><br><span class="line">  &#123;<span class="attr">r</span>:<span class="number">255</span>, <span class="attr">g</span>:<span class="number">0</span>, <span class="attr">b</span>:<span class="number">0</span>, <span class="attr">color</span>:<span class="string">&#x27;red-ish&#x27;</span>&#125;,</span><br><span class="line">  &#123;<span class="attr">r</span>:<span class="number">254</span>, <span class="attr">g</span>:<span class="number">0</span>, <span class="attr">b</span>:<span class="number">0</span>, <span class="attr">color</span>:<span class="string">&#x27;red-ish&#x27;</span>&#125;,</span><br><span class="line">  &#123;<span class="attr">r</span>:<span class="number">253</span>, <span class="attr">g</span>:<span class="number">0</span>, <span class="attr">b</span>:<span class="number">0</span>, <span class="attr">color</span>:<span class="string">&#x27;red-ish&#x27;</span>&#125;,</span><br><span class="line">  &#123;<span class="attr">r</span>:<span class="number">0</span>, <span class="attr">g</span>:<span class="number">255</span>, <span class="attr">b</span>:<span class="number">0</span>, <span class="attr">color</span>:<span class="string">&#x27;green-ish&#x27;</span>&#125;,</span><br><span class="line">  &#123;<span class="attr">r</span>:<span class="number">0</span>, <span class="attr">g</span>:<span class="number">254</span>, <span class="attr">b</span>:<span class="number">0</span>, <span class="attr">color</span>:<span class="string">&#x27;green-ish&#x27;</span>&#125;,</span><br><span class="line">  &#123;<span class="attr">r</span>:<span class="number">0</span>, <span class="attr">g</span>:<span class="number">253</span>, <span class="attr">b</span>:<span class="number">0</span>, <span class="attr">color</span>:<span class="string">&#x27;green-ish&#x27;</span>&#125;,</span><br><span class="line">  &#123;<span class="attr">r</span>:<span class="number">0</span>, <span class="attr">g</span>:<span class="number">0</span>, <span class="attr">b</span>:<span class="number">255</span>, <span class="attr">color</span>:<span class="string">&#x27;blue-ish&#x27;</span>&#125;,</span><br><span class="line">  &#123;<span class="attr">r</span>:<span class="number">0</span>, <span class="attr">g</span>:<span class="number">0</span>, <span class="attr">b</span>:<span class="number">254</span>, <span class="attr">color</span>:<span class="string">&#x27;blue-ish&#x27;</span>&#125;,</span><br><span class="line">  &#123;<span class="attr">r</span>:<span class="number">0</span>, <span class="attr">g</span>:<span class="number">0</span>, <span class="attr">b</span>:<span class="number">253</span>, <span class="attr">color</span>:<span class="string">&#x27;blue-ish&#x27;</span>&#125;</span><br><span class="line">  ];</span><br><span class="line"></span><br><span class="line"><span class="comment">// Step 2: set your neural network options</span></span><br><span class="line"><span class="keyword">const</span> options = &#123;</span><br><span class="line">  task: <span class="string">&#x27;classification&#x27;</span>,</span><br><span class="line">  debug: <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Step 3: initialize your neural network</span></span><br><span class="line"><span class="keyword">const</span> nn = ml5.neuralNetwork(options);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Step 4: add data to the neural network</span></span><br><span class="line">data.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> inputs = &#123;</span><br><span class="line">    r: item.r,</span><br><span class="line">    g: item.g,</span><br><span class="line">    b: item.b</span><br><span class="line">  &#125;;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">const</span> output = &#123;</span><br><span class="line">    color: item.color</span><br><span class="line">  &#125;;</span><br><span class="line">  </span><br><span class="line">  nn.addData(inputs, output);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Step 5: normalize your data;</span></span><br><span class="line">nn.normalizeData();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Step 6: train your neural network</span></span><br><span class="line"><span class="keyword">const</span> trainingOptions = &#123;</span><br><span class="line">  epochs: <span class="number">32</span>,</span><br><span class="line">  batchSize: <span class="number">12</span></span><br><span class="line">&#125;</span><br><span class="line">nn.train(trainingOptions, finishedTraining);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Step 7: use the trained model</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">finishedTraining</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  classify();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Step 8: make a classification</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">classify</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> input = &#123;</span><br><span class="line">    r: <span class="number">255</span>,</span><br><span class="line">    g: <span class="number">0</span>,</span><br><span class="line">    b: <span class="number">0</span></span><br><span class="line">  &#125;</span><br><span class="line">  nn.classify(input, handleResults);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Step 9: define a function to handle the results of your classification</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handleResults</span>(<span class="params">error, result</span>) </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">if</span>(<span class="params">error</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.error(error);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.log(result); <span class="comment">// &#123;label: &#x27;red&#x27;, confidence: 0.8&#125;;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="载入现有数据"><a href="#载入现有数据" class="headerlink" title="载入现有数据"></a>载入现有数据</h5><p>外部数据：<code>&quot;data/colorData.json&quot;</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  &#123;<span class="string">&quot;r&quot;</span>:<span class="number">255</span>, <span class="string">&quot;g&quot;</span>:<span class="number">0</span>, <span class="string">&quot;b&quot;</span>:<span class="number">0</span>, <span class="string">&quot;color&quot;</span>: <span class="string">&quot;red-ish&quot;</span>&#125;,</span><br><span class="line">  &#123;<span class="string">&quot;r&quot;</span>:<span class="number">254</span>, <span class="string">&quot;g&quot;</span>:<span class="number">0</span>, <span class="string">&quot;b&quot;</span>:<span class="number">0</span>, <span class="string">&quot;color&quot;</span>: <span class="string">&quot;red-ish&quot;</span>&#125;,</span><br><span class="line">  &#123;<span class="string">&quot;r&quot;</span>:<span class="number">253</span>, <span class="string">&quot;g&quot;</span>:<span class="number">0</span>, <span class="string">&quot;b&quot;</span>:<span class="number">0</span>, <span class="string">&quot;color&quot;</span>: <span class="string">&quot;red-ish&quot;</span>&#125;,</span><br><span class="line">  &#123;<span class="string">&quot;r&quot;</span>:<span class="number">0</span>,   <span class="string">&quot;g&quot;</span>:<span class="number">0</span>, <span class="string">&quot;b&quot;</span>:<span class="number">255</span>, <span class="string">&quot;color&quot;</span>: <span class="string">&quot;blue-ish&quot;</span>&#125;,</span><br><span class="line">  &#123;<span class="string">&quot;r&quot;</span>:<span class="number">0</span>,   <span class="string">&quot;g&quot;</span>:<span class="number">0</span>, <span class="string">&quot;b&quot;</span>:<span class="number">254</span>, <span class="string">&quot;color&quot;</span>: <span class="string">&quot;blue-ish&quot;</span>&#125;,</span><br><span class="line">  &#123;<span class="string">&quot;r&quot;</span>:<span class="number">0</span>,   <span class="string">&quot;g&quot;</span>:<span class="number">0</span>, <span class="string">&quot;b&quot;</span>:<span class="number">253</span>, <span class="string">&quot;color&quot;</span>: <span class="string">&quot;blue-ish&quot;</span>&#125;</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+
+<p>在JavaScript中：<code>script.js</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Step 1: set your neural network options</span></span><br><span class="line"><span class="keyword">const</span> options = &#123;</span><br><span class="line">  dataUrl: <span class="string">&quot;data/colorData.json&quot;</span>,</span><br><span class="line">  task: <span class="string">&#x27;classification&#x27;</span>,</span><br><span class="line">  debug: <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Step 2: initialize your neural network</span></span><br><span class="line"><span class="keyword">const</span> nn = ml5.neuralNetwork(options, dataLoaded);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Step 3: normalize data and train the model</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dataLoaded</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  nn.normalizeData();</span><br><span class="line">  trainModel();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Step 4:  train the model</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">trainModel</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> trainingOptions = &#123;</span><br><span class="line">    epochs: <span class="number">32</span>,</span><br><span class="line">    batchSize: <span class="number">12</span></span><br><span class="line">  &#125;</span><br><span class="line">  nn.train(trainingOptions, finishedTraining);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Step 5: use the trained model</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">finishedTraining</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  classify();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Step 6: make a classification</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">classify</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> input = &#123;</span><br><span class="line">    r: <span class="number">255</span>,</span><br><span class="line">    g: <span class="number">0</span>,</span><br><span class="line">    b: <span class="number">0</span></span><br><span class="line">  &#125;</span><br><span class="line">  nn.classify(input, handleResults);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Step 7: define a function to handle the results of your classification</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handleResults</span>(<span class="params">error, result</span>) </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">if</span>(<span class="params">error</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>. error(error);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.log(result); <span class="comment">// &#123;label: &#x27;red&#x27;, confidence: 0.8&#125;;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="用例参考"><a href="#用例参考" class="headerlink" title="用例参考"></a>用例参考</h5><p>下面列举一些参考的用途：</p>
+<p>示例一：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> options = &#123;</span><br><span class="line">  inputs: <span class="number">1</span>,</span><br><span class="line">  outputs: <span class="number">1</span>,</span><br><span class="line">  task: <span class="string">&#x27;regression&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> nn = ml5.neuralNetwork(options)</span><br></pre></td></tr></table></figure>
+
+<p>示例二：将数据加载为csv</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> options = &#123;</span><br><span class="line">  dataUrl: <span class="string">&#x27;weather.csv&#x27;</span>,</span><br><span class="line">  inputs: [<span class="string">&#x27;avg_temperature&#x27;</span>, <span class="string">&#x27;humidity&#x27;</span>],</span><br><span class="line">  outputs: [<span class="string">&#x27;rained&#x27;</span>],</span><br><span class="line">  task: <span class="string">&#x27;classification&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> nn = ml5.neuralNetwork(options, modelLoaded)</span><br></pre></td></tr></table></figure>
+
+<p>示例三：将数据加载为json</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">The weather json looks something like:</span></span><br><span class="line"><span class="comment">&#123;&quot;data&quot;: [</span></span><br><span class="line"><span class="comment">  &#123;&quot;xs&quot;: &#123;&quot;avg_temperature&quot;:20, &quot;humidity&quot;: 0.2&#125;, &quot;ys&quot;: &#123;&quot;rained&quot;: &quot;no&quot;&#125;&#125;,</span></span><br><span class="line"><span class="comment">  &#123;&quot;xs&quot;: &#123;&quot;avg_temperature&quot;:30, &quot;humidity&quot;: 0.9&#125;, &quot;ys&quot;: &#123;&quot;rained&quot;: &quot;yes&quot;&#125;&#125;</span></span><br><span class="line"><span class="comment">] &#125;</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> options = &#123;</span><br><span class="line">  dataUrl: <span class="string">&#x27;weather.json&#x27;</span>,</span><br><span class="line">  inputs: [<span class="string">&#x27;avg_temperature&#x27;</span>, <span class="string">&#x27;humidity&#x27;</span>],</span><br><span class="line">  outputs: [<span class="string">&#x27;rained&#x27;</span>],</span><br><span class="line">  task: <span class="string">&#x27;classification&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> nn = ml5.neuralNetwork(options, modelLoaded)</span><br></pre></td></tr></table></figure>
+
+<p>示例四：为空白的神经网络指定标签</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> options = &#123;</span><br><span class="line">  inputs: [<span class="string">&#x27;x&#x27;</span>, <span class="string">&#x27;y&#x27;</span>],</span><br><span class="line">  outputs: [<span class="string">&#x27;label&#x27;</span>],</span><br><span class="line">  task: <span class="string">&#x27;classification&#x27;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> nn = ml5.neuralNetwork(options);</span><br></pre></td></tr></table></figure>
+
+<p>示例五：通过设置<code>task: imageClassification</code>来创建图像分类的神经网络</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> IMAGE_WIDTH = <span class="number">64</span>;</span><br><span class="line"><span class="keyword">const</span> IMAGE_HEIGHT = <span class="number">64</span>;</span><br><span class="line"><span class="keyword">const</span> IMGAE_CHANNELS = <span class="number">4</span>;</span><br><span class="line"><span class="keyword">const</span> options = &#123;</span><br><span class="line">  task: <span class="string">&#x27;imageClassificaton&#x27;</span>,</span><br><span class="line">  inputs: [IMAGE_WIDTH, IMAGE_HEIGHT, IMAGE_CHANNELS],</span><br><span class="line">  outputs: [<span class="string">&#x27;label&#x27;</span>]</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> nn = ml5. neuralNetwork(options);</span><br></pre></td></tr></table></figure>
+
+<h3 id="初始化和参数"><a href="#初始化和参数" class="headerlink" title="初始化和参数"></a>初始化和参数</h3><p>有多种方法可以出实话<code>ml5.neuralNetwork</code>。下面我们介绍几个例子：</p>
+<p>1.最小配置方法</p>
+<p>2.将输入和输出的标签定义为数字或标签数组</p>
+<p>3.加载外部数据</p>
+<p>4.加载预训练模型</p>
+<p>5.用于图像分类任务的卷积神经网络</p>
+<p>6.定义自定义层</p>
+<h5 id="最小配置方法"><a href="#最小配置方法" class="headerlink" title="最小配置方法"></a>最小配置方法</h5><p>如果你打算创建实时数据，你可以只设置想要完成的任务类型，<code>(&#39;regression&#39; | &#39;classification&#39;)</code>然后创建神经网络，在添加数据后，ml5才会根据添加的数据进行输入和输出。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> options = &#123;</span><br><span class="line">task: <span class="string">&#x27;regression&#x27;</span> <span class="comment">// or &#x27;classification&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> nn = ml5.neuralNetwork(options)</span><br></pre></td></tr></table></figure>
+
+<h5 id="将输入和输出标签定义为数字或标签数组"><a href="#将输入和输出标签定义为数字或标签数组" class="headerlink" title="将输入和输出标签定义为数字或标签数组"></a>将输入和输出标签定义为数字或标签数组</h5><p>为了更具体地处理输入和输出内容，你还可以将输入和输出的标签名称定为数组，以及输入和输出的数量。如果将输入设置为JSON，则JSON的密钥和数组应与<code>options</code>的匹配。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> options = &#123;</span><br><span class="line">  task: <span class="string">&#x27;classification&#x27;</span> <span class="comment">// or &#x27;regression&#x27;</span></span><br><span class="line">  inputs: [<span class="string">&#x27;r&#x27;</span>, <span class="string">&#x27;g&#x27;</span>, <span class="string">&#x27;b&#x27;</span>]</span><br><span class="line">  outputs: [<span class="string">&#x27;color&#x27;</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> nn = ml5.neuralNetwork(options)</span><br></pre></td></tr></table></figure>
+
+<h5 id="加载外部数据"><a href="#加载外部数据" class="headerlink" title="加载外部数据"></a>加载外部数据</h5><p>你可以初始化<code>ml5.neuralNetwork</code>指定外部url到一些结构为JSON或CSV文件的数据。如果将数据作为options的一部分传入，需要提供一个回调函数，该函数将在数据加载完成后被调用。此外，你需要指定<code>ml5.neuralNetwork</code>中哪些属性是输入和输出。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> options = &#123;</span><br><span class="line">  dataUrl: <span class="string">&#x27;data/colorData.csv&#x27;</span></span><br><span class="line">  task: <span class="string">&#x27;classification&#x27;</span> <span class="comment">// or &#x27;regression&#x27;</span></span><br><span class="line">  intputs: [<span class="string">&#x27;r&#x27;</span>, <span class="string">&#x27;g&#x27;</span>, <span class="string">&#x27;b&#x27;</span>]	<span class="comment">// r, g, b</span></span><br><span class="line">  outputs: [<span class="string">&#x27;color&#x27;</span>]	<span class="comment">// red-ish, blue-ish</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> nn = ml5.neuralNetwork(options, dataLoaded)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dataLoaded</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// continue on your neural network journey</span></span><br><span class="line">  nn.normalizeData();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="加载预训练模型"><a href="#加载预训练模型" class="headerlink" title="加载预训练模型"></a>加载预训练模型</h5><p>如果已经使用了<code>ml5.neuralNetwork</code>训练模型，使用<code>ml5.neuralNetwork.save()</code>可以保存，然后加载自己的模型，权重，和元数据。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> options = &#123;</span><br><span class="line">  task: <span class="string">&#x27;classification&#x27;</span> <span class="comment">// or &#x27;regression&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> nn = ml5.neuralNetwork(options);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> modelDetails = &#123;</span><br><span class="line">  model: <span class="string">&#x27;model/model.json&#x27;</span>,</span><br><span class="line">  metadata: <span class="string">&#x27;model/model_meta.json&#x27;</span>,</span><br><span class="line">  weights: <span class="string">&#x27;model/model.weights.bin&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">nn.load(modelDetails, modelLoaded)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">modelLoaded</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// continue on your neural network journey</span></span><br><span class="line">  <span class="comment">// use nn.classify() for classifications or nn.predict() for regression</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="用于图像分类的’’卷积神经网络"><a href="#用于图像分类的’’卷积神经网络" class="headerlink" title="用于图像分类的’’卷积神经网络"></a>用于图像分类的’’卷积神经网络</h3><p>可以通过设置<code>task:&quot;imageClassification </code>来完成。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> IMAGE_WIDTH = <span class="number">64</span>;</span><br><span class="line"><span class="keyword">const</span> IMAGE_HEIGHT = <span class="number">64</span>;</span><br><span class="line"><span class="keyword">const</span> IMAGE_CHANNELS = <span class="number">4</span>;</span><br><span class="line"><span class="keyword">const</span> options = &#123;</span><br><span class="line">  task: <span class="string">&#x27;imageClassification&#x27;</span>,</span><br><span class="line">  inputs: [IMAGE_WIDTH, IMAGE_HEIGHT, IMAGE_CHANNELS],</span><br><span class="line">  outputs: [<span class="string">&#x27;label&#x27;</span>]</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> nn = ml5.neuralNetwork(options);</span><br></pre></td></tr></table></figure>
+
+<h5 id="定义自定义层"><a href="#定义自定义层" class="headerlink" title="定义自定义层"></a>定义自定义层</h5><p>默认结构，<code>ml5.neuralNetwork</code>有<code>classification</code>, <code>regression</code>和<code>imageClassification</code>的简单结构。</p>
+<p><code>classification</code>层:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">layers:[</span><br><span class="line">  &#123;</span><br><span class="line">    type: <span class="string">&#x27;dense&#x27;</span>,</span><br><span class="line">    units: <span class="built_in">this</span>.options.hiddenUnits,</span><br><span class="line">    activations: <span class="string">&#x27;relu&#x27;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    type: <span class="string">&#x27;dense&#x27;</span>,</span><br><span class="line">    activation: <span class="string">&#x27;softmax&#x27;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+
+<p><code>regression</code>层:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">layers: [</span><br><span class="line">  &#123;</span><br><span class="line">    type: <span class="string">&#x27;dense&#x27;</span>,</span><br><span class="line">    units: <span class="built_in">this</span>.options.hiddenUnits,</span><br><span class="line">    activation: <span class="string">&#x27;relu&#x27;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    type: <span class="string">&#x27;dense&#x27;</span>,</span><br><span class="line">    activation: <span class="string">&#x27;sigmoid&#x27;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+
+<p><code>imageClassification</code>层:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">layers = [</span><br><span class="line">  &#123;</span><br><span class="line">    type: <span class="string">&#x27;conv2d&#x27;</span>,</span><br><span class="line">    filters: <span class="number">8</span>,</span><br><span class="line">    kernelSize: <span class="number">5</span>,</span><br><span class="line">    strides: <span class="number">1</span>,</span><br><span class="line">    activation: <span class="string">&#x27;relu&#x27;</span>,</span><br><span class="line">    kernelInitializer: <span class="string">&#x27;varianceScaling&#x27;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    type: <span class="string">&#x27;maxPolling2d&#x27;</span>,</span><br><span class="line">    poolSize: [<span class="number">2</span>, <span class="number">2</span>],</span><br><span class="line">    strides: [<span class="number">2</span>, <span class="number">2</span>],</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    type: <span class="string">&#x27;conv2d&#x27;</span>,</span><br><span class="line">    filters: <span class="number">16</span>,</span><br><span class="line">    kernelSize: <span class="number">5</span>,</span><br><span class="line">    strides: <span class="number">1</span>,</span><br><span class="line">    activation: <span class="string">&#x27;relu&#x27;</span>,</span><br><span class="line">    kernelInitializer: <span class="string">&#x27;variancescaling&#x27;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    type: <span class="string">&#x27;flatten&#x27;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    type: <span class="string">&#x27;dense&#x27;</span>,</span><br><span class="line">    kernelInitializer: <span class="string">&#x27;varianceScaling&#x27;</span>,</span><br><span class="line">    activation: <span class="string">&#x27;softmax&#x27;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+
+<p>定义自定义层: 在<code>options</code> 中定义，并传递给<code>ml5.neuralNetwork</code>定义自定义的网络结构。</p>
+<p>例如，一个具有3层的神经网络。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> options = &#123;</span><br><span class="line">  debug: <span class="literal">true</span>,</span><br><span class="line">  task: <span class="string">&#x27;classification&#x27;</span>,</span><br><span class="line">  layers: [</span><br><span class="line">    &#123;</span><br><span class="line">      type: <span class="string">&#x27;dense&#x27;</span>,</span><br><span class="line">      units: <span class="number">16</span>,</span><br><span class="line">      activation: <span class="string">&#x27;relu&#x27;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      type: <span class="string">&#x27;dense&#x27;</span>,</span><br><span class="line">      units: <span class="number">16</span>,</span><br><span class="line">      activation: <span class="string">&#x27;sigmoid&#x27;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      type: <span class="string">&#x27;dense&#x27;</span>,</span><br><span class="line">      activation: <span class="string">&#x27;sigmoid&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> nn = ml5.neuralNetwork(options);</span><br></pre></td></tr></table></figure>
+
+<h4 id="ml5-neuralNetwork-options"><a href="#ml5-neuralNetwork-options" class="headerlink" title="ml5.neuralNetwork(options)"></a>ml5.neuralNetwork(options)</h4><p>可以指定的options有：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> DEFAULTS = &#123;</span><br><span class="line">  inputs: [], <span class="comment">//can also be a number 也可以是一个数字</span></span><br><span class="line">  outputs: [], <span class="comment">// can also be a number 也可以是一个数字</span></span><br><span class="line">  dataUrl: <span class="literal">null</span>,</span><br><span class="line">  modelUrl: <span class="literal">null</span>,</span><br><span class="line">  layers: [], <span class="comment">// 自定义层</span></span><br><span class="line">  task: <span class="literal">null</span>, <span class="comment">// &#x27;classification&#x27;, &#x27;regression&#x27;, &#x27;imageClassification&#x27;</span></span><br><span class="line">  debug: <span class="literal">false</span>, <span class="comment">// determines whether or not to show the training visualization</span></span><br><span class="line">  learningRate: <span class="number">0.2</span>,</span><br><span class="line">  hiddenUnits: <span class="number">16</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Properties"><a href="#Properties" class="headerlink" title="Properties"></a>Properties</h4><table>
+<thead>
+<tr>
+<th>property</th>
+<th>description</th>
+<th>datatype</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>.callback</code></td>
+<td>the callback to be called after data is loaded on initialization</td>
+<td><code>function</code></td>
+</tr>
+<tr>
+<td><code>.options</code></td>
+<td>the options for how the neuralNetwork should be configured on initialization</td>
+<td><code>object</code></td>
+</tr>
+<tr>
+<td><code>.neuralNetwork</code></td>
+<td>the <code>neuralNetwork</code> class where all of the tensorflow.js model operations are organized</td>
+<td><code>class</code></td>
+</tr>
+<tr>
+<td><code>.neuralNetworkData</code></td>
+<td>the <code>neuralNetworkData</code> class where all of the data handling operations are organized</td>
+<td><code>class</code></td>
+</tr>
+<tr>
+<td><code>.neuralNetworkVis</code></td>
+<td>the <code>neuralNetworkVis</code> class where all of the tf-vis operations are organized</td>
+<td><code>class</code></td>
+</tr>
+<tr>
+<td><code>.data</code></td>
+<td>The property that stores all of the training data after <code>.train()</code> is called</td>
+<td><code>class</code></td>
+</tr>
+<tr>
+<td><code>.ready</code></td>
+<td>set to true if the model is loaded and ready, false if it is not.</td>
+<td><code>boolean</code></td>
+</tr>
+</tbody></table>
+<h4 id="Methods"><a href="#Methods" class="headerlink" title="Methods"></a>Methods</h4><table>
+<thead>
+<tr>
+<th>method</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>.addData()</code></td>
+<td>adds data to the <code>neuralNetworkData.data.raw</code> array</td>
+</tr>
+<tr>
+<td><code>.normalizeData()</code></td>
+<td>normalizes the data stored in <code>neuralNetworkData.data.raw</code> and stores the normalized values in the <code>neuralNetwork.data.training</code> array</td>
+</tr>
+<tr>
+<td><code>.train()</code></td>
+<td>uses the data in the <code>neuralNetwork.data.training</code> array to train your model</td>
+</tr>
+<tr>
+<td><code>.predict()</code></td>
+<td>for regression tasks, allows you to make a prediction based on an input array or JSON object.</td>
+</tr>
+<tr>
+<td><code>.predictMultiple()</code></td>
+<td>for regression tasks, allows you to make a prediction based on an input array of arrays or array of JSON objects.</td>
+</tr>
+<tr>
+<td><code>.classify()</code></td>
+<td>for classification tasks, allows you to make a classification based on an input array or JSON object.</td>
+</tr>
+<tr>
+<td><code>.classifyMultiple()</code></td>
+<td>for classification tasks, allows you to make classifications based on an input array of arrays or array of JSON objects.</td>
+</tr>
+<tr>
+<td><code>.saveData()</code></td>
+<td>allows you to save your data out from the <code>neuralNetworkData.data.raw</code> array</td>
+</tr>
+<tr>
+<td><code>.loadData()</code></td>
+<td>allows you to load data previously saved from the <code>.saveData()</code> function</td>
+</tr>
+<tr>
+<td><code>.save()</code></td>
+<td>allows you to save the trained model</td>
+</tr>
+<tr>
+<td><code>.load()</code></td>
+<td>allows you to load a trained model</td>
+</tr>
+</tbody></table>
+<h5 id="addData"><a href="#addData" class="headerlink" title=".addData()"></a>.addData()</h5><blockquote>
+<p>如果没有使用<code>dataUrl</code>给构造函数提供数据，可以使用<code>.addData()</code>函数将数据添加到神经网络中。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">neuralNetwork.addData(xs, ys);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>xs: 必要的，数组或对象</p>
+<p>如果给出了数组，输入的数据必须按照构造函数进行排序。将数据传递给<code>.predict()</code>和<code>.classify()</code>。</p>
+<p>如果给出了对象，那么需要是键值对的形式。</p>
+<p>如果<code>task: imageClassification</code>: 可以提供HTMLImageElement或HTMLCanvasElement或像素的平面一维数组，匹配<code>options.inputs: [IMAGE_WIDTH, IMAGE_HEIGHT, IMAGE_CHANNELS]</code></p>
+</li>
+<li><p>ys: 必要的，数组或对象</p>
+<p>如果提供了数组，则输入的数据必须按照构造函数进行排序。</p>
+<p>如果给出了对象，则需要是键值对的形式。</p>
+</li>
+</ul>
+
+    </div>
+
+    <div class="about">
+        <h1>About this Post</h1>
+        <p>This post is written by Siqi Shu, licensed under <a
+                target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+    </div>
+</article>
+        <footer>
+    <div class="inner">
+        <div class="links">
+            
+            <div class="group">
+                <h4 class="title">深智一物 眾隱皆變</h4>
+                
+            </div>
+            
+        </div>
+        &copy; 2022 Siqi Shu<br />
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+</footer>
+
+
+        
+<script src="/js/main.js"></script>
+
+        
+<script src="/js/kursor.js"></script>
+
+        
+<script src="/js/run.js"></script>
+
+
+    </body>
+</html>
