@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  
+  <title>Magenta in the Browser with Magenta.js - Shu-Creative Computing</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+    <link rel='manifest' href='/manifest.json'>
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/cursor.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/components.css">
+
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+    <body>
+        <nav id="theme-nav">
+    <div class="inner">
+        <a class="title" href="/">Shu&#39;s Blog</a>
+        <div class="nav-arrow"></div>
+        <div class="nav-items">
+            <a class="nav-item nav-item-home" href="/">Home</a>
+            
+            
+            <a class="nav-item" href="/categories/essays">Thinking</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/pcomp">Pcomp&amp;AVCE</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/coding">Coding</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/portfolio">Portfolio</a>
+            
+            
+            
+            <a class="nav-item" href="/contact">About</a>
+            
+            
+            
+            <a class="nav-item nav-item-github nav-item-icon" href="https://github.com/ShuSQ" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-codepen nav-item-icon" href="https://codepen.io/shusq" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-patreon nav-item-icon" href="https://www.instagram.com/cheese_shu/" target="_blank">&nbsp;</a>
+            
+            
+        </div>
+    </div>
+</nav>
+        <article class="post">
+    <div class="meta">
+        
+        <div class="date" id="date">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <span>October</span>
+            
+            
+            
+            <span>15,</span>
+            <span>2021</span>
+        </div>
+        
+
+        <h2 class="title">Magenta in the Browser with Magenta.js</h2>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="content">
+        <blockquote>
+<p>在本篇中，主要讨论Magenta.js，是Magenta的JavaScript应用版本，可以在浏览器中运行，作为web页面分销，包括如何展示模型，如何混合已经训练的模型。然后回创建一个web应用，使用GANSynth和MusicVAE，采样音频并序列化。</p>
+</blockquote>
+<p>在Magenta.js中，我们使用Music RNN和MusicVAE模型来生成MIDI序列，GANSynth来生成音频。</p>
+<h3 id="TensorFlow-js-amp-Magenta-js"><a href="#TensorFlow-js-amp-Magenta-js" class="headerlink" title="TensorFlow.js&amp;Magenta.js"></a>TensorFlow.js&amp;Magenta.js</h3><p>首先我们需要了解TensorFlow.js(<a target="_blank" rel="noopener" href="http://www.tensorflow.org/js)%EF%BC%8C%E5%AE%83%E5%85%81%E8%AE%B8%E6%88%91%E4%BB%AC%E5%9C%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%92%8C%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B%E3%80%82%E6%8F%90%E5%8D%87%E5%92%8C%E8%BF%90%E8%A1%8C%E9%A2%84%E8%AE%AD%E7%BB%83%E7%9A%84%E6%A8%A1%E5%9E%8B%E3%80%82">www.tensorflow.org/js)，它允许我们在浏览器中使用和训练模型。提升和运行预训练的模型。</a></p>
+<p>使用TensorFlow.js很简单，可以使用<code>script</code>标签，来引入：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">&quot;https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">const</span> model = tf.sequential();</span><br><span class="line">	model.add(tf.layers.dense(&#123;<span class="attr">units</span>:<span class="number">1</span>, <span class="attr">inputShape</span>:[<span class="number">1</span>]&#125;));</span><br><span class="line">	model.compile(&#123;<span class="attr">loss</span>: <span class="string">&#x27;meanSquaredError&#x27;</span>, <span class="attr">optimizer</span>:<span class="string">&#x27;sgd&#x27;</span>&#125;);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>或者也可以使用<code>npm</code>或者<code>yard</code>命令使用下面的代码块：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> tf <span class="keyword">from</span> <span class="string">&#x27;@tensorflow/tfjs&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> model = tf.sequential();</span><br><span class="line">model.add(tf.layers.dense(&#123;<span class="attr">units</span>: <span class="number">1</span>, <span class="attr">inputShape</span>:[<span class="number">1</span>]&#125;));</span><br><span class="line">model.compile(&#123;<span class="attr">loss</span>: <span class="string">&#x27;meanSquareError&#x27;</span>, <span class="attr">optimizer</span>: <span class="string">&#x27;sgd&#x27;</span>&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>在这两个方法中都使用了<code>tf</code>变量，是和脚本一起导入的，我们不会过于具体的解释TensorFlow.js，我们会专注在Magenta.js中。</p>
+<p>TensorFlow.js另一个亮点是使用WebGL进行计算，所以是支持GPU计算，不需要安装CUDA库。我们不需要手动去处理GPU的过程，因为TensorFlow的后段已经帮助我们处理了。</p>
+<p>接下来我们需要了解Magenta.js可以做什么。Magenta.js本身不能训练模型，但是可以导入已经训练好的模型。另一个限制是，它并不是支持所有的模型，下面是一个Magenta.js提供的预训练模型：</p>
+<p>**Onsets and Frames: **piano脚本话，将生音频数据转化为MIDI</p>
+<p>**Music RNN(LSTM): **单复音的MIDI生成，包括Melody RNN， Drums RNN，Improv RNN以及Performance RNN模型。</p>
+<p>**MusicVAE: ** 单或多采样，包括GrooVAE</p>
+<p>**Piano Genie: ** 将8键输入映射到88键的钢琴</p>
+<h3 id="使用GANSynth在浏览器中生成乐器"><a href="#使用GANSynth在浏览器中生成乐器" class="headerlink" title="使用GANSynth在浏览器中生成乐器"></a>使用GANSynth在浏览器中生成乐器</h3><p>在这一部分，我们会使用GANSynth去采阳蛋哥乐器notes，是一个4秒的短音频片段。我们会对音频片段分层来实现有趣的效果。首先我们创建HTML淹没，然后导入需要的脚本，然后我们写入GANSynth采样代码然后解释每一部分的细节。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">&lt;html lang=<span class="string">&quot;en&quot;</span>&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;title&gt;Music Generation With Magenta.js - GanSynth example&lt;/title&gt;</span><br><span class="line">  &lt;style&gt;</span><br><span class="line">    * &#123;</span><br><span class="line">      font-family: monospace;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    canvas &#123;</span><br><span class="line">      width: <span class="number">100</span>%;</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div&gt;</span><br><span class="line">  &lt;h1&gt;Music Generation With Magenta.js - GANSynth example&lt;/h1&gt;</span><br><span class="line">  &lt;p&gt;</span><br><span class="line">    Press <span class="string">&quot;Sample GANSynth note&quot;</span> to sample a <span class="keyword">new</span> note using GANSynth and play</span><br><span class="line">    it immediately. You can layer <span class="keyword">as</span> many notes <span class="keyword">as</span> you want, each note will</span><br><span class="line">    loop each <span class="number">4</span> seconds.</span><br><span class="line">  &lt;/p&gt;</span><br><span class="line">  &lt;p&gt;</span><br><span class="line">    Reload the page to stop.</span><br><span class="line">  &lt;/p&gt;</span><br><span class="line">  &lt;p&gt;</span><br><span class="line">    &lt;button disabled id=<span class="string">&quot;button-sample-gansynth-note&quot;</span>&gt;</span><br><span class="line">      Sample GANSynth note</span><br><span class="line">    &lt;/button&gt;</span><br><span class="line">  &lt;/p&gt;</span><br><span class="line">  &lt;div id=<span class="string">&quot;container-plots&quot;</span>&gt;&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;script</span><br><span class="line">    src=<span class="string">&quot;https://cdn.jsdelivr.net/npm/@magenta/music@1.12.0/dist/magentamusic.min.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这个页面结构包含了一个button，可以调用GANSynth生成，和一个容器，可以绘制。生成的频谱图。</p>
+<p>我们有两种方法在浏览器中使用Magenta.js：</p>
+<ol>
+<li>我们可以导入整个Magenta.js在<code>dist/magentamusic.min.js</code>，在Magenta的文档中，是ES5的绑定方法，这个会包含Magenta.js还有所有的依赖，包括TensorFlow.js和Tone.js。</li>
+<li>我们可以只导入需要的Magenta.js元素，这是一个ES6的绑定方法，例如，如果我们需要GANSynth模型，我们需要导入Tone.js，Tensorflow.js和Magenta.js core，以及Magenta.js GANSynth。</li>
+</ol>
+<p>下面是ES6绑定导入GANSynth模型的方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;script</span><br><span class="line">src=<span class="string">&quot;https://cdn.jsdelivr.net/npm/tone@13.8.25/build/Tone.min.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;script</span><br><span class="line">src=<span class="string">&quot;https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.4.0/dist/tf.min.js&quot;</span>&gt;&lt;/</span><br><span class="line">script&gt;</span><br><span class="line">&lt;script</span><br><span class="line">src=<span class="string">&quot;https://cdn.jsdelivr.net/npm/@magenta/music@^1.0.0/es6/core.js&quot;</span>&gt;&lt;/scri</span><br><span class="line">pt&gt;</span><br><span class="line">&lt;script</span><br><span class="line">src=<span class="string">&quot;https://cdn.jsdelivr.net/npm/@magenta/music@^1.0.0/es6/gansynth.js&quot;</span>&gt;&lt;/</span><br><span class="line">script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在导入了GANSynth模型之后，我们可以声明使用<code>new gansynth.GANSynth(...)</code>，当我们使用ES6模块，我们需要要单独导入每个脚本。</p>
+<p>接下来我们来编写GANSynth代码，然后解释：</p>
+<ol>
+<li><p>第一步，我们需要初始化DOM元素，然后初始化GANSynth，例如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Get DOM elements</span></span><br><span class="line"><span class="keyword">const</span> buttonSampleGanSynthNote = <span class="built_in">document</span>.getElementById(<span class="string">&quot;button-sample-gansynth-note&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> containerPlots = <span class="built_in">document</span>.getElementById(<span class="string">&quot;container-plots&quot;</span>);</span><br><span class="line"><span class="comment">// Starts the GANSynth model and initializes it. When finished, enables</span></span><br><span class="line"><span class="comment">// the button to start the sampling async </span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">startGanSynth</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">const</span> ganSynth = <span class="keyword">new</span> mm.GANSynth(<span class="string">&quot;https://storage.googleapis.com/&quot;</span> +</span><br><span class="line"><span class="string">&quot;magentadata/js/checkpoints/gansynth/acoustic_only&quot;</span>);</span><br><span class="line">  <span class="keyword">await</span> ganSynth.initialze();</span><br><span class="line">  <span class="built_in">window</span>.ganSynth = gansynth;</span><br><span class="line">  buttonSampleGanSynthNote.disabled = <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们通过<code>mm.GANSynth()</code>实力化GANSynth，如果我们使用Magenta.js ES6，我们会使用以下代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ganSynth = <span class="keyword">new</span> gansynth.GANSynth(<span class="string">&quot;https://storage.googleapis.com/&quot;</span> +</span><br><span class="line"><span class="string">&quot;magentadata/js/checkpoints/gansynth/acoustic_only&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p><code>gansynth.GANSynth</code>取代<code>mm.GANSynth</code>。</p>
+<ol start="2">
+<li><p>现在，我们来写一个异步函数，将频谱图生成到canvas中：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Plots the spectrogram of the given channel</span></span><br><span class="line"><span class="comment">// see music/demos/gansynth.ts:28 in magenta.js source code</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">plotSpectra</span>(<span class="params">spectra, channel</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> spectraPlot = mm.tf.tidy(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// Slice a single example.</span></span><br><span class="line">    <span class="keyword">let</span> spectraPlot = mm.tf.slice(spectra, [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, channel], [<span class="number">1</span>, -<span class="number">1</span>, -<span class="number">1</span>,  <span class="number">1</span>])</span><br><span class="line">                      .reshape([<span class="number">128</span>, <span class="number">1024</span>]);</span><br><span class="line">    <span class="comment">// Scale to [0, 1].</span></span><br><span class="line">    spectraPlot = mm.tf.sub(spectraPlot, mm.tf.min(spectraPlot));</span><br><span class="line">    spectraPlot = mm.tf.div(spectraPlot, mm.tf.max(spectraPlot));</span><br><span class="line">    <span class="keyword">return</span> spectraPlot;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="comment">// Plot on canvas</span></span><br><span class="line">  <span class="keyword">const</span> canvas = <span class="built_in">document</span>.createElement(<span class="string">&quot;canvas&quot;</span>);</span><br><span class="line">  containerPlots.appendChild(canvas);</span><br><span class="line">  <span class="keyword">await</span> mm.tf.browser.toPixels(spectraPlot, canvas);</span><br><span class="line">  spectraPlot.dispose();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个方法创建了一个频谱图，然后插入了一个<code>canvas</code>元素，在<code>containerPlots</code>中；会在每次生成之后加入。</p>
+<p>你可能注意到了<code>tf.tidy</code>和<code>dispose</code>，使用这两个方法避免内容泄漏。因为TensorFlow.js使用WebGL去计算，WebGL的资源需要显式回收。</p>
+<p><code>async</code>和<code>await</code>关键字，使用了异步的方法。我们可以通过<code>async</code>进行异步声明，然后需要<code>await</code>来唤起，意味着会等待一个值的返回。所以<code>await</code>只能和<code>async</code>关键字使用，在我们的例子中，<code>mm.tf.browser.toPixels</code>方法被<code>async</code>标记，所以我们需要使用<code>await</code>等待返回，我们也可以使用<code>Promise</code>语法来实现异步操作<code>Promise.all([myAsyncMethod])</code>。</p>
+</li>
+<li><p>然后我们写一个异步函数，从GANSynth获取样本，然后播放，绘制图像：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Samples a single note of 4 seconds from GANSynth and plays it repeately</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">sampleGanNote</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> lengthInSeconds = <span class="number">4.0</span>;</span><br><span class="line">  <span class="keyword">const</span> sampleRate = <span class="number">16000</span>;</span><br><span class="line">  <span class="keyword">const</span> length = lengthInSeconds * sampleRate;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// The sampling returns a spectrogram, convert that to audio in</span></span><br><span class="line">  <span class="comment">// a tone.js buffer</span></span><br><span class="line">  <span class="keyword">const</span> specgrams = <span class="keyword">await</span> ganSynth.randomSample(<span class="number">60</span>);</span><br><span class="line">  <span class="keyword">const</span> audio = <span class="keyword">await</span> ganSynth.specgramsToAudio(specgrams);</span><br><span class="line">  <span class="keyword">const</span> audioBuffer = mm.Player.tone.context.createBuffer(</span><br><span class="line">  <span class="number">1</span>, length, sampleRate);</span><br><span class="line">  audioBuffer.copyToChannel(audio,<span class="number">0</span> ,<span class="number">0</span>);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// Play the sample audio using tone.js and loopit</span></span><br><span class="line">  <span class="keyword">const</span> playerOptions = &#123;<span class="string">&quot;url&quot;</span>: audioBuffer, <span class="string">&quot;loop&quot;</span>: <span class="literal">true</span>, <span class="string">&quot;volume&quot;</span>: -<span class="number">25</span>&#125;;</span><br><span class="line">  <span class="keyword">const</span> player = <span class="keyword">new</span> mm.Player.tone.Player(playerOptions).toMaster();</span><br><span class="line">  player.start();</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// Plot the resulting spectrograms</span></span><br><span class="line">  <span class="keyword">await</span> plotSpectra(specgrams, <span class="number">0</span>);</span><br><span class="line">  <span class="keyword">await</span> plotSpectra(specgrams, <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们先使用GANSynth<code>randomSample</code>方法，创建一个pitch为60，C4的参数。这个告诉了模型参数一个值，可以根据pitch作出反应，然后返回一个频谱图转化音频<code>specgramsToAudio</code>。最后我们使用Tone.js buffer来播放样本。</p>
+<p>实例化播放器，<code>mm.Player.tone.Player</code>。使用ES6会是：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> player = <span class="keyword">new</span> Tone.Player(playerOptions).toMaster();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>最后，让我给项目添加一个按钮来初始化GANSynth操作：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Add on click handler to call the GANSynth sampling</span></span><br><span class="line">buttonSampleGanSynthNote.addEventLister(<span class="string">&quot;click&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  sampleGanNote();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Call the initializeation of GANSynth</span></span><br><span class="line"> <span class="keyword">try</span> &#123;</span><br><span class="line"> <span class="built_in">Promise</span>.all([startGanSynth()]);</span><br><span class="line"> &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">   <span class="built_in">console</span>.error(error);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后我们给按钮添加了<code>sampleGanNote</code>方法，可以初始化GANSynth，通过<code>startGanSynth</code>。</p>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="Lauching-the-web-application"><a href="#Lauching-the-web-application" class="headerlink" title="Lauching the web application"></a>Lauching the web application</h3><p>现在我们已经有了web app，我们可以测试我们的代码。</p>
+<p>在之前的内容中，我们生成了一些GANSynthsamples，每一个生产的图表都有两个频谱图。当完成之后 Sample GANSYnth note的按钮会可用。</p>
+<p>继续生成一些声音：你可以得到一些有趣的效果，当叠加不同的效果。</p>
+<h3 id="Generating-a-trio-using-MusicVAE"><a href="#Generating-a-trio-using-MusicVAE" class="headerlink" title="Generating a trio using MusicVAE"></a>Generating a trio using MusicVAE</h3><p>我们现在使用Magenta.js的MusicVAE模型生成一些序列，然后在播放器中使用Tone.js播放他们。我们使用trio模型的站点，意味着我们会生成三个序列：drum kit， bass kit 还有lead。</p>
+<ol>
+<li><p>首先，我们定义页面结构，导入script:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;html lang=<span class="string">&quot;en&quot;</span>&gt; </span><br><span class="line">  &lt;body&gt; </span><br><span class="line">  &lt;div&gt; </span><br><span class="line">  &lt;button disabled id=<span class="string">&quot;button-sample-musicae-trio&quot;</span>&gt;</span><br><span class="line"> Sample MusicVAE trio</span><br><span class="line">	&lt;<span class="regexp">/button&gt; &lt;canvas id=&quot;canvas-musicvae-plot&quot;&gt;&lt;/</span>canvas&gt;</span><br><span class="line">	&lt;/div&gt; </span><br><span class="line">	&lt;script</span><br><span class="line">src=<span class="string">&quot;https://cdn.jsdelivr.net/npm/@magenta/music@1.12.0/dist/magent</span></span><br><span class="line"><span class="string">amusic.min.js&quot;</span>&gt;&lt;/script&gt; &lt;script&gt;</span><br><span class="line"><span class="comment">// MusicVAE code</span></span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后，我们初始化MusicVAE模型，如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Get DOM element</span></span><br><span class="line"><span class="keyword">const</span> buttonSampleMusicVaeTrio = <span class="built_in">document</span>.getElementById(<span class="string">&quot;button-sample-musicae-trio&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> canvasMusicVaePlot = <span class="built_in">document</span>.getElementById(<span class="string">&quot;canvas-musicvae-plot&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Starts the MusicvAE model and initializes it. When finished, enables</span></span><br><span class="line"><span class="comment">// the button to start the sampling</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">startMusicVAE</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> musicvae = <span class="keyword">new</span> mm.MusicVAE(<span class="string">&quot;https://storage.googleapis.com/&quot;</span> +</span><br><span class="line"><span class="string">&quot;magentadata/js/checkpoints/music_vae/trio_4bar&quot;</span>);</span><br><span class="line">  <span class="keyword">await</span> muscivae.initialize();</span><br><span class="line">  <span class="built_in">window</span>.musicvae = musicvae;</span><br><span class="line">  buttonSampleMusicVaeTrio.disalbed = <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>我们现在创建一个新的Tone.js播放器来播放生成的三个序列:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Declares a new player that have 3 synths for the drum kit (only the bass drum), the bass and the lead.</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Player</span> <span class="keyword">extends</span> <span class="title">mm</span>.<span class="title">BassPlayer</span> </span>&#123;</span><br><span class="line">  bassDrumSynth = <span class="keyword">new</span> mm.Player.tone.MembraneSynth().toMaster();</span><br><span class="line"></span><br><span class="line">bassSynth = <span class="keyword">new</span> mm.Player.tone.Synth(&#123;</span><br><span class="line">  valume: <span class="number">5</span>,</span><br><span class="line">  oscillator:&#123;<span class="attr">type</span>: <span class="string">&quot;triangle&quot;</span>&#125;</span><br><span class="line">&#125;).toMaster();</span><br><span class="line">leadSynth = <span class="keyword">new</span> mm.Player.tone.PolySynth(<span class="number">5</span>).toMaster();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Plays the note at the proper time using tone.js</span></span><br><span class="line"><span class="function"><span class="title">playNote</span>(<span class="params">time, note</span>)</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> frequency, duration, synth;</span><br><span class="line">  <span class="keyword">if</span> (note.isDrum) &#123;</span><br><span class="line">    <span class="keyword">if</span> (note.pitch === <span class="number">35</span> || note.pitch === <span class="number">36</span>) &#123;</span><br><span class="line">      <span class="comment">// If this is a bass drum, we use the kick pitch for an eight note and the bass drum synth</span></span><br><span class="line">      frequency = <span class="string">&quot;C2&quot;</span>;</span><br><span class="line">      duration = <span class="string">&quot;8n&quot;</span>;</span><br><span class="line">      synth = <span class="built_in">this</span>.bassDrumSynth;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// If this is a bass note or lead note, we convert hte frequency and the duration for  tone.js and fetch the proper synth</span></span><br><span class="line">    frequency = <span class="keyword">new</span> mm.Player.tone.Frequence(note.pitch, <span class="string">&quot;midi&quot;</span>);</span><br><span class="line">    duration = note.endTime - note.startTime;</span><br><span class="line">    <span class="keyword">if</span> (note.program &gt;= <span class="number">32</span> &amp;&amp; note.program &lt;= <span class="number">39</span>) &#123;</span><br><span class="line">      synth = <span class="built_in">this</span>.bassSynth;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      synth =<span class="built_in">this</span>.leadSynth;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (synth) &#123;</span><br><span class="line">    synth.triggerAttackRelease(frequency, duration, time, <span class="number">1</span>);</span><br><span class="line">  	&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个代码扩展了类<code>mm.BasePlayer</code>，我们只使用<code>playNote</code>方法就可以播放序列；首先我们定义了三个合成器：<code>bassDrumSynth</code>, <code>bassSynth</code>, <code>leadSynth</code>:</p>
+<ul>
+<li><strong>bass drum synth</strong>只会播放bass drum，通过<code>note.isDrum</code>和MIDI notes35或36表示，通常播放C2的频率和8notes长度，8n，使用Tone.js的<code>MembranceSynth</code>来实现。乐器都会被定义在具体的note’s pitch，例如pitch 35是Acoustic Bass Drum。</li>
+<li><strong>bass synth</strong>只会播放项目中的32-39，使用Tone.js的<code>Synth</code>的三角波形。在MIDI规格中，项目会指定具体的乐器播放。例如program 1是Acoustic Grand Piano，program 33是Acoustic Bass。</li>
+<li><strong>lead synth</strong>使用Tone.js的<code>PolySynth</code>来播放5个音。</li>
+<li>我们首先要转化MIDI note到Tone.js频率，使用<code>Frequency</code>类。</li>
+</ul>
+<p>另一个重要的需要讨论的是，note envelope，使用Tone.js的<code>triggerAttackRelease</code>方法。一个封装动作会让音乐在一段时间内可以被听到。就像是打开信封，然后声音可以被听到，收起来，就无法听到，slope可以控制播放速率。这个动作叫做<code>attack</code>和<code>release</code>。每次我们唤起trigger方法，合成器会在被给定的时间段内，使用设定的斜率slope。</p>
+<p>另一个名词是ADSR（Attack Decay Sustain Release），是一个更加复杂的包络形式。</p>
+<p><img src="https://dt7v1i9vyp3mf.cloudfront.net/styles/header/s3/imagelibrary/f/fig2-1299-WZyjrEu0MxOoTMiF_ZujAHQl60mbPdaZ.gif"></p>
+</li>
+<li><p>让我们来采样MusicVAE模型，如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Samples a trio of drum kit, bass and lead from MusicVAE and plays it repeatedly at 120QPM</span></span><br><span class="line"><span class="keyword">async</span> functio nsampleMusicVaeTrio() &#125;</span><br><span class="line"><span class="keyword">const</span> samples = <span class="keyword">await</span> musicvae.sample(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">const</span> sample = samples[<span class="number">0</span>];</span><br><span class="line"><span class="keyword">new</span> mm.PianoRollCanvasVisualizer(sample, canvasMusicVaePlot, &#123;<span class="string">&quot;pixelsPerTimeStep&quot;</span>: <span class="number">50</span>&#125;);</span><br><span class="line"><span class="keyword">const</span> player = <span class="keyword">new</span> Player();</span><br><span class="line">mm.Player.tone.Transport.loop = <span class="literal">true</span>;</span><br><span class="line">mm.Player.tone.Transport.loopStart = <span class="number">0</span>;</span><br><span class="line">mm.Player.tone.Transport.loopEnd = <span class="number">8</span>;</span><br><span class="line">player.start(sample, <span class="number">120</span>);</span><br></pre></td></tr></table></figure>
+
+<p>首先，我们使用<code>sample</code>方法和参数1，来采样MusicVAE模型。然后绘制note序列，通过使用<code>mm.PianoRollCanvasVisualizer</code>在之前声明过的canvas中。最后，我们开始播放样本在120QPM，然后在8秒的小姐中循环，使用Tone.js的<code>Transport</code>类。MusicVAE模型已经修正了长度，如果我们使用4-bar trio模型，我们会生成8秒的样本，在120QPM。</p>
+</li>
+<li><p>最后，让我们绑定一个按钮动作，来初始化MusicVAE模型：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Add on click handler to call the MusicVAE sampling</span></span><br><span class="line">buttonSampleMusicVaeTrio.addEventListener(<span class="string">&quot;click&quot;</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">  sampleMusicVaeTrio();</span><br><span class="line">  event.target.disabled = <span class="literal">true</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Calls the initialization of MusicVAE</span></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  <span class="built_in">Promise</span>.all([startMusicVae()]);</span><br><span class="line">&#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">  <span class="built_in">console</span>.error(error);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们绑定按钮在使用<code>sampleMusicVaeTrio</code>方法，然後我們初始化MusicVAE模型，使用<code>startMusicVae</code>方法，你可以看到我們使用了<code>Promise.all</code>來調用之前准备的異步函數。在按下Sample MusicVAE trio按钮，这个MusicVAE会采样一个序列，然后绘制图像，最后播放我们定义的合成器，这个生产的图像很基础，没有显示不同的乐器，但是可以通过<code>PianoRollCanvasVisualizer</code>类来自定义，刷新页面会后生成新的序列。</p>
+</li>
+</ol>
+<h3 id="使用SoundFont建立更真实的乐器声音"><a href="#使用SoundFont建立更真实的乐器声音" class="headerlink" title="使用SoundFont建立更真实的乐器声音"></a>使用SoundFont建立更真实的乐器声音</h3><p>当你在听到生成的声音时候，可能注意到声音会有一点bacis或者simple。是因为我们使用了Tone.js的默认合成器，这很方便使用，但是却没有那么理想，Tone.js的合成器可以被定制，听起来效果更好。</p>
+<p>所以我们可以使用SoundFont。SoundFont记录了不同乐器的notes，在Magenta.js中，我们可以使用<code>SoundFontPlayer</code>取代<code>Player</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> player = <span class="keyword">new</span> mm.SoundFontPlayer(<span class="string">&quot;https://storage.googleapis.com/&quot;</span> +</span><br><span class="line"> <span class="string">&quot;magentadata/js/soundfonts/salamander&quot;</span>);</span><br><span class="line">player.start(sequence, <span class="number">120</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="通过trio播放生成的乐器"><a href="#通过trio播放生成的乐器" class="headerlink" title="通过trio播放生成的乐器"></a>通过trio播放生成的乐器</h3><p>现在，我们有MusicVAE生成的三乐器序列，和GANSynth生成的音频，现在把这两个部分连接起来。 </p>
+<ol>
+<li><p>定义页面结构和脚本导入：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;html lang=<span class="string">&quot;en&quot;</span>&gt; &lt;body&gt;</span><br><span class="line">&lt;div&gt;</span><br><span class="line"> &lt;button disabled id=<span class="string">&quot;button-sample-musicae-trio&quot;</span>&gt;</span><br><span class="line"> Sample MusicVAE trio</span><br><span class="line"> &lt;/button&gt;</span><br><span class="line"> &lt;button disabled id=<span class="string">&quot;button-sample-gansynth-note&quot;</span>&gt;</span><br><span class="line"> Sample GANSynth note <span class="keyword">for</span> the lead synth</span><br><span class="line"> &lt;/button&gt;</span><br><span class="line"> &lt;canvas id=<span class="string">&quot;canvas-musicvae-plot&quot;</span>&gt;&lt;/canvas&gt;</span><br><span class="line"> &lt;div id=<span class="string">&quot;container-plots&quot;</span>&gt;&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;script</span><br><span class="line">src=<span class="string">&quot;https://cdn.jsdelivr.net/npm/@magenta/music@1.12.0/dist/magent</span></span><br><span class="line"><span class="string">amusic.min.js&quot;</span>&gt;&lt;/script&gt; &lt;script&gt;</span><br><span class="line"><span class="comment">// MusicVAE + GANSynth code</span></span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>让我们初始化MusicVAE模型和GANSynth模型，如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Get DOM elements</span></span><br><span class="line"><span class="keyword">const</span> buttonSampleGanSynthNote = <span class="built_in">document</span></span><br><span class="line">.getElementById(<span class="string">&quot;button-sample-gansynth-note&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> buttonSampleMusicVaeTrio = <span class="built_in">document</span></span><br><span class="line">.getElementById(<span class="string">&quot;button-sample-musicae-trio&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> containerPlots = <span class="built_in">document</span></span><br><span class="line">.getElementById(<span class="string">&quot;container-plots&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> canvasMusicVaePlot = <span class="built_in">document</span></span><br><span class="line">.getElementById(<span class="string">&quot;canvas-musicvae-plot&quot;</span>);</span><br><span class="line"><span class="comment">// Starts the MusicVAE model and initializes it. When finished,</span></span><br><span class="line">enables</span><br><span class="line"><span class="comment">// the button to start the sampling</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">startMusicVae</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="keyword">const</span> musicvae = <span class="keyword">new</span></span><br><span class="line">mm.MusicVAE(<span class="string">&quot;https://storage.googleapis.com/&quot;</span> +<span class="string">&quot;magentadata/js/checkpoints/music_vae/trio_4bar&quot;</span>);</span><br><span class="line"><span class="keyword">await</span> musicvae.initialize();</span><br><span class="line"><span class="built_in">window</span>.musicvae = musicvae;</span><br><span class="line">buttonSampleMusicVaeTrio.disabled = <span class="literal">false</span>; &#125;</span><br><span class="line"><span class="comment">// Starts the GANSynth model and initializes it</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">startGanSynth</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="keyword">const</span> ganSynth = <span class="keyword">new</span></span><br><span class="line">mm.GANSynth(<span class="string">&quot;https://storage.googleapis.com/&quot;</span> + <span class="string">&quot;magentadata/js/checkpoints/gansynth/acoustic_only&quot;</span>);</span><br><span class="line"><span class="keyword">await</span> ganSynth.initialize();</span><br><span class="line"><span class="built_in">window</span>.ganSynth = ganSynth</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这里我们可用了MusicVAE sampling按钮，GANSynth sampling按钮可以在MusicVAE生成后可用。</p>
+</li>
+<li><p>继续使用<code>plotSpectra</code>方法。</p>
+</li>
+<li><p>保留声音合成器的<code>Player</code>类，我们可以设置<code>leadSynth = null</code>，因为他会取代GANSynth生成，但不是必要的。</p>
+</li>
+<li><p>保留<code>sampleMusicVaeTrio</code>方法，但是我们也会设置<code>window.player = player</code>实例化的播放器，最为全局变量。因为GANSynth会需要改变lead synth。</p>
+</li>
+<li><p>我们重写<code>sampleGanNote</code>方法来添加样本播放器：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Samples a single note of 4 seconds from GANSynth and plays it repeatedly</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">sampleGanNote</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> lengthInSeconds = <span class="number">4.0</span>;</span><br><span class="line">  <span class="keyword">const</span> sampleRate = <span class="number">16000</span>;</span><br><span class="line">  <span class="keyword">const</span> length = lengthInSeconds * sampleRate;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// The sampling returns a spectrogram, convert that to audio in a tone.js buffer</span></span><br><span class="line">  <span class="keyword">const</span> specgrams = <span class="keyword">await</span> ganSynth.randomSample(<span class="number">60</span>);</span><br><span class="line">  <span class="keyword">const</span> audio = <span class="keyword">await</span> ganSynth.specgramsToAudio(specgrams);</span><br><span class="line">  <span class="keyword">const</span> audioBuffer = mm.Player.tone.context.createBuffer(<span class="number">1</span>, length, sampleRate);</span><br><span class="line">  audioBuffer.copyToChannel(audio, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// Plays the sample using tone.js by using C4 as a base note, since this is what we asked the model for (MIDI pitch 60).</span></span><br><span class="line">  <span class="comment">// If the sequence contains other notes, the pitch will be changed automatically</span></span><br><span class="line">  <span class="keyword">const</span> volume = <span class="keyword">new</span> mm.Player.tone.Sampler(&#123;<span class="string">&quot;C4&quot;</span>: audioBuffer&#125;);</span><br><span class="line">  instrument.chain(volume, mm.Player.tone.Master);</span><br><span class="line">  <span class="built_in">window</span>.player.leadSynth = instrument;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// Plots the resulting spectrograms</span></span><br><span class="line">  <span class="keyword">await</span> plotSpectra(specgrams, <span class="number">0</span>);</span><br><span class="line">  <span class="keyword">await</span> plotSpectra(specgrams, <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>首先，我们使用<code>randomSample</code>从GANSynth中采样一个随机的乐器。然后我们需要通过Tone.js合成器来播放，所以我们使用<code>Sampler</code>类，包含一个键值对字典。因为我们采样的模型使用MIDI pitch 60，我们使用C4处理最后的audio buffer，使用<code>window.player.leadSynth = instrument</code>将合成器添加到播放器中。</p>
+</li>
+<li><p>将样本绑定按钮，然后初始化MusicVAE和GANSynth模型，如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Add on click handler ti call the MusicVAE sampling</span></span><br><span class="line">buttonSampleMusicVaeTrio.addEventListener(<span class="string">&quot;click&quot;</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">  sampleMusicVaeTrio();</span><br><span class="line">  event.target.disabled = <span class="literal">true</span>;</span><br><span class="line">  buttonSampleGanSynthNote.disabled = <span class="literal">false</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Add onclick handler to call the GANSynth sampling</span></span><br><span class="line">buttonSampleGanSynthNote.addEventListener(<span class="string">&quot;click&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  sampleGanNote();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Calls the initialization of MusicVAE and GasnSynth</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  <span class="built_in">Promise</span>.all([startMusicVae(), startGanSynth()]);</span><br><span class="line">&#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(error);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过点击Sample MusicVAE trio按钮，MusicVAE应该采样序列，可视化绘制，然后使用合成器播放。</p>
+</li>
+</ol>
+<h3 id="使用Web-Worker-API从UI线程中卸载计算"><a href="#使用Web-Worker-API从UI线程中卸载计算" class="headerlink" title="使用Web Worker API从UI线程中卸载计算"></a>使用Web Worker API从UI线程中卸载计算</h3><p>在之前的例子中，你是用Sample GANSynth note for the lead synth按钮时，音频是无法被听到的。</p>
+<p>这是因为JavaScript的并发建立在事件循环模式上，所有的任务都通过UI线程处理。这样的工作模式不错，因为JavaScript使用非阻塞的I/O，意味着大多数的高成本操作可以被快速完成，然后使用事件和回调函数返回数值。然而，如果一个冗长计算是异步的，他就会阻塞UI线程。这就是当GANSynth生成sample的时候所发生的情况。</p>
+<p>我们的解决方案是使用Web Workers API，可以卸载计算到其他线程，而不会阻塞带UI线程中。一个web worker是一个基础的JavaScript文件，从主线程开始，运行在自己的现场之中，可以从主线程中发送和接受消息。Web Worker API非常成熟，可以跨浏览器支持。</p>
+<ol>
+<li><p>让我们编写部分的JavaScript代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Starts a new worker that will load the MusicVAE model</span></span><br><span class="line"><span class="keyword">const</span> worker <span class="keyword">new</span> Worker(<span class="string">&quot;sketch.js&quot;</span>);</span><br><span class="line">worker.onmessage = <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> message = event.data[<span class="number">0</span>];</span><br><span class="line">  <span class="keyword">if</span> (message ===<span class="string">&quot;initialized&quot;</span>) &#123;</span><br><span class="line">    <span class="comment">// When the worker sends the &quot;initialized&quot; message, we enable the button to sample the model</span></span><br><span class="line">    buttonSampleMusicVaeTrio.disabled = <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (message ===<span class="string">&quot;sample&quot;</span>) &#123;</span><br><span class="line">    <span class="comment">// When the worked sends the &quot;sample&quot; message, we take the data (the note sequence sample), from the event, create and start a new player, using the sequence</span></span><br><span class="line">    <span class="keyword">const</span> data = event.data[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">const</span> sample = data[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">const</span> player = <span class="keyword">new</span> mm.player();</span><br><span class="line">    mm.Player.tone.Transport.loop = <span class="literal">true</span>;</span><br><span class="line">    mm.Player.tone.Transport.loopStart = <span class="number">0</span>;</span><br><span class="line">    mm.Player.tone.Transport.loopEnd = <span class="number">8</span>;</span><br><span class="line">    player.start(sample, <span class="number">120</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Add click handler to call the MusicVAE sampling, by posting a message to the web worker which sample and return the sequence using a message </span></span><br><span class="line"><span class="keyword">const</span> buttonSampleMusicVaeTrio = <span class="built_in">document</span>.getElementById(<span class="string">&quot;button-sample-musicvae-trio &quot;</span>);</span><br><span class="line">buttonSampleMusicVaeTrio.addEventListener(<span class="string">&quot;click&quot;</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">  worker.postMessage([]);</span><br><span class="line">  event.target.disabled = <span class="literal">true</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>现在让我们来解释上述的买的内容，web worker如何创建和传递message，在主线程与web worker之间，如下：</p>
+<ul>
+<li>首先，我们需要启动worker，通过使用<code>new Worker(&quot;sketch.js&quot;)</code>。这个会运行JavaScript文件然后返回一个handle我们可以注册变量。</li>
+<li>然后，我们绑定<code>onmessage</code>属性给worker，这个会在worker使用<code>postMessage</code>函数后唤起。在<code>event</code>的<code>data</code>属性，我们可以传递我们想要的任何东西：<ul>
+<li>如果worker发送<code>initialized</code>作为<code>data</code>数组的第一个元素，这意味着worker已经初始化了。</li>
+<li>如果worker发送<code>sanple</code>作为<code>data</code>数组的第一个元素，这意味着worker已经采样了MusicVAE序列，然后正在返回它，作为第二个元素加在<code>data</code>数组中。</li>
+</ul>
+</li>
+<li>最后，当HTML中的按钮被点击后，我们唤起了<code>postMessage</code>方法。web worker不会和主线程分享状态，意味着所有的数据分享需要使用<code>onmessage</code>和<code>postMessage</code>方法或其他函数。</li>
+</ul>
+</li>
+<li><p>现在，我们来写JavaScript的worker代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">importScripts(<span class="string">&quot;https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.4.0/dist/tf.min.js&quot;</span>);</span><br><span class="line">importScripts(<span class="string">&quot;https://cdn.jsdelivr.net/npm/@magenta/music@^1.12.0/es6/core.js&quot;</span>);</span><br><span class="line">importScripts(<span class="string">&quot;https://cdn.jsdelivr.net/npm/@magenta/music@^1.12.0/es6/music_vae.js&quot;</span>);</span><br><span class="line">            </span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">initialize</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  musicvae = <span class="keyword">new</span> music_vae.MusicVAE(<span class="string">&quot;https://storage.googleapis.com/&quot;</span> + <span class="string">&quot;magentadata/js/checkpoints/music_vae/trio_4bar&quot;</span>);</span><br><span class="line">  <span class="keyword">await</span> musicvae.initialize();</span><br><span class="line">  postMessage([<span class="string">&quot;initialized&quot;</span>]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">onmessage = <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">Promise</span>.all([musicvae.sample(<span class="number">1</span>)])</span><br><span class="line">  	.then(<span class="function"><span class="params">samples</span> =&gt;</span> postMessage([<span class="string">&quot;sample&quot;</span>, samples[<span class="number">0</span>]]));</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  Pormise.all([initialize()]);</span><br><span class="line">&#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">  <span class="built_in">console</span>.error(error);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>首先，我们需要发送一个<code>initialized</code>消息给主线程，使用<code>postMessage</code>，当模型准备去roll的时候。第二部，我们绑定模型<code>onmessage</code>属性，当主线程发送给worker消息后会被唤起。我们采样了MusicVAE模型，然后使用<code>postMessage    </code>方法发送结果给主线程。以上就是如何创建web worker，并与主线程交换数据的方法。</p>
+</li>
+</ol>
+<h3 id="使用其他的Magenta-js模型"><a href="#使用其他的Magenta-js模型" class="headerlink" title="使用其他的Magenta.js模型"></a>使用其他的Magenta.js模型</h3><p>我们不能覆盖所有的模型用力，但是使用其他模型的方法也类似。因为Magenta.js运行在浏览器中，所以很难与其他应用互动，但也因为如此，它更加简单。</p>
+
+    </div>
+
+    <div class="about">
+        <h1>About this Post</h1>
+        <p>This post is written by Siqi Shu, licensed under <a
+                target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+    </div>
+</article>
+        <footer>
+    <div class="inner">
+        <div class="links">
+            
+            <div class="group">
+                <h4 class="title">深智一物 眾隱皆變</h4>
+                
+            </div>
+            
+        </div>
+        &copy; 2024 Siqi Shu<br />
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+</footer>
+
+
+        
+<script src="/js/main.js"></script>
+
+        
+<script src="/js/kursor.js"></script>
+
+        
+<script src="/js/run.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  
+  <title>IDS5 - Unsupervised Learning - Shu-Creative Computing</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+    <link rel='manifest' href='/manifest.json'>
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/cursor.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/components.css">
+
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+    <body>
+        <nav id="theme-nav">
+    <div class="inner">
+        <a class="title" href="/">Shu&#39;s Blog</a>
+        <div class="nav-arrow"></div>
+        <div class="nav-items">
+            <a class="nav-item nav-item-home" href="/">Home</a>
+            
+            
+            <a class="nav-item" href="/categories/essays">Thinking</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/pcomp">Pcomp&amp;AVCE</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/coding">Coding</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/portfolio">Portfolio</a>
+            
+            
+            
+            <a class="nav-item" href="/contact">About</a>
+            
+            
+            
+            <a class="nav-item nav-item-github nav-item-icon" href="https://github.com/ShuSQ" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-codepen nav-item-icon" href="https://codepen.io/shusq" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-patreon nav-item-icon" href="https://www.instagram.com/cheese_shu/" target="_blank">&nbsp;</a>
+            
+            
+        </div>
+    </div>
+</nav>
+        <article class="post">
+    <div class="meta">
+        
+        <div class="date" id="date">
+            
+            
+            
+            
+            
+            
+            
+            <span>July</span>
+            
+            
+            
+            
+            
+            
+            <span>16,</span>
+            <span>2021</span>
+        </div>
+        
+
+        <h2 class="title">IDS5 - Unsupervised Learning</h2>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="content">
+        <blockquote>
+<p>We have often been building model that predict new labels, given a new input, but, what if we do not have a labelled dataset to make the model?</p>
+</blockquote>
+<h3 id="Clustering"><a href="#Clustering" class="headerlink" title="Clustering"></a>Clustering</h3><p>Unsupervised learning is used to solve a number of problems where data is not labelled. Clustering is a method to group similar examples in clusters.</p>
+<ul>
+<li>Customer segmentation</li>
+<li>Recommendation systems</li>
+<li>Search engines</li>
+</ul>
+<h5 id="Anomaly-Detection"><a href="#Anomaly-Detection" class="headerlink" title="Anomaly Detection"></a>Anomaly Detection</h5><p>Unsupervised learning is used to solve a number of problems where data is not labelled. Anomaly detection can model what is normal, then use this to spot things that deviate from this. A low affinity for any cluster may can flag something or someone as an anomaly.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*O5PfMxw6XGQl6qSVULmxPg.png"></p>
+<h5 id="Use-Cases"><a href="#Use-Cases" class="headerlink" title="Use Cases"></a>Use Cases</h5><p><strong>Customer segmentation:</strong> group customers together that may receive certain recommendations, promotions, options.</p>
+<p><strong>Data analysis:</strong> is you are looking at a big dataset, you can cluster first then analyse each cluster in more detail.</p>
+<p><strong>Dimensionality reducation:</strong> we can use the measure of how well a model fits into each cluster as a feature representation. This turns out to be actually quite good for them fitting other models. This is similar to when we used the topic vector as a input for text classifiers.</p>
+<p><strong>Semi supervised learning:</strong> if you only have the resources to label a few examples:</p>
+<ol>
+<li>Cluster</li>
+<li>Label the examples near the centre of the clusters</li>
+<li>Propagate to other examples in the cluster</li>
+<li>Train model with more labelled examples = More accurate model!</li>
+</ol>
+<p><strong>Recommender systems:</strong> cluster everything in your database then return other examples from that cluster as similar to your users.</p>
+<h3 id="K-Means"><a href="#K-Means" class="headerlink" title="K-Means"></a>K-Means</h3><p>For K-Means, you generate k centre points (centroids) (one for each k clusters).</p>
+<p>In hard clustering, each example belongs to the cluster whose centre it is closest to.</p>
+<p>In soft clustering, we represent the example as the distances to each centre.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*ZagMlyRSUxsu8F7fNlW-pQ.png"></p>
+<p>K-Means Algorithm:</p>
+<ol>
+<li>Pick Random Centroids</li>
+<li>Assign examples to nearest centroid</li>
+<li>Update centroids to middle of new cluster</li>
+<li>Repeat from 2 until no change</li>
+</ol>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*KOZP8wHUHR1Oj68ihMjCnA.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*AMic2TfUnVmNQWWpsnjQfA.png"></p>
+<h5 id="Initialising-Centres"><a href="#Initialising-Centres" class="headerlink" title="Initialising Centres"></a>Initialising Centres</h5><p>K Means will always converge (e.g. reach a stopping point), but it does not mean this is the best solution.</p>
+<p>Whether it is or not depends on how the centroids were initialized.</p>
+<p>Sometimes we can run multiple times with different centroids and pick the best.</p>
+<p>Whats the best values for k?</p>
+<p>We can compare inertia scores for each value, which tells us the: Mean suqared distance between each example and its nearest centroid. The closer examples are to the centroids, the better.</p>
+<p>The more clusters there are, the smaller the distances will be! We can aim to pick the k value that gives us the biggest improvement.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*N8UamP3cG-kWICgAf6h0WA.png"></p>
+<h5 id="Image-Segmentation"><a href="#Image-Segmentation" class="headerlink" title="Image Segmentation"></a>Image Segmentation</h5><p>We can use clustering to group together pixels that have similar colours; in some situations, this can group together things which are of the same type or object (e.g. forest or lake from satellite imagery).</p>
+<p>Each pixel in a colour image is represented 3 colour values, so we can think of this as a clustering in RGB space.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*1hVm3oGMWPgFPBmD3ZB9cg.png"></p>
+<p>Once we have made the clusters, we areplace the original pixel value with the mean value for that cluster.</p>
+<p>This makes a segmented image with much less colour variation.</p>
+<p>See the red disappear as we reduce the number of clusters.</p>
+<h5 id="Semi-Supervised-Learning"><a href="#Semi-Supervised-Learning" class="headerlink" title="Semi Supervised Learning"></a>Semi Supervised Learning</h5><p>For classification tasks, when we only have a few labels, or limited resources for manual labelling, or we need quick training on few examples. We can use clustering to help us!</p>
+<p>For choosing what to sample:</p>
+<ul>
+<li>First we cluster the dataset</li>
+<li>We then pick the most representative examples from each dataset</li>
+<li>Label only these</li>
+<li>Train Classifer =&gt; Often improved accuracy (vs randomly chossing a subset to label)</li>
+</ul>
+<p>Label propagation: if we want we can then copy the labels to everything else in the cluster and this again can increase accuracy.</p>
+<h3 id="Feature-Scaling"><a href="#Feature-Scaling" class="headerlink" title="Feature Scaling"></a>Feature Scaling</h3><p>We have seen min-max scaling (or normalisation) when looking at neural networks. This is where we scale all values between 0 and 1. This can be effected by outliers.</p>
+<p>Scaling aims to maintain the relative relationships between examples but makes features more comparable as they are all on similar scalers, and is necessary for some machine learning techniques to work.</p>
+<h5 id="Necessary-for-K-Means-and-PCA"><a href="#Necessary-for-K-Means-and-PCA" class="headerlink" title="Necessary for K Means (and PCA)"></a>Necessary for K Means (and PCA)</h5><p>In standardisation, we scale each column so its mean is 0 and its variance is 1.</p>
+<p>We do this by subtracting the mean and dividing by the standard deviation.</p>
+<p><img src="https://cdn-images-1.medium.com/max/1200/1*BTUjAUu8nkgOk7IQjuQujw.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/1200/1*y_z81S8OgJfhumrg74-xYw.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*co_fHQe6JIAH4MB-4Gul0A.png"></p>
+<p>K-Means is scalable and fast, but doesn’t work as well when clusters are differently sized, and non spherical shapes. (e.g. don’t easily get drawn to a centre)</p>
+<h5 id="Gaussian-Mixture-Models"><a href="#Gaussian-Mixture-Models" class="headerlink" title="Gaussian Mixture Models"></a>Gaussian Mixture Models</h5><p>Gaussian distribution is another name for a normal distribution, we imagine the dataset is made up of a series of normal distributions, each defined by a mean and a standard deviation.</p>
+<p>This algorithm finds the best values for these parameters.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*dmJdDQ1i6BPXtfLDEY05kA.png"></p>
+<h5 id="Principle-Component-Analysis"><a href="#Principle-Component-Analysis" class="headerlink" title="Principle Component Analysis"></a>Principle Component Analysis</h5><p>Takes your features and reduces them to a smaller number.</p>
+<p>Useful for visualizing (reducing dimensions to 2!)</p>
+<p>Can be useful to do before modeling.</p>
+<p>Makes training and running quicker.</p>
+<p>Possibly reduces redundant features and a more efficient representation is easier to model or cluster.</p>
+
+    </div>
+
+    <div class="about">
+        <h1>About this Post</h1>
+        <p>This post is written by Siqi Shu, licensed under <a
+                target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+    </div>
+</article>
+        <footer>
+    <div class="inner">
+        <div class="links">
+            
+            <div class="group">
+                <h4 class="title">深智一物 眾隱皆變</h4>
+                
+            </div>
+            
+        </div>
+        &copy; 2024 Siqi Shu<br />
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+</footer>
+
+
+        
+<script src="/js/main.js"></script>
+
+        
+<script src="/js/kursor.js"></script>
+
+        
+<script src="/js/run.js"></script>
+
+
+    </body>
+</html>

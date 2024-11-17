@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  
+  <title>Pcomp3 - Transistors - Shu-Creative Computing</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+    <link rel='manifest' href='/manifest.json'>
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/cursor.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/components.css">
+
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+    <body>
+        <nav id="theme-nav">
+    <div class="inner">
+        <a class="title" href="/">Shu&#39;s Blog</a>
+        <div class="nav-arrow"></div>
+        <div class="nav-items">
+            <a class="nav-item nav-item-home" href="/">Home</a>
+            
+            
+            <a class="nav-item" href="/categories/essays">Thinking</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/pcomp">Pcomp&amp;AVCE</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/coding">Coding</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/portfolio">Portfolio</a>
+            
+            
+            
+            <a class="nav-item" href="/contact">About</a>
+            
+            
+            
+            <a class="nav-item nav-item-github nav-item-icon" href="https://github.com/ShuSQ" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-codepen nav-item-icon" href="https://codepen.io/shusq" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-patreon nav-item-icon" href="https://www.instagram.com/cheese_shu/" target="_blank">&nbsp;</a>
+            
+            
+        </div>
+    </div>
+</nav>
+        <article class="post">
+    <div class="meta">
+        
+        <div class="date" id="date">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <span>November</span>
+            
+            
+            <span>3,</span>
+            <span>2020</span>
+        </div>
+        
+
+        <h2 class="title">Pcomp3 - Transistors</h2>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="content">
+        <blockquote>
+<p> Transistors are used in many aspects of our lives. Here we mainly introduce more information about transistors…</p>
+</blockquote>
+<br/>
+
+<p>A transistor is a semiconductor device used to amplify or switch electronic signals and electrical power. It is composed of semiconductor material usually with at least three terminals for connection to an external circuit. A voltage or current applied to one pair of the transistor’s terminals controls the current through another pair of terminals. Because the controlled (output) power can be higher than the controlling (input) power, a transistor can amplify a signal. Today, some transistors are packaged individually, but many more are found embedded in integrated circuits.</p>
+ <br/>
+
+<h3 id="1-PWM"><a href="#1-PWM" class="headerlink" title="1.PWM"></a>1.PWM</h3><p>We are going to use PWM to fade an LED.</p>
+<p>This is a very basic case, I can understand how to control the output LEDs through digital signals.</p>
+</br>
+
+<div align="center"><iframe width="725" height="453" src="https://www.tinkercad.com/embed/0OCRPKjtsYc?editbtn=1" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe></div>
+
+ </br>
+
+<p>You can see more details:</p>
+<figure class="highlight plain"><figcaption><span>led </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">int brightness &#x3D; 0;    &#x2F;&#x2F; how bright the LED is</span><br><span class="line">int fadeAmount &#x3D; 5;    &#x2F;&#x2F; how many points to fade the LED by</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; the setup routine runs once when you press reset:</span><br><span class="line">void setup() &#123;</span><br><span class="line">  &#x2F;&#x2F; declare pin 9 to be an output:</span><br><span class="line">  pinMode(led, OUTPUT);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; the loop routine runs over and over again forever:</span><br><span class="line">void loop() &#123;</span><br><span class="line">  &#x2F;&#x2F; set the brightness of pin 9:</span><br><span class="line">  analogWrite(led, brightness);</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; change the brightness for next time through the loop:</span><br><span class="line">  brightness &#x3D; brightness + fadeAmount;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; reverse the direction of the fading at the ends of the fade:</span><br><span class="line">  if (brightness &lt;&#x3D; 0 || brightness &gt;&#x3D; 255) &#123;</span><br><span class="line">    fadeAmount &#x3D; -fadeAmount;</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F; wait for 30 milliseconds to see the dimming effect</span><br><span class="line">  delay(30);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-Voltage-Dividers"><a href="#2-Voltage-Dividers" class="headerlink" title="2.Voltage Dividers"></a>2.Voltage Dividers</h3><p>Hook up the circuit in the slides with the light dependent resistor. </p>
+<p>Sending data through digital and analog signals to control RGB values of the LED, this method allows us to control the output more precisely.</p>
+<p>In this case, I tried to adjust the value through three photosensitive sensors, you can try to adjust them to light up the LED.</p>
+</br>
+
+<div align="center"><iframe width="725" height="453" src="https://www.tinkercad.com/embed/eBl5CruADxW?editbtn=1" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe></div>
+
+ </br>
+
+<p>Bellow is my codes:</p>
+<figure class="highlight plain"><figcaption><span>int greenLEDPin </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">const int redLEDPin &#x3D; 11;</span><br><span class="line">const int blueLEDPin &#x3D; 10;</span><br><span class="line">const int redSensorPin &#x3D; A0;</span><br><span class="line">const int greenSensorPin &#x3D; A1;</span><br><span class="line">const int blueSensorPin &#x3D; A2;</span><br><span class="line">int redValue &#x3D; 0;</span><br><span class="line">int greenValue &#x3D; 0;</span><br><span class="line">int blueValue &#x3D; 0;</span><br><span class="line">int redSensorValue &#x3D; 0;</span><br><span class="line">int greenSensorValue &#x3D; 0;</span><br><span class="line">int blueSensorValue &#x3D; 0;</span><br><span class="line">void setup() &#123;</span><br><span class="line">  Serial.begin(9600);</span><br><span class="line">  pinMode(greenLEDPin,OUTPUT);</span><br><span class="line">  pinMode(redLEDPin,OUTPUT);</span><br><span class="line">  pinMode(blueLEDPin,OUTPUT);</span><br><span class="line">&#125;</span><br><span class="line">void loop() &#123;</span><br><span class="line">  redSensorValue &#x3D; analogRead(redSensorPin);</span><br><span class="line">  delay(5);</span><br><span class="line">  greenSensorValue &#x3D; analogRead(greenSensorPin);</span><br><span class="line">  delay(5);</span><br><span class="line">  blueSensorValue &#x3D; analogRead(blueSensorPin);</span><br><span class="line">  Serial.print(&quot;Raw Sensor Values \t Red: &quot;);</span><br><span class="line">  Serial.print(redSensorValue);</span><br><span class="line">  Serial.print(&quot;\t Green: &quot;);</span><br><span class="line">  Serial.print(greenSensorValue);</span><br><span class="line">  Serial.print(&quot;\t Blue: &quot;);</span><br><span class="line">  Serial.println(blueSensorValue);</span><br><span class="line">  redValue &#x3D; redSensorValue&#x2F;4;</span><br><span class="line">  greenValue &#x3D; greenSensorValue&#x2F;4;</span><br><span class="line">  blueValue &#x3D; blueSensorValue&#x2F;4;</span><br><span class="line">  Serial.print(&quot;Mapped Sensor Value \t Red: &quot;);</span><br><span class="line">  Serial.print(redValue);</span><br><span class="line">  Serial.print(&quot;\t Green: &quot;);</span><br><span class="line">  Serial.print(greenValue);</span><br><span class="line">  Serial.print(&quot;\t Blue: &quot;);</span><br><span class="line">  Serial.println(blueValue);</span><br><span class="line">  analogWrite(redLEDPin, redValue);</span><br><span class="line">  analogWrite(greenLEDPin, greenValue);</span><br><span class="line">  analogWrite(blueLEDPin, blueValue);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-Dark-detecting-Circuit"><a href="#3-Dark-detecting-Circuit" class="headerlink" title="3.Dark detecting Circuit"></a>3.Dark detecting Circuit</h3><p>Making dark detecting LED (From Circuit diagram to breadboard) Build this project to better understand transistors.</p>
+</br>
+
+<div align="center"><iframe width="725" height="453" src="https://www.tinkercad.com/embed/jCFIa3N7X2H?editbtn=1" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe></div>
+
+</br>
+
+<h3 id="4-Feedback-systems"><a href="#4-Feedback-systems" class="headerlink" title="4.Feedback systems"></a>4.Feedback systems</h3><p>Systems which feedback on themselves often feel more alive to us than static systems which only output data. Try to change the value of the light-dependent resistor.</p>
+</br>
+
+<div align="center"><iframe width="725" height="453" src="https://www.tinkercad.com/embed/6JgXoPYqTSE?editbtn=1" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe></div>
+
+</br> 
+
+
+    </div>
+
+    <div class="about">
+        <h1>About this Post</h1>
+        <p>This post is written by Siqi Shu, licensed under <a
+                target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+    </div>
+</article>
+        <footer>
+    <div class="inner">
+        <div class="links">
+            
+            <div class="group">
+                <h4 class="title">深智一物 眾隱皆變</h4>
+                
+            </div>
+            
+        </div>
+        &copy; 2024 Siqi Shu<br />
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+</footer>
+
+
+        
+<script src="/js/main.js"></script>
+
+        
+<script src="/js/kursor.js"></script>
+
+        
+<script src="/js/run.js"></script>
+
+
+    </body>
+</html>

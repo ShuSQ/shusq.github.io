@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  
+  <title>Coding1 - Sounds and Osc - Shu-Creative Computing</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+    <link rel='manifest' href='/manifest.json'>
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/cursor.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/components.css">
+
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+    <body>
+        <nav id="theme-nav">
+    <div class="inner">
+        <a class="title" href="/">Shu&#39;s Blog</a>
+        <div class="nav-arrow"></div>
+        <div class="nav-items">
+            <a class="nav-item nav-item-home" href="/">Home</a>
+            
+            
+            <a class="nav-item" href="/categories/essays">Thinking</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/pcomp">Pcomp&amp;AVCE</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/coding">Coding</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/portfolio">Portfolio</a>
+            
+            
+            
+            <a class="nav-item" href="/contact">About</a>
+            
+            
+            
+            <a class="nav-item nav-item-github nav-item-icon" href="https://github.com/ShuSQ" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-codepen nav-item-icon" href="https://codepen.io/shusq" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-patreon nav-item-icon" href="https://www.instagram.com/cheese_shu/" target="_blank">&nbsp;</a>
+            
+            
+        </div>
+    </div>
+</nav>
+        <article class="post">
+    <div class="meta">
+        
+        <div class="date" id="date">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <span>October</span>
+            
+            
+            
+            <span>20,</span>
+            <span>2020</span>
+        </div>
+        
+
+        <h2 class="title">Coding1 - Sounds and Osc</h2>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="content">
+        <blockquote>
+<p> In this chapter, I will briefly learn some of the physical properties of sound, how I can code through the MIMIC platform, and understand and further use maximJS…</p>
+</blockquote>
+<br/>
+
+<h3 id="1-Oscillation-Frequency-amp-Amplitude"><a href="#1-Oscillation-Frequency-amp-Amplitude" class="headerlink" title="1.Oscillation, Frequency &amp; Amplitude"></a>1.Oscillation, Frequency &amp; Amplitude</h3><p>All periodic phenomena can be represented by waveforms, such as sounds in daily life. Later, we can also describe images by sin and cos. Generally, when the wave is greater than 0, the speaker will play forward, and when it is less than 0, it will be played backwards; and when our wave value is greater than 1 or less than -1, we will be in a state of distortion; of course, all of this It happened on the basis of time changes.<br>If we want to explore more wonderful mixing effects, we can adjust around 20Hz; oscillations with a frequency exceeding 20KHz cannot be heard by humans, and in order to be able to digitally represent periodic oscillations, we will need to sample twice. Therefore, the sampling rate of a digital audio system is usually 44.1KHz or 48.0KHz, which is twice the hearing range.<br>The maximum frequency that the system can reproduce is half of the sampling rate, which is called the Nyquist frequency.</p>
+</br>
+
+<p>We need to store the sampled value of the vibration, 8 bit will provide 256 values to represent the amplitude, most of the time we may need 16 bit, which can provide 65.536 values to describe the floating point number between -1 and 1.<br>This also provides us with more ways to control the sound, so that different waveforms can interfere with each other to achieve many effects, such as beats, or fade in and out.<br>You can check some of my demo code below:</p>
+<p><a target="_blank" rel="noopener" href="https://mimicproject.com/code/eb0ca41c-5b66-acf2-c7b7-d0a38ac0f8de">https://mimicproject.com/code/eb0ca41c-5b66-acf2-c7b7-d0a38ac0f8de</a></p>
+</br>
+
+<p><img src="https://miro.medium.com/max/1400/1*00j3SLDz2FXSDXTgvE9yvA.gif"></p>
+</br>
+
+<div align="center"><iframe class="embedded-tutorial-code" src="https://mimicproject.com/code/eb0ca41c-5b66-acf2-c7b7-d0a38ac0f8de?embed=true&amp;showCode=true" allow="microphone" scrolling="no" style="width: 725px; height: 453px; overflow: hidden;">what?</iframe></div>
+
+
+
+</br> 
+
+
+    </div>
+
+    <div class="about">
+        <h1>About this Post</h1>
+        <p>This post is written by Siqi Shu, licensed under <a
+                target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+    </div>
+</article>
+        <footer>
+    <div class="inner">
+        <div class="links">
+            
+            <div class="group">
+                <h4 class="title">深智一物 眾隱皆變</h4>
+                
+            </div>
+            
+        </div>
+        &copy; 2024 Siqi Shu<br />
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+</footer>
+
+
+        
+<script src="/js/main.js"></script>
+
+        
+<script src="/js/kursor.js"></script>
+
+        
+<script src="/js/run.js"></script>
+
+
+    </body>
+</html>

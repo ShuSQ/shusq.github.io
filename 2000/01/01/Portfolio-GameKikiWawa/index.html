@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  
+  <title>Unity - 3D探索游戏概念设计 - Shu-Creative Computing</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+    <link rel='manifest' href='/manifest.json'>
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/cursor.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/components.css">
+
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+    <body>
+        <nav id="theme-nav">
+    <div class="inner">
+        <a class="title" href="/">Shu&#39;s Blog</a>
+        <div class="nav-arrow"></div>
+        <div class="nav-items">
+            <a class="nav-item nav-item-home" href="/">Home</a>
+            
+            
+            <a class="nav-item" href="/categories/essays">Thinking</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/pcomp">Pcomp&amp;AVCE</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/coding">Coding</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/portfolio">Portfolio</a>
+            
+            
+            
+            <a class="nav-item" href="/contact">About</a>
+            
+            
+            
+            <a class="nav-item nav-item-github nav-item-icon" href="https://github.com/ShuSQ" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-codepen nav-item-icon" href="https://codepen.io/shusq" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-patreon nav-item-icon" href="https://www.instagram.com/cheese_shu/" target="_blank">&nbsp;</a>
+            
+            
+        </div>
+    </div>
+</nav>
+        <article class="post">
+    <div class="meta">
+        
+        <div class="date" id="date">
+            
+            <span>January</span>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <span>1,</span>
+            <span>2000</span>
+        </div>
+        
+
+        <h2 class="title">Unity - 3D探索游戏概念设计</h2>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="content">
+        <blockquote>
+<p>使用Unity和C#实现的简单3D探索游戏 Kiki&amp;Wawa。</p>
+</blockquote>
+<p><img src="https://miro.medium.com/max/1920/1*3M7jJdVf0SRY-tNC4ytzng.gif"></p>
+<blockquote>
+<p>Brief: Kiki and Wawa are travelers in the world. They explore the world and meet different friends. This is a simple scenario in the game. Players need to control Kiki to find friends: Dogknight, in order to learn new skills. Players can move freely in the world and can also interact with different objects.</p>
+</blockquote>
+<p><strong>📹 - Youtube(game video):</strong> <a target="_blank" rel="noopener" href="https://youtu.be/ZHsukXkWIjc">https://youtu.be/ZHsukXkWIjc</a></p>
+<p><strong>📦 - DropBox(Unity files):</strong> <a target="_blank" rel="noopener" href="https://www.dropbox.com/sh/fzsqfk2k35a9hak/AACmnJnJKNzBXVWHPlOGZcfAa?dl=0">https://www.dropbox.com/sh/fzsqfk2k35a9hak/AACmnJnJKNzBXVWHPlOGZcfAa?dl=0</a></p>
+<p><strong>🛠 - Github(game file):</strong> <a target="_blank" rel="noopener" href="https://github.com/ShuSQ/CCI_AVCE_FP_KikiAndWawa">https://github.com/ShuSQ/CCI_AVCE_FP_KikiAndWawa</a></p>
+<h3 id="1-Create-roles-and-camera"><a href="#1-Create-roles-and-camera" class="headerlink" title="1.Create roles and camera"></a>1.Create roles and camera</h3><p>After having a rough game concept, we started looking for suitable characters, and finally we chose these free models in the assetstore, which can help us work more efficiently.</p>
+<p><img src="https://miro.medium.com/max/1080/1*V66qXaUowussE25RiFrYrg.png"></p>
+<p><img src="https://miro.medium.com/max/1080/1*V4Kwcl5B8N64fKSYj0CEAQ.png"></p>
+<p>You can also find them in Unity’s assetstore: <a target="_blank" rel="noopener" href="https://assetstore.unity.com/packages/3d/characters/creatures/party-monster-duo-polyart-195698">Party Monster</a> and <a target="_blank" rel="noopener" href="https://assetstore.unity.com/packages/3d/characters/animals/dog-knight-pbr-polyart-135227">Dog Knight</a></p>
+<p><img src="https://miro.medium.com/max/1080/1*saZ8VyAvCs5fEjnj0Cs2Lg.png"></p>
+<p>Then, we created a camera script that allows camera move with the character,also players can  adjust the angle with the mouse. <code>CameraController.cs</code> is detailed as follows:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">CameraController</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Transform target;</span><br><span class="line">    <span class="keyword">public</span> Vector3 offset;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">bool</span> useOffsetValues;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">float</span> rotateSpeed;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Transform pivot;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">float</span> maxViewAngle;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">float</span> minViewAngle;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">bool</span> invertY;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Start is called before the first frame update</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">if</span>(!useOffsetValues)</span><br><span class="line">        &#123;</span><br><span class="line">            offset = target.position - transform.position;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        pivot.transform.position = target.transform.position;</span><br><span class="line">        <span class="comment">// pivot.transform.parent = target.transform;</span></span><br><span class="line">        pivot.transform.parent = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">        Cursor.lockState = CursorLockMode.Locked;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Update is called once per frame</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">LateUpdate</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        pivot.transform.position = target.transform.position;</span><br><span class="line">        <span class="comment">// Get the x position of the mouse &amp; rotate the target</span></span><br><span class="line">        <span class="built_in">float</span> horizontal = Input.GetAxis(<span class="string">&quot;Mouse X&quot;</span>) * rotateSpeed;</span><br><span class="line">        pivot.Rotate(<span class="number">0</span>, horizontal, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Get the Y position of the mouse &amp; rotate the pivot</span></span><br><span class="line">        <span class="built_in">float</span> vertical = Input.GetAxis(<span class="string">&quot;Mouse Y&quot;</span>) * rotateSpeed;</span><br><span class="line">        <span class="comment">// pivot.Rotate(-vertical, 0, 0);</span></span><br><span class="line">        <span class="keyword">if</span>(invertY)</span><br><span class="line">        &#123;</span><br><span class="line">            pivot.Rotate(vertical, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">            pivot.Rotate(-vertical, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Limit up/down camera rotation</span></span><br><span class="line">        <span class="keyword">if</span>(pivot.rotation.eulerAngles.x &gt; maxViewAngle &amp;&amp; pivot.rotation.eulerAngles.x &lt; <span class="number">180f</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            pivot.rotation = Quaternion.Euler(maxViewAngle, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(pivot.rotation.eulerAngles.x &gt; <span class="number">180f</span> &amp;&amp; pivot.rotation.eulerAngles.x &lt; <span class="number">360f</span> + minViewAngle)</span><br><span class="line">        &#123;</span><br><span class="line">            pivot.rotation = Quaternion.Euler(minViewAngle, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Move the camera based on the currentv rotation of the target &amp; the original offset</span></span><br><span class="line">        <span class="built_in">float</span> desiredYAngle = pivot.eulerAngles.y;</span><br><span class="line">        <span class="built_in">float</span> desiredXAngle = pivot.eulerAngles.x;</span><br><span class="line"></span><br><span class="line">        Quaternion rotation = Quaternion.Euler(desiredXAngle, desiredYAngle, <span class="number">0</span>);</span><br><span class="line">        transform.position = target.position - (rotation * offset);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// transform.position = target.position - offset;</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(transform.position.y &lt; target.position.y)</span><br><span class="line">        &#123;</span><br><span class="line">            transform.position = <span class="keyword">new</span> Vector3(transform.position.x, target.position.y - <span class="number">.5</span>f, transform.position.z);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        transform.LookAt(target.transform);    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>The effect of testing in Unity is as follows:</p>
+<p><img src="https://miro.medium.com/max/1080/1*0x0gg_R7ySrDpFlukkjLVA.gif"></p>
+<p>Next, we create the character animation, allow the player to control the movement of the character through the keyboard, and create the rigibody and collider so that the character has physical properties. You can view the complete code in <code>PlayerController.cs</code>:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(knockBackCounter &lt;= <span class="number">0</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">float</span> yStore = moveDirection.y;</span><br><span class="line">    moveDirection = (transform.forward * Input.GetAxis(<span class="string">&quot;Vertical&quot;</span>)) + (transform.right * Input.GetAxis(<span class="string">&quot;Horizontal&quot;</span>));</span><br><span class="line">    moveDirection = moveDirection.normalized * moveSpeed;</span><br><span class="line">    moveDirection.y = yStore;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(Input.GetButtonDown(<span class="string">&quot;Attack&quot;</span>))</span><br><span class="line">    &#123;</span><br><span class="line">        anim.SetInteger(<span class="string">&quot;AtkNum&quot;</span>, UnityEngine.Random.Range(<span class="number">0</span>, <span class="number">2</span>));</span><br><span class="line">        anim.SetTrigger(<span class="string">&quot;Attack&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(Input.GetButtonDown(<span class="string">&quot;Dance&quot;</span>))</span><br><span class="line">    &#123;</span><br><span class="line">        anim.SetTrigger(<span class="string">&quot;Dance&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(Input.GetButtonDown(<span class="string">&quot;Defense&quot;</span>))</span><br><span class="line">    &#123;</span><br><span class="line">        anim.SetTrigger(<span class="string">&quot;Defense&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(controller.isGrounded)</span><br><span class="line">    &#123;</span><br><span class="line">    </span><br><span class="line">        moveDirection.y = <span class="number">0f</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(Input.GetButtonDown(<span class="string">&quot;Jump&quot;</span>))</span><br><span class="line">        &#123;</span><br><span class="line">            moveDirection.y = jumpForce;</span><br><span class="line">            JumpSound.Play();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    knockBackCounter -= Time.deltaTime;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>The achieved effect is as follows:</p>
+<p><img src="https://miro.medium.com/max/1080/1*ZDdyrwP1xzBAKeJmqq043g.gif"></p>
+<h3 id="2-Edit-scenes"><a href="#2-Edit-scenes" class="headerlink" title="2.Edit scenes"></a>2.Edit scenes</h3><p>In this part, we need to create a game space where the characters can move. This part makes me feel very difficult. How to make the space interesting and feel natural is a big challenge.</p>
+<p>In the initial idea, we considered choosing the polygon style, because it makes people feel more interesting and relaxed. I purchased assets-<a target="_blank" rel="noopener" href="https://assetstore.unity.com/packages/3d/props/exterior/polygon-prototype-low-poly-3d-art-by-synty-137126">POLYGON Prototype</a> and it is great ! The other two assets are also very helpful: <a target="_blank" rel="noopener" href="https://assetstore.unity.com/packages/3d/props/polygon-starter-pack-low-poly-3d-art-by-synty-156819">POLYGON Starter Pack</a> and <a target="_blank" rel="noopener" href="https://assetstore.unity.com/packages/3d/vegetation/trees/free-trees-103208">Free Trees</a>. </p>
+<p>Editing the map is really a complicated matter, and I spent a lot of time thinking about what elements need to be added.</p>
+<p><img src="https://miro.medium.com/max/1080/1*y1xCBC0eHDG6LM6KTDY4Hw.png"></p>
+<p><img src="https://miro.medium.com/max/1080/1*7RfCnrr6nytpcrf-vVg-Lw.png"></p>
+<p><img src="https://miro.medium.com/max/1080/1*_3OpVXpIf94VJ_XjUWGazQ.png"></p>
+<p><img src="https://miro.medium.com/max/1080/1*s1Esn752PCeZ-kjnH5LAqQ.png"></p>
+<p><img src="https://miro.medium.com/max/1080/1*4j5DXmAafekSJ3BAnB1s8Q.png"></p>
+<h3 id="3-Extra-elements-and-sounds"><a href="#3-Extra-elements-and-sounds" class="headerlink" title="3.Extra elements and sounds"></a>3.Extra elements and sounds</h3><p>In order to enrich the content of the game, we also introduced some NPCs and gold coins, and added some simple sounds and BGM to make the environment more realistic. Our music is also free material, you can find them here：<a target="_blank" rel="noopener" href="https://assetstore.unity.com/packages/audio/music/free-retro-game-music-47825"><em>FREE</em> Retro Game Music</a> and <a target="_blank" rel="noopener" href="https://assetstore.unity.com/packages/audio/music/free-music-for-puzzle-games-152395">FREE Music For Puzzle Games</a>. Our NPCs come from：<a target="_blank" rel="noopener" href="https://assetstore.unity.com/packages/3d/characters/creatures/rpg-monster-duo-pbr-polyart-157762">RPG Monster Duo PBR Polyart</a>.</p>
+<p><img src="https://miro.medium.com/max/1080/1*RJ4V3j1vaKvCgVZwbX8_mA.png"></p>
+<p><img src="https://miro.medium.com/max/1080/1*IMQ1RydwdK8pzCHcbuKE0g.png"></p>
+<p>How to pickup a coin, and add a eventListener to achieve that:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">GoldPickup</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> <span class="keyword">value</span>;</span><br><span class="line">    <span class="keyword">public</span> AudioClip CoinPickSound;</span><br><span class="line">   <span class="comment">// public GameObject pickupEffect;</span></span><br><span class="line">    <span class="comment">// Start is called before the first frame update</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Update is called once per frame</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">OnTriggerEnter</span>(<span class="params">Collider other</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">if</span>(other.tag == <span class="string">&quot;Player&quot;</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            FindObjectOfType&lt;GameManager&gt;().AddGold(<span class="keyword">value</span>);</span><br><span class="line">            <span class="comment">// CoinPickSound.Play();</span></span><br><span class="line">            AudioSource.PlayClipAtPoint(CoinPickSound, transform.position);</span><br><span class="line"></span><br><span class="line">           <span class="comment">// Instantiate(pickupEffect, transform.position, transform.rotation);</span></span><br><span class="line"></span><br><span class="line">           <span class="comment">// Destroy(gameObject);</span></span><br><span class="line">           gameObject.SetActive(<span class="literal">false</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="4-Add-StartScene-and-QuitScene"><a href="#4-Add-StartScene-and-QuitScene" class="headerlink" title="4.Add StartScene and QuitScene"></a>4.Add StartScene and QuitScene</h3><p>After the main game scene is completed, we also need to improve the game’s menu page and end page. At this point, our simple game is almost complete, and I want to share some simple game content.</p>
+<p><img src="https://miro.medium.com/max/1080/1*rwQhy7yy5dvd8Y2vG1l_fA.png"></p>
+<p><img src="https://miro.medium.com/max/1080/1*nSa4lmxzjKPKV32MFjZw6A.png"></p>
+<h3 id="5-Preview"><a href="#5-Preview" class="headerlink" title="5.Preview"></a>5.Preview</h3><p>Share some game content with you, of course, you can also download the Mac version to try it out! But there are still many bugs in the game, sorry.</p>
+<p><img src="https://miro.medium.com/max/800/1*6G2B4f3ElWaer29YPHCiqg.gif"></p>
+<p><img src="https://miro.medium.com/max/800/1*SDITmIKe0BbnEmH-O9ASGA.gif"></p>
+<p><img src="https://miro.medium.com/max/800/1*WIoOhQccuproJb6YiSjB3A.gif"></p>
+<p><img src="https://miro.medium.com/max/800/1*Al6ZgSdzQ1rLv-daeIMS3g.gif"></p>
+<p><img src="https://miro.medium.com/max/800/1*5WbQUaSZ-koaanWKuaQVCA.gif"></p>
+<p><img src="https://miro.medium.com/max/800/1*mB1e6M7qYHb5bJj1RIDgLQ.gif"></p>
+<p><img src="https://miro.medium.com/max/800/1*PwX9ldPKeMvPq4cwAVSJSw.gif"></p>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h3><p>1.Lonely Mountains: Downhill-<a target="_blank" rel="noopener" href="https://store.steampowered.com/app/711540/Lonely_Mountains_Downhill/">https://store.steampowered.com/app/711540/Lonely_Mountains_Downhill/</a></p>
+<p>2.For The King-<a target="_blank" rel="noopener" href="https://store.steampowered.com/app/527230/__For_The_King/">https://store.steampowered.com/app/527230/__For_The_King/</a></p>
+<p>3.Morphite-<a target="_blank" rel="noopener" href="https://store.steampowered.com/app/661740/Morphite/">https://store.steampowered.com/app/661740/Morphite/</a></p>
+<p>4.Hide and Seek-<a target="_blank" rel="noopener" href="https://store.steampowered.com/app/1010860/Hide_and_Seek/">https://store.steampowered.com/app/1010860/Hide_and_Seek/</a></p>
+<p>5.40 Stunning Low Poly Art Images You Need To See-<a target="_blank" rel="noopener" href="https://sundaysundae.co/stunning-low-poly-art-images-you-need-to-see/">https://sundaysundae.co/stunning-low-poly-art-images-you-need-to-see/</a></p>
+<p>6.A Beginner’s Guide to Designing Video Game Levels-<a target="_blank" rel="noopener" href="https://gamedevelopment.tutsplus.com/tutorials/a-beginners-guide-to-designing-video-game-levels--cms-25662">https://gamedevelopment.tutsplus.com/tutorials/a-beginners-guide-to-designing-video-game-levels--cms-25662</a></p>
+
+    </div>
+
+    <div class="about">
+        <h1>About this Post</h1>
+        <p>This post is written by Siqi Shu, licensed under <a
+                target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+    </div>
+</article>
+        <footer>
+    <div class="inner">
+        <div class="links">
+            
+            <div class="group">
+                <h4 class="title">深智一物 眾隱皆變</h4>
+                
+            </div>
+            
+        </div>
+        &copy; 2024 Siqi Shu<br />
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+</footer>
+
+
+        
+<script src="/js/main.js"></script>
+
+        
+<script src="/js/kursor.js"></script>
+
+        
+<script src="/js/run.js"></script>
+
+
+    </body>
+</html>

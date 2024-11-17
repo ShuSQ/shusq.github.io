@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  
+  <title>Coding3 - 2D Graphics - Shu-Creative Computing</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+    <link rel='manifest' href='/manifest.json'>
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/cursor.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/components.css">
+
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+    <body>
+        <nav id="theme-nav">
+    <div class="inner">
+        <a class="title" href="/">Shu&#39;s Blog</a>
+        <div class="nav-arrow"></div>
+        <div class="nav-items">
+            <a class="nav-item nav-item-home" href="/">Home</a>
+            
+            
+            <a class="nav-item" href="/categories/essays">Thinking</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/pcomp">Pcomp&amp;AVCE</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/coding">Coding</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/portfolio">Portfolio</a>
+            
+            
+            
+            <a class="nav-item" href="/contact">About</a>
+            
+            
+            
+            <a class="nav-item nav-item-github nav-item-icon" href="https://github.com/ShuSQ" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-codepen nav-item-icon" href="https://codepen.io/shusq" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-patreon nav-item-icon" href="https://www.instagram.com/cheese_shu/" target="_blank">&nbsp;</a>
+            
+            
+        </div>
+    </div>
+</nav>
+        <article class="post">
+    <div class="meta">
+        
+        <div class="date" id="date">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <span>November</span>
+            
+            
+            <span>3,</span>
+            <span>2020</span>
+        </div>
+        
+
+        <h2 class="title">Coding3 - 2D Graphics</h2>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="content">
+        <blockquote>
+<p> In this part, I will record some methods of drawing 2D graphics through canvas, and also briefly state how to draw graphics, through polar coordinates and Cartesian coordinates.</p>
+</blockquote>
+<br/>
+
+<h3 id="1-Visualisation-Wave"><a href="#1-Visualisation-Wave" class="headerlink" title="1.Visualisation Wave"></a>1.Visualisation Wave</h3><p>First, we can learn something from the audio visualization in the previous chapter.</p>
+<p>We buffered the audio sample data into an array, and then passed the corresponding value to the draw function to draw on the canvas.</p>
+<div align="center"><iframe class="embedded-tutorial-code" src="https://mimicproject.com/code/003fa551-513d-46bf-f963-aaff9910b63a?embed=true&amp;showCode=true" allow="microphone" scrolling="no" style="width: 725px; height: 453px; overflow: hidden;">what?</iframe></div>
+
+
+
+<h3 id="2-Coordinates"><a href="#2-Coordinates" class="headerlink" title="2.Coordinates"></a>2.Coordinates</h3><p>We usually use the Cartesian coordinate system to draw graphics.</p>
+<p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Cartesian_coordinate_system">Wiki - Cartesian_coordinate_system</a></p>
+<p>If we need to draw curves other than straight lines, or try to do more things, we may need to use other coordinate systems, such as polar coordinates.</p>
+<p>In polar coordinates, we only need to pass an angle and a radius to draw a sector and a circle. Of course, in the canvas, we can use functions such as <code>arc</code> or p5 <code>circle</code> <code>ellipse</code>.</p>
+<p>In order to draw polar coordinates, we need to do a coordinate conversion:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x &#x3D; (r * cos( θ ))</span><br><span class="line">y &#x3D; (r * sin( θ ))</span><br></pre></td></tr></table></figure>
+
+<p>θ is radians and r is the radius, so we can express any point on the Cartesian coordinate system through two new parameters.</p>
+<p>Similarly, we can also use Cartesian coordinates to express polar coordinates:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tan( θ) &#x3D; y &#x2F; x</span><br><span class="line">θ &#x3D; tan-1 (y &#x2F; x)</span><br><span class="line">r^2 &#x3D; x^2 + y^2</span><br></pre></td></tr></table></figure>
+
+<p>Now we can go back to the audio waveform we talked about earlier. We can also draw the waveform by polar coordinates, as in the following example:</p>
+<p><a target="_blank" rel="noopener" href="https://mimicproject.com/code/a7e2f833-49c8-d71f-99bd-19a993321e7e">https://mimicproject.com/code/a7e2f833-49c8-d71f-99bd-19a993321e7e</a></p>
+<p><img src="https://miro.medium.com/max/1400/1*s5JILrCJtJ8-MVtzWEIf0A.gif"></p>
+</br>
+
+<p>This is another example of mine:</p>
+<p><a target="_blank" rel="noopener" href="https://mimicproject.com/code/c1d6ebc6-d7dd-79b4-3b81-1ef6eab57473">https://mimicproject.com/code/c1d6ebc6-d7dd-79b4-3b81-1ef6eab57473</a></p>
+</br>
+
+<h3 id="3-John-Whitney-Senior"><a href="#3-John-Whitney-Senior" class="headerlink" title="3.John Whitney Senior"></a>3.John Whitney Senior</h3><p>John Whitney Senior is an important figure in computer graphics. He created great works in 1957:</p>
+<p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=4CZfSc6nJ8U">https://www.youtube.com/watch?v=4CZfSc6nJ8U</a></p>
+<div align="center"><iframe width="725" height="453" src="https://www.youtube.com/embed/4CZfSc6nJ8U" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+
+<p>In this movie in 1961, he created the first computer animation:</p>
+<div align="center"><iframe width="725" height="453" src="https://www.youtube.com/embed/TbV7loKp69s" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+
+<p>One of John Whitney’s favourite algorithms is The Rose of Grandii. There is an introduction article on  <a target="_blank" rel="noopener" href="https://mathworld.wolfram.com/Rose.html"><strong>mathworld</strong></a>.</p>
+<p>The main code to implement it is this:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">let canvas = document.querySelector(<span class="string">&quot;canvas&quot;</span>);</span><br><span class="line">let context = canvas.getContext(<span class="string">&quot;2d&quot;</span>);</span><br><span class="line">canvas.width = <span class="number">800</span>;</span><br><span class="line">canvas.height = <span class="number">600</span>;</span><br><span class="line"></span><br><span class="line">var radius = <span class="number">100</span>;</span><br><span class="line">var penSize = <span class="number">5</span>;</span><br><span class="line">var positionX = <span class="number">200</span></span><br><span class="line"></span><br><span class="line">var draw = function() &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (var i = <span class="number">0</span>; i&lt;<span class="number">500</span>; i++) &#123;</span><br><span class="line"></span><br><span class="line">  context.fillRect(positionX+Math.<span class="built_in">cos</span>(i*Math.<span class="built_in">sin</span>(i))*radius,positionX+ Math.<span class="built_in">sin</span>(i *Math.<span class="built_in">sin</span>(i))*radius,penSize,penSize);</span><br><span class="line">  &#125;</span><br><span class="line">  requestAnimationFrame(draw);</span><br><span class="line">  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">requestAnimationFrame(draw);</span><br></pre></td></tr></table></figure>
+
+<p>I also want to share some excellent work of my classmates:</p>
+<p>by@Minyue Lin</p>
+<div align="center"><iframe class="embedded-tutorial-code" src="https://mimicproject.com/code/eeaf8575-57ce-8327-9242-1f9db91c54a6?embed=true&amp;showCode=true" allow="microphone" scrolling="no" style="width: 725px; height: 453px; overflow: hidden;">what?</iframe></div>
+
+<p>by@Nan</p>
+<div align="center"><iframe class="embedded-tutorial-code" src="https://mimicproject.com/code/6f5cd042-c09c-fffc-3ddc-2c64d8d90ecc?embed=true&amp;showCode=true" allow="microphone" scrolling="no" style="width: 725px; height: 453px; overflow: hidden;">what?</iframe></div>
+    </div>
+
+    <div class="about">
+        <h1>About this Post</h1>
+        <p>This post is written by Siqi Shu, licensed under <a
+                target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+    </div>
+</article>
+        <footer>
+    <div class="inner">
+        <div class="links">
+            
+            <div class="group">
+                <h4 class="title">深智一物 眾隱皆變</h4>
+                
+            </div>
+            
+        </div>
+        &copy; 2024 Siqi Shu<br />
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+</footer>
+
+
+        
+<script src="/js/main.js"></script>
+
+        
+<script src="/js/kursor.js"></script>
+
+        
+<script src="/js/run.js"></script>
+
+
+    </body>
+</html>

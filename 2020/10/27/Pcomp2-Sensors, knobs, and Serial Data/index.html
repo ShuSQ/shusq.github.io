@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  
+  <title>Pcomp2 - Sensors, knobs, and Serial Data - Shu-Creative Computing</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+    <link rel='manifest' href='/manifest.json'>
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/cursor.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/components.css">
+
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+    <body>
+        <nav id="theme-nav">
+    <div class="inner">
+        <a class="title" href="/">Shu&#39;s Blog</a>
+        <div class="nav-arrow"></div>
+        <div class="nav-items">
+            <a class="nav-item nav-item-home" href="/">Home</a>
+            
+            
+            <a class="nav-item" href="/categories/essays">Thinking</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/pcomp">Pcomp&amp;AVCE</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/coding">Coding</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/portfolio">Portfolio</a>
+            
+            
+            
+            <a class="nav-item" href="/contact">About</a>
+            
+            
+            
+            <a class="nav-item nav-item-github nav-item-icon" href="https://github.com/ShuSQ" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-codepen nav-item-icon" href="https://codepen.io/shusq" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-patreon nav-item-icon" href="https://www.instagram.com/cheese_shu/" target="_blank">&nbsp;</a>
+            
+            
+        </div>
+    </div>
+</nav>
+        <article class="post">
+    <div class="meta">
+        
+        <div class="date" id="date">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <span>October</span>
+            
+            
+            
+            <span>27,</span>
+            <span>2020</span>
+        </div>
+        
+
+        <h2 class="title">Pcomp2 - Sensors, knobs, and Serial Data</h2>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="content">
+        <blockquote>
+<p> In the chapter, we will learn some basic knowledge about sensors and data…</p>
+</blockquote>
+<br/>
+
+<p>In the broadest definition, a sensor is a device, module, machine, or subsystem whose purpose is to detect events or changes in its environment and send the information to other electronics, frequently a computer processor. A sensor is always used with other electronics.</p>
+ <br/>
+
+<h3 id="1-Serial-Data"><a href="#1-Serial-Data" class="headerlink" title="1.Serial Data"></a>1.Serial Data</h3><p>Using the hello sketch, play with the serial monitor( In the Arduino menu Tools&gt;Serial Monitor) to tell a wee story (3 lines long) based on player input.</p>
+</br>
+
+<div align="center"><iframe width="725" height="453" src="https://www.tinkercad.com/embed/bGH0rCkedLv?editbtn=1" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe></div>
+
+<p>You can check my codes and see what printed:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">void setup() &#123;</span><br><span class="line">  &#x2F;&#x2F; put your setup code here, to run once:</span><br><span class="line">   Serial.begin(9600); </span><br><span class="line">   Serial.println(&quot;what&#39;s your name?&quot;);</span><br><span class="line">   Serial.println(&quot;JOJO da!!!&quot;);</span><br><span class="line">   Serial.println(&quot;emmm? ma sa ka?!ah...&quot;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void loop() &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> if(Serial.available()) </span><br><span class="line"> &#123;</span><br><span class="line">   Serial.print(&quot;Hello &quot;); &#x2F;&#x2F;this will read serial data </span><br><span class="line">    String s &#x3D; Serial.readString(); </span><br><span class="line">   Serial.println(s); </span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+ </br>
+
+<h3 id="2-Potentiometers-Knobs"><a href="#2-Potentiometers-Knobs" class="headerlink" title="2.Potentiometers (Knobs)"></a>2.Potentiometers (Knobs)</h3><p>Hook up a knob and have it change the brightness of an LED.</p>
+</br>
+
+<div align="center"><iframe width="725" height="453" src="https://www.tinkercad.com/embed/c21IEwLLuL5?editbtn=1" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe></div>
+
+ </br>
+
+<h3 id="3-Light-Dependent-Resistors"><a href="#3-Light-Dependent-Resistors" class="headerlink" title="3.Light Dependent Resistors"></a>3.Light Dependent Resistors</h3><p>Hook up an LDR. Try making the LED change brightness depending on the light level.</p>
+</br>
+
+<div align="center"><iframe width="725" height="453" src="https://www.tinkercad.com/embed/gaxFWh8Nngl?editbtn=1" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe></div>
+
+</br>
+
+<h3 id="4-Playing-with-Common-Sensors"><a href="#4-Playing-with-Common-Sensors" class="headerlink" title="4.Playing with Common Sensors"></a>4.Playing with Common Sensors</h3><p>I tried to use the PIR sensor and buzzer, created an alarm through to detect whether someone enters or is active in the area.</p>
+</br>
+
+<div align="center"><iframe width="725" height="453" src="https://www.tinkercad.com/embed/02iIDIAfQw1?editbtn=1" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe></div>
+
+</br> 
+
+
+    </div>
+
+    <div class="about">
+        <h1>About this Post</h1>
+        <p>This post is written by Siqi Shu, licensed under <a
+                target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+    </div>
+</article>
+        <footer>
+    <div class="inner">
+        <div class="links">
+            
+            <div class="group">
+                <h4 class="title">深智一物 眾隱皆變</h4>
+                
+            </div>
+            
+        </div>
+        &copy; 2024 Siqi Shu<br />
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+</footer>
+
+
+        
+<script src="/js/main.js"></script>
+
+        
+<script src="/js/kursor.js"></script>
+
+        
+<script src="/js/run.js"></script>
+
+
+    </body>
+</html>

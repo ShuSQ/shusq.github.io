@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  
+  <title>HandMusic - 基于手势追踪的无接触BGM控制 - Shu-Creative Computing</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+    <link rel='manifest' href='/manifest.json'>
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/cursor.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/components.css">
+
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+    <body>
+        <nav id="theme-nav">
+    <div class="inner">
+        <a class="title" href="/">Shu&#39;s Blog</a>
+        <div class="nav-arrow"></div>
+        <div class="nav-items">
+            <a class="nav-item nav-item-home" href="/">Home</a>
+            
+            
+            <a class="nav-item" href="/categories/essays">Thinking</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/pcomp">Pcomp&amp;AVCE</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/coding">Coding</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/portfolio">Portfolio</a>
+            
+            
+            
+            <a class="nav-item" href="/contact">About</a>
+            
+            
+            
+            <a class="nav-item nav-item-github nav-item-icon" href="https://github.com/ShuSQ" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-codepen nav-item-icon" href="https://codepen.io/shusq" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-patreon nav-item-icon" href="https://www.instagram.com/cheese_shu/" target="_blank">&nbsp;</a>
+            
+            
+        </div>
+    </div>
+</nav>
+        <article class="post">
+    <div class="meta">
+        
+        <div class="date" id="date">
+            
+            <span>January</span>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <span>1,</span>
+            <span>2000</span>
+        </div>
+        
+
+        <h2 class="title">HandMusic - 基于手势追踪的无接触BGM控制</h2>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="content">
+        <blockquote>
+<p>Introduction: </p>
+<p>HandMusic可以通过webcam实现手势追踪，实现非触控的音乐切换和混合。</p>
+<p>This is a simple demo work that uses handtrack.js and Tone.js; by capturing the position of the hand, it can switch the background music and change the simple filter of the canvas; similarly, a simple drums created loops by Tone.js, you can simply mix different sounds together.</p>
+</blockquote>
+<p><img src="https://miro.medium.com/max/1080/1*kHUqRSIohRfpMvcba9f7yA.gif"></p>
+<p>You can try my online demo:</p>
+<p><strong>CodeSandbox:</strong> <a target="_blank" rel="noopener" href="https://ggddh.csb.app/">https://ggddh.csb.app</a></p>
+<p>You can also watch the demo video online:</p>
+<p><strong>YouTube:</strong> <a target="_blank" rel="noopener" href="https://youtu.be/8Pg5hY85aWA">https://youtu.be/8Pg5hY85aWA</a></p>
+<p>You can find this project in my code repository:</p>
+<p><strong>Github:</strong> <a target="_blank" rel="noopener" href="https://github.com/ShuSQ/CCI_ACC_FP2_handMusic">https://github.com/ShuSQ/CCI_ACC_FP2_handMusic</a></p>
+<h3 id="0-Why-did-I-do-this-project-🧐"><a href="#0-Why-did-I-do-this-project-🧐" class="headerlink" title="0.Why did I do this project? 🧐"></a>0.Why did I do this project? 🧐</h3><p>When I was a high school student, I tried audio production software like fruitloops, and I was very interested in audio production methods. At that time, I thought about whether users can control the audio through some interactive methods of the body. I have come into contact with TensorFlow this semester, and I decided to explore and experiment in this direction.</p>
+<p><img src="https://ashishdubey.xyz/static/6f2d2cab57f53c45fc61b8c6f9e68b07/fcda8/mapping-model.png" alt="仪器型号"></p>
+<p>Image from：<a target="_blank" rel="noopener" href="http://sro.sussex.ac.uk/id/eprint/46868/1/34.4.magnusson.pdf">34.4.magnusson.pdf</a></p>
+<h3 id="1-Handtrack-🖐🏼"><a href="#1-Handtrack-🖐🏼" class="headerlink" title="1.Handtrack  🖐🏼"></a>1.Handtrack  🖐🏼</h3><p>First, I need to find a way to recognize the hand and control it through the video information collected by the webcam. Among the available technical tools, we have many choices, such as TensorFlow, openCV and MediaPipe, etc. Finally, I chose Handtrack.js as the technical solution for finding hands.</p>
+<p><strong>What is Handtrack.js?</strong></p>
+<p>Handtrack.js is a library for prototyping realtime hand detection (bounding box), directly in the browser. It frames handtracking as an object detection problem, and uses a trained convolutional neural network to predict bounding boxes for the location of hands in an image.</p>
+<p><strong>Why I choose Handtrack.js?</strong></p>
+<p>Because I am more familiar with JavaScript, and it is easier to obtain the case-study of Handtrack.js on the Internet; of course, in terms of calculation speed and accuracy, it is not as good as the Python+MediaPipe solution. Considering the scale of the project, the current Performance is also acceptable.</p>
+<p>Other, we can also detect the image information collected by the webcam through JavaScript, compare each frame, and then detect the motion information. This is a clever method, and it can also generate its own style of video.</p>
+<p><img src="https://miro.medium.com/max/1080/1*wx5wylcIlu_jCUBRbpbCbw.gif"></p>
+<p>You can learn more from this code repository here:</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/jasonmayes/JS-Motion-Detection">https://github.com/jasonmayes/JS-Motion-Detection</a></p>
+<p><img src="https://miro.medium.com/max/1080/1*puQvJePTArhZpAt2xZpd2g.png" alt="测试图片"></p>
+<p><em>Testing the technical solutions of tensorflow.js and fingerpose is great, but we don’t need it at the moment</em></p>
+<p>Handtrack.js is very convenient to use, we can quickly configure parameters:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> modelParams = &#123; <span class="comment">// 導入handtrack默認的參數模型</span></span><br><span class="line">  flipHorizontal: <span class="literal">true</span>, <span class="comment">// flip e.g for video</span></span><br><span class="line">  imageScaleFactor: <span class="number">0.7</span>, <span class="comment">// reduce input image size for gains in speed.</span></span><br><span class="line">  maxNumBoxes: <span class="number">1</span>, <span class="comment">// maximum number of boxes to detect</span></span><br><span class="line">  iouThreshold: <span class="number">0.5</span>, <span class="comment">// ioU threshold for non-max suppression</span></span><br><span class="line">  scoreThreshold: <span class="number">0.9</span>, <span class="comment">// confidence threshold for predictions.</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://miro.medium.com/max/700/1*OvllYVN9J5saV7IToG3b6Q.gif"></p>
+<p>I learned a lot from these materials:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=9MTiQMxTXPE">Real Time AI GESTURE RECOGNITION with Tensorflow.JS</a></li>
+<li><a target="_blank" rel="noopener" href="https://towardsdatascience.com/handtrackjs-677c29c1d585">Handtrack.js: Hand Tracking Interactions in the Browser using Tensorflow.js</a></li>
+<li><a target="_blank" rel="noopener" href="https://dev.to/xenoxdev/javascript-quickies-controlling-3d-objects-with-hands-498n">Controlling 3D Objects with Hands</a></li>
+<li><a target="_blank" rel="noopener" href="https://thenextweb.com/syndication/2020/02/01/machine-learning-for-everyone-how-to-implement-pose-estimation-in-a-browser-using-your-webcam/?utm_term=Autofeed&utm_campaign=campaign&utm_medium=Social&utm_source=Facebook&Echobox=1580661626">Machine learning for everyone: How to implement pose estimation in a browser using your webcam</a></li>
+<li><a target="_blank" rel="noopener" href="https://teachablemachine.withgoogle.com/">Teachable Machine</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=VD2bIMBu2y8">Air guitar tutorial</a></li>
+<li><a target="_blank" rel="noopener" href="https://trackingjs.com/">A modern approach for Computer Vision on the web</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.alyssaholland.me/motion-tracking-and-music-in-less-100-lines-of-javascript">Motion Tracking &amp; Music in &lt; 100 lines of JavaScript</a></li>
+<li><a target="_blank" rel="noopener" href="https://google.github.io/mediapipe/getting_started/javascript.html">MediaPipe in JavaScript</a></li>
+</ul>
+<h3 id="2-Binding-with-audio-player"><a href="#2-Binding-with-audio-player" class="headerlink" title="2.Binding with audio player"></a>2.Binding with audio player</h3><p>Create an empty audio tag in <code>.html</code>:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">audio</span>&gt;</span><span class="tag">&lt;/<span class="name">audio</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>We need to get the page elements in handplay.js:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> audio = <span class="built_in">document</span>.getElementsByTagName(<span class="string">&quot;audio&quot;</span>)[<span class="number">0</span>];</span><br></pre></td></tr></table></figure>
+
+<p>Through the length of predictions, <code>bbox</code> is the coordinate of the box that stores the recognition result. We can read the xy coordinate information of the handbook through bbox[0] and bbox[1], and then divide it into 3 recognition areas:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (predictions.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> x = predictions[<span class="number">0</span>].bbox[<span class="number">0</span>];</span><br><span class="line">  <span class="keyword">let</span> y = predictions[<span class="number">0</span>].bbox[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 匹配位置並播放音源</span></span><br><span class="line">  <span class="keyword">if</span> (y &lt;= <span class="number">100</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (x &lt;= <span class="number">150</span>) &#123;</span><br><span class="line">      <span class="comment">//Left</span></span><br><span class="line">      audio.src = genres.left.source;</span><br><span class="line">      applyFilter(genres.left.filter);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (x &gt;= <span class="number">250</span> &amp;&amp; x &lt;= <span class="number">350</span>) &#123;</span><br><span class="line">      <span class="comment">//Middle</span></span><br><span class="line">      audio.src = genres.middle.source;</span><br><span class="line">      applyFilter(genres.middle.filter);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (x &gt;= <span class="number">450</span>) &#123;</span><br><span class="line">      <span class="comment">//Right</span></span><br><span class="line">      audio.src = genres.right.source;</span><br><span class="line">      applyFilter(genres.right.filter);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//Play the sound</span></span><br><span class="line">    audio.volume = <span class="number">1</span>;</span><br><span class="line">    audio.play();	<span class="comment">// 播放audio</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>The following articles are very helpful  for me:</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://magenta.tensorflow.org/">Magenta - Make Music and Art Using Machine Learning</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/FormidableLabs/react-music">React-music</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.smashingmagazine.com/2016/06/make-music-in-the-browser-with-a-web-audio-theremin/">Making Music In A Browser: Recreating Theremin With JS And Web Audio API</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://ashishdubey.xyz/web-digital-instrument.html">Building a web-based musical instrument</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.smashingmagazine.com/2016/08/how-to-create-a-responsive-8-bit-drum-machine-using-web-audio-svg-and-multitouch/">How To Create A Responsive 8-Bit Drum Machine Using Web Audio, SVG And Multitouch</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/StephenHaney/dear-diary-ai">Dear diary ai</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://in-thread.sonic-pi.net/t/live-coding-with-machine-learning-magenta-js/4462">Live Coding with Machine Learning (Magenta.js)</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://hello-magenta.glitch.me/">Making music with magenta.js</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://teropa.info/blog/2016/07/28/javascript-systems-music.html"><strong>JavaScript Systems Music</strong></a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://medium.com/@mheavers/machine-learning-in-sound-music-6f0715320d49">Machine Learning in Sound+Music</a></p>
+</li>
+</ul>
+<h3 id="3-Add-simple-filter-effects"><a href="#3-Add-simple-filter-effects" class="headerlink" title="3.Add simple filter effects"></a>3.Add simple filter effects</h3><p>In addition to switching music with gestures, I also considered adding simple filters to change the effect of the video, mainly through the filter attribute of CSS, using the three effects of <code>blur</code> <code>brightness</code> <code>contrast</code>, and initially considered implementing similar to TensorFlow The effect of NST (Neural Style Transfer), considering the performance of the browser and the implementation cost, chose a more convenient filter solution.</p>
+<p><img src="https://miro.medium.com/max/1000/1*R68J0NlGmZwAARcD3YHHfQ.png"></p>
+<p><img src="https://miro.medium.com/max/1000/1*QgHAtnhriYKtdvnIVEtbeg.png"></p>
+<p><img src="https://miro.medium.com/max/1000/1*i1xyScWB4uOfetCFVoM65Q.png"></p>
+<h3 id="4-Create-loops-by-Tone-js"><a href="#4-Create-loops-by-Tone-js" class="headerlink" title="4.Create loops by Tone.js"></a>4.Create loops by Tone.js</h3><p><em>Tone</em>.<em>js</em> is a Web Audio framework for creating interactive music in the browser. Earlier, Tone.js and magenta.js were compared. There are many similarities between the two, and magenta.js is okay. Through MusicRNN and MusicVAE to complete machine learning, I really want to do this, let the ambient sound, background sound and Samples mix! However, there are not enough materials for making music with Magenta.js on the Internet. After learning, I found that I could not achieve it in a short time, so I chose Tone.js. To achieve this, Tone.js loads audio samples and sets the scheduleRepeat() poetry selection loop effect, and sets the playback step through the <code>&lt;input type=&quot;checkbox&quot;&gt;</code> tag.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// .HTML</span><br><span class="line">...</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;kick&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sequencer</span>(<span class="params"></span>) </span>&#123; <span class="comment">//載入音頻</span></span><br><span class="line">  ...</span><br><span class="line">	<span class="keyword">const</span> kick = <span class="keyword">new</span> Tone.Player(<span class="string">&#x27;src/kick-electro01.wav&#x27;</span>).toMaster();</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">repeat</span>(<span class="params"></span>) </span>&#123;	<span class="comment">// 實現單個drums的播放</span></span><br><span class="line">  ...</span><br><span class="line">  <span class="keyword">let</span> kickInputs = <span class="built_in">document</span>.querySelector(</span><br><span class="line">    <span class="string">`.kick input:nth-child(<span class="subst">$&#123;step + <span class="number">1</span>&#125;</span>)`</span></span><br><span class="line">  ...</span><br><span class="line">  );</span><br><span class="line">  </span><br><span class="line">  ...</span><br><span class="line">  <span class="keyword">if</span> (kickInputs.checked) &#123;</span><br><span class="line">    kick.start();</span><br><span class="line">  ...</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>In addition, because the browser prohibits the automatic playback of audio, we need to add resume() to skip this:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.documentElement.addEventListener(</span><br><span class="line">  <span class="string">&quot;mousedown&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    mouse_IsDown = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">if</span> (Tone.context.state !== <span class="string">&#x27;running&#x27;</span>) &#123;</span><br><span class="line">    Tone.context.resume();</span><br><span class="line">  &#125;&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://miro.medium.com/max/1080/1*a_SrmyMXFTW8_xuoxQMHnQ.gif"></p>
+<p>I learned a lot from these materials:</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/Tonejs/Tone.js">Tone.js</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://react.christmas/2020/15">Making sounds with React and Tone.js</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://medium.com/dev-red/tutorial-lets-make-music-with-javascript-and-tone-js-f6ac39d95b8c">Tutorial: Let’s Make Music with JavaScript and Tone.js</a></p>
+</li>
+</ul>
+<h3 id="5-Can-do-more"><a href="#5-Can-do-more" class="headerlink" title="5. Can do more"></a>5. Can do more</h3><p>After the whole demo is finished, I have a better understanding of webaudio and webcam, but I also have more things to enrich, such as:</p>
+<ol>
+<li>Rich musicmachine GUI elements, you can control the step and volume, and choose more drums types;</li>
+<li>Consider using a track library with better performance to achieve more detailed interaction, such as using fingers to play audio sources and click checkboxes;</li>
+<li>Do more experiments on the filter effect, and have parameter conduction with the mixed audio;</li>
+<li>Use MusicRNN, MusicVAE, etc. to convolve the audio, you can mix the audio through more modes.</li>
+<li>Consider tracking targets other than hands, such as facemesh, etc.</li>
+</ol>
+<p><img src="https://miro.medium.com/max/480/1*rHce9kr6p_xB5I04X5Vssw.png"></p>
+
+    </div>
+
+    <div class="about">
+        <h1>About this Post</h1>
+        <p>This post is written by Siqi Shu, licensed under <a
+                target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+    </div>
+</article>
+        <footer>
+    <div class="inner">
+        <div class="links">
+            
+            <div class="group">
+                <h4 class="title">深智一物 眾隱皆變</h4>
+                
+            </div>
+            
+        </div>
+        &copy; 2024 Siqi Shu<br />
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+</footer>
+
+
+        
+<script src="/js/main.js"></script>
+
+        
+<script src="/js/kursor.js"></script>
+
+        
+<script src="/js/run.js"></script>
+
+
+    </body>
+</html>

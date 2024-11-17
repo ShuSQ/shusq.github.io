@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  
+  <title>Coding7 - GLSL - Shu-Creative Computing</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+    <link rel='manifest' href='/manifest.json'>
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/cursor.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/components.css">
+
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+    <body>
+        <nav id="theme-nav">
+    <div class="inner">
+        <a class="title" href="/">Shu&#39;s Blog</a>
+        <div class="nav-arrow"></div>
+        <div class="nav-items">
+            <a class="nav-item nav-item-home" href="/">Home</a>
+            
+            
+            <a class="nav-item" href="/categories/essays">Thinking</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/pcomp">Pcomp&amp;AVCE</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/coding">Coding</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/portfolio">Portfolio</a>
+            
+            
+            
+            <a class="nav-item" href="/contact">About</a>
+            
+            
+            
+            <a class="nav-item nav-item-github nav-item-icon" href="https://github.com/ShuSQ" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-codepen nav-item-icon" href="https://codepen.io/shusq" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-patreon nav-item-icon" href="https://www.instagram.com/cheese_shu/" target="_blank">&nbsp;</a>
+            
+            
+        </div>
+    </div>
+</nav>
+        <article class="post">
+    <div class="meta">
+        
+        <div class="date" id="date">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <span>December</span>
+            
+            <span>8,</span>
+            <span>2020</span>
+        </div>
+        
+
+        <h2 class="title">Coding7 - GLSL</h2>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="content">
+        <blockquote>
+<p> In this part we will introduce the content of GLSL Shaders, by directly writing C++ code to control the operation of the GPU, using GLSL to create fragment shaders, and understand how they work; we can do some creative work through fragment shaders.</p>
+</blockquote>
+<br/>
+
+<h3 id="1-Shaders"><a href="#1-Shaders" class="headerlink" title="1.Shaders"></a>1.Shaders</h3><p>If we want to fully master WebGL, we need to learn how to use shaders. Shaders are very worth learning because we can find many excellent works of shaders on the creative platform on the Internet. Shading is the most creative programming method. One of the powerful and exciting forms of programming.</p>
+<p>Shaders are not only useful for graphics programming, but can also be used to process various data, including the most advanced AI and machine learning; Tensorflow, Pytorch, and many machine learning systems are all based on GPU hardware, and use shaders to perform processing on GPU hardware Programming. Therefore, learning shaders can help us better understand how to control the computer and the knowledge of parallel computing.</p>
+<p>We use shader to encode a mandlebrot set:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">precision mediump <span class="keyword">float</span>;     </span><br><span class="line">uniform <span class="keyword">float</span> time;</span><br><span class="line">uniform vec2 resolution;</span><br><span class="line">uniform vec2 mouse;</span><br><span class="line">            </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">vec2 c=(gl_FragCoord.xy-resolution/<span class="number">2.</span>)/resolution.x*<span class="number">4.0</span>*(<span class="number">-0.25</span>*mouse.x) + (<span class="number">1.0</span>-mouse.y);</span><br><span class="line"><span class="keyword">float</span> colour=<span class="number">0.</span>;</span><br><span class="line">vec2 z=vec2(<span class="number">0.</span>);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">100</span>;i++)&#123;</span><br><span class="line">  colour++;</span><br><span class="line">  <span class="keyword">if</span>(dot(z,z) &gt; <span class="number">2.</span>)&#123;<span class="keyword">break</span>;&#125;</span><br><span class="line">  z=vec2(z.x*z.x-z.y*z.y,<span class="number">2.</span>*z.x*z.y)+c;</span><br><span class="line">&#125;</span><br><span class="line">gl_FragColor=vec4(vec3(colour/<span class="number">100.</span>),<span class="number">1.</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>There is another example:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">precision mediump <span class="keyword">float</span>;</span><br><span class="line">uniform vec2 resolution;</span><br><span class="line">uniform vec2 mouse;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	vec3 p = vec3((gl_FragCoord.xy-resolution/<span class="number">2.0</span>)/(resolution.y),mouse.x);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">50</span>; i++)&#123;</span><br><span class="line">	   p = <span class="built_in">abs</span>((<span class="built_in">abs</span>(p)/dot(p, p)<span class="number">-1.0</span>));</span><br><span class="line">	   <span class="keyword">if</span>(length(p) &gt; <span class="number">1.0</span> &amp;&amp; length(p) &lt; <span class="number">1.01</span>)<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	gl_FragColor.rgb = p;</span><br><span class="line">	gl_FragColor.a = <span class="number">1.0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>We can use less code to achieve such a complex effect, and faster.</p>
+<h3 id="2-GLSL-Basic-Concepts"><a href="#2-GLSL-Basic-Concepts" class="headerlink" title="2.GLSL - Basic Concepts"></a>2.GLSL - Basic Concepts</h3><p>OpenGL is an Open Graphics Library and uses C-type language for coding; so we can use if statements, for loops, #define, etc. to enrich our code content.</p>
+<p>GLSL has LOADS of cool built in functions, including lots of mathematical functions that are useful for doing computer graphics. Most of these should be familiar to you. It also has a number of built-in types. Some of them will be familiar, others won’t. There are other types of Shader Language, like HLSL, but GLSL works on the most systems.</p>
+<p>GLSL comiles at runtime, that is because different graphics cards interpret GLSL differently, so we can’t distribute a runnable binary; this means that we need to distribute the source code with our application.</p>
+<p>The shader has tobe loaded in our main application, justlike any other asset. If we want to interact with our shadeer, we need to use special variables that our pass into the shader from our main program; we also need to do this for any textures that we want to do shader operations with.</p>
+<p><strong>Why is GLSL so fast?</strong></p>
+<p>This is because of the GPU architecture that GLSL runs on; computations on the GPU are run in Parallel; for example, let’s consider a ‘Fragment’ shader, the screen is divided into fragments, each fragment runs the fragment shader program simultaneously. All the other drawing techniques cannot be executed in the same way.</p>
+<p>The two most important variables in a fragment shader are as follows:</p>
+<p>gl_FragCoord</p>
+<p>// gl_FragCoord is the current 2d fragment coordinate</p>
+<p>gl_FragColor</p>
+<p>// gl_Fragcolor is the current Fragment’s 3d or 4d color in normalised units.</p>
+<h3 id="3-GLSL-Types-amp-Vectors"><a href="#3-GLSL-Types-amp-Vectors" class="headerlink" title="3.GLSL Types &amp; Vectors"></a>3.GLSL Types &amp; Vectors</h3><p>GLSL has lots of built in types, some of them might be familiar and work in a similar way: float, int, bool, array, struct; others are completely new: vec2, vec3, vec4, ivec2, ivec3, ivec4, bvec2, bvec3, bvec4, mat2, mat3, mat4…</p>
+<p>In general, most graphics cards can’t compile shaders taht use integer literals; that means if we use a number, it should alwats be a float.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">distance *= <span class="number">2.0</span>; <span class="comment">// right</span></span><br><span class="line">distance *= <span class="number">2</span>；	<span class="comment">// wrong</span></span><br></pre></td></tr></table></figure>
+
+<p>Vec2 is a 2D vector, we can define a vec2 as follows:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vec2(<span class="number">0.5</span>, <span class="number">0.5</span>);</span><br></pre></td></tr></table></figure>
+
+<p>One great thing about vecs is that we can do math operations directly on them.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vec2 output = vec2(<span class="number">0.5</span>, <span class="number">0.5</span>) * <span class="number">10.0</span>;</span><br><span class="line">vec2 output = vec2(<span class="number">0.5</span>, <span class="number">0.5</span>) + <span class="number">20.0</span>;</span><br></pre></td></tr></table></figure>
+
+<p>We can access elements of a vector using .x, .y, .z.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vec2 output = vec2(<span class="number">0.5</span>, <span class="number">0.25</span>) * <span class="number">10.0</span>;</span><br><span class="line"><span class="comment">// output.x now equals 5.0</span></span><br><span class="line"><span class="comment">// output.y now equals 2.5</span></span><br></pre></td></tr></table></figure>
+
+<p>In GLSL, we usually define colours using 3D and 4D vectors. We can specify colours in either 3D or 4D:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gl_FragColor = vec4(<span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">1.0</span>);</span><br><span class="line"><span class="comment">// The above sets the colour of the current fragment</span></span><br></pre></td></tr></table></figure>
+
+<p>Another great thing about GLSL vectors is that we can initialise all the cells in a vector with a single number.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vec3 myVec = vec3(<span class="number">0.5</span>) <span class="comment">// myVec = (0.5, 0.5, 0.5)</span></span><br></pre></td></tr></table></figure>
+
+<p>Another awesome thing si that we can do cellwise vector operations without having to write loops.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vec2 myVec1 = vec2(<span class="number">2.0</span>, <span class="number">3.0</span>);</span><br><span class="line">vec2 myVec2 = vec2(<span class="number">10.0</span>, <span class="number">10.0</span>);</span><br><span class="line">vec2 myVec3 = myVec1 * myVec2;</span><br><span class="line"><span class="comment">// myVec3 is now (20.0, 30.0);</span></span><br></pre></td></tr></table></figure>
+
+<p>The final awesome thing is that we can select and combine elements of a vector using x, y, z, w notation and do maths with them.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vec4 pos = vec4(<span class="number">1.0</span>, <span class="number">2.0</span>, <span class="number">3.0</span>, <span class="number">4.0</span>);</span><br><span class="line">pos.xw = vec2(<span class="number">5.0</span>, <span class="number">6.0</span>); <span class="comment">//	pos = (5.0, 2.0, 3.0, 6.0)</span></span><br><span class="line">pos.wx = vec2(<span class="number">7.0</span>, <span class="number">8.0</span>); <span class="comment">// pos = (8.0, 2.0, 3.0, 7.0)</span></span><br></pre></td></tr></table></figure>
+
+<p>We can use bools as we might expect, and Int vectors.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bvec3(<span class="literal">true</span>, <span class="literal">false</span>, <span class="literal">true</span>);</span><br><span class="line">ivec4(<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="4-GLSL-Matrices"><a href="#4-GLSL-Matrices" class="headerlink" title="4.GLSL Matrices"></a>4.GLSL Matrices</h3><p>As we know, matrices are very handy for doing rotations, as well as consistently computing scaling and translation, we can define 2*2, 3*3 and 4*4 matrices by mat2, mat3, mat4.</p>
+<p>GLSL matrices default to column major; this means the are defined column after column.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mat4 myMat = mat4(<span class="number">1.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>,	 <span class="comment">// 1st column</span></span><br><span class="line">                  <span class="number">0.0</span>, <span class="number">1.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>,	 <span class="comment">//	2nd column</span></span><br><span class="line">                  <span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">1.0</span>, <span class="number">0.0</span>,	 <span class="comment">// 3rd column</span></span><br><span class="line">                  <span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">1.0</span>)  <span class="comment">// 4th column</span></span><br></pre></td></tr></table></figure>
+
+<p>Also, here is an example of how to define a rotation matrix:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mat2 rotation = mat2(<span class="built_in">cos</span>(angle), <span class="built_in">sin</span>(angle), -<span class="built_in">sin</span>(angle), <span class="built_in">cos</span>(angle));</span><br></pre></td></tr></table></figure>
+
+<p>We can simplty multiply any 2D vector by this mat2 to rotate that vector.</p>
+<p>We can access and set elements of a matrix as follows:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mat4 m;</span><br><span class="line">m[<span class="number">1</span>] = vec4(<span class="number">2.0</span>); <span class="comment">// sets the second column to all 2.0</span></span><br><span class="line">m[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1.0</span>; 		<span class="comment">// sets the upper left element to 1.0</span></span><br><span class="line">m[<span class="number">2</span>][<span class="number">3</span>] = <span class="number">2</span>,<span class="number">0</span>;		<span class="comment">// sets the 4th element of the third column to 2.0</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="5-Uniforms-and-Textures"><a href="#5-Uniforms-and-Textures" class="headerlink" title="5.Uniforms and Textures"></a>5.Uniforms and Textures</h3><p>A uniform is a variable of any type, that is passed into the shader from our main program; the uniform in the shader must have the same name as we defined in our main program; common uniforms include the screen size / resolution x,y, the mouse x,y positions, and a time variable.</p>
+<p>Images can be passed into fragment shaders and accessed as uniforms with the sample 2D type. Inorder to do this, we need to set up the texture input in our main program, we would set up the texture like this:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uniform sampler2D myTexture;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="6-Frag-Shaders-Drawing-Shapes"><a href="#6-Frag-Shaders-Drawing-Shapes" class="headerlink" title="6.Frag Shaders: Drawing Shapes"></a>6.Frag Shaders: Drawing Shapes</h3><p>Let’s look at some basic fragshaders:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Start by setting the precision</span></span><br><span class="line">precision mediump <span class="keyword">float</span>;</span><br><span class="line"><span class="comment">// We always have to do this first</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Now we specify some basic uniforms</span></span><br><span class="line">uniform vec2 resolution;</span><br><span class="line">uniform vec2 mouse;</span><br><span class="line">uniform <span class="keyword">float</span> time;</span><br><span class="line"><span class="comment">// These are all already defined in our main program</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  gl_FragColor = vec4(<span class="built_in">abs</span>(<span class="built_in">sin</span>(time)), <span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">1.0</span>);</span><br><span class="line">  gl_FragColor = vec4(colour.x, colour.y, <span class="number">0.0</span>, <span class="number">1.0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>So, how do we go about drawing a simple image?</p>
+<p>We will begin with drawing a circle, as this is much easier than you might think. There are a number of different ways of doing it, but hte principles are basically the same. </p>
+<p>The first thing we want to do is figure out where we are going to draw our circle, we can create a vector that contains this point:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vec2 pos = resolution.xy / <span class="number">2.0</span>;</span><br></pre></td></tr></table></figure>
+
+<p>Now all we have to do is get the distance from the centre to the current fragment(pixel), and them use this to determine a color, we can do this with the distance function:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">colour = distance(gl_FragCoord.xy, pos);</span><br></pre></td></tr></table></figure>
+
+<p>But it is not a circle, it’s a distance field.</p>
+<p>Distance fields are the primary method for generating shapes in fragment shaders; this is because the only thing the shader really knows is where it is on the screen; so, all programs we write need to use more or less just this information to work out what colour they should be.</p>
+<p>We can work this out by setting up distance fields for all the objects in our scene, and them making decisions about colours based on these distances. In order to turn the distance field into a circle, we just need to set the colour only if the distance is over a certain amount.</p>
+<p>This amount is going to be the radius of our circle:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(colour &gt; <span class="number">1.0</span>) colour = <span class="number">1.0</span>;</span><br><span class="line"><span class="comment">// or we can use the step function</span></span><br><span class="line">colour = step(colour, <span class="number">1.0</span>);</span><br></pre></td></tr></table></figure>
+
+<p>Another method is to get the squared distance, this is a really cool method that makes use of the dot product; it is the product of the Euclidean magnitudes of the two vectors and the cosine of the angle between them.</p>
+<p>We can use the built-in GLSL dot function, it is really fast.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vec2 pos = gl_FragCoord.xy - resolution / <span class="number">2.0</span>;</span><br><span class="line"><span class="comment">// This gets the squared distance using the dot product</span></span><br><span class="line"><span class="keyword">float</span> dist_suqred = dot(pos, pos);</span><br></pre></td></tr></table></figure>
+
+<p>Other interesting functions to interpolate a boundary:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">smoothstep(start, end, input);</span><br></pre></td></tr></table></figure>
+
+<p>We will literally use this all the time.</p>
+<p>I would like to share one of my shader work:</p>
+<div align="center">
+  <iframe width="64%" height="500" src="//jsfiddle.net/SQShu/a0b23q4o/9/embedded/result,js,html/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe></div>
+
+<br/>
+
+<div align="center"><iframe width="64%" height="500" src="//jsfiddle.net/SQShu/51ko86q0/embedded/result,js,html/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe></div>
+
+
+    </div>
+
+    <div class="about">
+        <h1>About this Post</h1>
+        <p>This post is written by Siqi Shu, licensed under <a
+                target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+    </div>
+</article>
+        <footer>
+    <div class="inner">
+        <div class="links">
+            
+            <div class="group">
+                <h4 class="title">深智一物 眾隱皆變</h4>
+                
+            </div>
+            
+        </div>
+        &copy; 2024 Siqi Shu<br />
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+</footer>
+
+
+        
+<script src="/js/main.js"></script>
+
+        
+<script src="/js/kursor.js"></script>
+
+        
+<script src="/js/run.js"></script>
+
+
+    </body>
+</html>

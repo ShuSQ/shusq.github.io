@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  
+  <title>FrabriDraw - web端图形绘制工具 - Shu-Creative Computing</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+    <link rel='manifest' href='/manifest.json'>
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/cursor.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/components.css">
+
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+    <body>
+        <nav id="theme-nav">
+    <div class="inner">
+        <a class="title" href="/">Shu&#39;s Blog</a>
+        <div class="nav-arrow"></div>
+        <div class="nav-items">
+            <a class="nav-item nav-item-home" href="/">Home</a>
+            
+            
+            <a class="nav-item" href="/categories/essays">Thinking</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/pcomp">Pcomp&amp;AVCE</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/coding">Coding</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/portfolio">Portfolio</a>
+            
+            
+            
+            <a class="nav-item" href="/contact">About</a>
+            
+            
+            
+            <a class="nav-item nav-item-github nav-item-icon" href="https://github.com/ShuSQ" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-codepen nav-item-icon" href="https://codepen.io/shusq" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-patreon nav-item-icon" href="https://www.instagram.com/cheese_shu/" target="_blank">&nbsp;</a>
+            
+            
+        </div>
+    </div>
+</nav>
+        <article class="post">
+    <div class="meta">
+        
+        <div class="date" id="date">
+            
+            <span>January</span>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <span>1,</span>
+            <span>2000</span>
+        </div>
+        
+
+        <h2 class="title">FrabriDraw - web端图形绘制工具</h2>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="content">
+        <blockquote>
+<p>在我还年轻的时候，我对图形软件非常感兴趣，因为它们解放了创作者的想象力和创造力，从画图到Photoshop，Sketch，FIgma，新的工具也层出不穷，适应不同阶段和人群的创作需求；所以我也想要更多的了解这些功能背后的实现方法，于是我开始学习了Fabric.js，并且开发了一些基本的功能。</p>
+</blockquote>
+<p><img src="https://miro.medium.com/max/1400/1*rN56ulxIyqG72mX5xt_oqQ.png"></p>
+<blockquote>
+<p>在我还年轻的时候，我对图形软件非常感兴趣，因为它们解放了创作者的想象力和创造力，从画图到Photoshop，Sketch，FIgma，新的工具也层出不穷，适应不同阶段和人群的创作需求；所以我也想要更多的了解这些功能背后的实现方法，于是我开始学习了Fabric.js，并且开发了一些基本的功能。</p>
+</blockquote>
+<h3 id="1-尝试运行"><a href="#1-尝试运行" class="headerlink" title="1.尝试运行"></a>1.尝试运行</h3><p>1.Clone本项目至本地。</p>
+<p>2.NPM项目安装lite-server：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install lite-server --save-dev</span><br><span class="line">yarn add lite-server --dev # or yarn </span><br></pre></td></tr></table></figure>
+
+<p>3.在<code>package.json</code>文件中“script”中添加：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Inside package.json...</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;dev&quot;: &quot;lite-server&quot;</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+
+<p>4.在VScode中运行lite-server，<a target="_blank" rel="noopener" href="http://127.0.0.1:5500/index.html">http://127.0.0.1:5500/index.html</a> 查看项目。</p>
+<hr>
+<h3 id="2-功能描述"><a href="#2-功能描述" class="headerlink" title="2.功能描述"></a>2.功能描述</h3><p>Fabric.js是一个非常好的js库，让使用者可以通过canvas来实现很多的功能和效果。</p>
+<p><img src="https://miro.medium.com/max/1200/1*0H375Y6JW6j7tr8WDSTK6w.png"></p>
+<p>已经实现的基础功能包括：</p>
+<ul>
+<li>钢笔工具</li>
+<li>选择工具</li>
+<li>创建文本</li>
+<li>创建图形（圆形/矩形）</li>
+<li>缩放画布/还原画布</li>
+<li>删除对象</li>
+<li>编组/解组</li>
+<li>复制/粘贴</li>
+<li>undo/redo</li>
+<li>创建网格</li>
+<li>上传图片</li>
+<li>导出画布</li>
+<li>toast提示</li>
+<li>快捷键</li>
+</ul>
+<p>当然，还有一些未完成的功能：</p>
+<ul>
+<li>智能对齐（虽然说是智能，但是判断过程感觉很死板）</li>
+<li>自定义控制器</li>
+<li>管理列表</li>
+<li>颜色选择器</li>
+<li>路径样式选择器</li>
+<li>参数面板</li>
+<li>布尔运算</li>
+<li>效果面板</li>
+<li>混合模式</li>
+<li>多格式导出</li>
+<li>…</li>
+</ul>
+<h3 id="3-快捷键对照表"><a href="#3-快捷键对照表" class="headerlink" title="3.快捷键对照表"></a>3.快捷键对照表</h3><p>使用hotkey.js创建了对应工具的热键操作，可以直接快捷键唤起对应功能：</p>
+<table>
+<thead>
+<tr>
+<th>热键</th>
+<th>对应操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>P</td>
+<td>切换至铅笔工具</td>
+</tr>
+<tr>
+<td>A</td>
+<td>切换至选择工具</td>
+</tr>
+<tr>
+<td>T</td>
+<td>创建文本层</td>
+</tr>
+<tr>
+<td>O</td>
+<td>创建形状图层-圆形</td>
+</tr>
+<tr>
+<td>R</td>
+<td>创建形状图层-矩形</td>
+</tr>
+<tr>
+<td>G</td>
+<td>创建网格</td>
+</tr>
+<tr>
+<td>-</td>
+<td>缩小画布</td>
+</tr>
+<tr>
+<td>=</td>
+<td>放大画布</td>
+</tr>
+<tr>
+<td>Command+0</td>
+<td>重置画布</td>
+</tr>
+<tr>
+<td>Backspace</td>
+<td>删除对象</td>
+</tr>
+<tr>
+<td>Command+G</td>
+<td>对选择对象编组</td>
+</tr>
+<tr>
+<td>Ctrl+Command+G</td>
+<td>对选择对象解组</td>
+</tr>
+<tr>
+<td>Command+C</td>
+<td>添加对象至剪切板</td>
+</tr>
+<tr>
+<td>Command+V</td>
+<td>粘贴剪切板对象</td>
+</tr>
+<tr>
+<td>Command+Z</td>
+<td>undo</td>
+</tr>
+<tr>
+<td>Ctrl+Command+Z</td>
+<td>redo</td>
+</tr>
+</tbody></table>
+<h3 id="4-简单演示"><a href="#4-简单演示" class="headerlink" title="4.简单演示"></a>4.简单演示</h3><p>一些演示，对创建的多个图形进行编组：</p>
+<p><img src="https://cdn-images-1.medium.com/max/600/1*fE3JgIOhkEEcxKVUXq7o3g.gif"></p>
+<p>开关网格（无网格吸附和卡尺）：</p>
+<p><img src="https://cdn-images-1.medium.com/max/600/1*8p0Fmbxlm2mCjUupHs99lA.gif"></p>
+<p>复制选中对象：</p>
+<p><img src="https://cdn-images-1.medium.com/max/600/1*_jgliSZp4yHIpoG5iJxiXA.gif"></p>
+<p>删除选中对象：</p>
+<p><img src="https://cdn-images-1.medium.com/max/600/1*SKTzlf7Xkf8eQ0puui18Qg.gif"></p>
+<p>一键导出PNG预览：</p>
+<p><img src="https://cdn-images-1.medium.com/max/1000/1*su7EWsD9tZ4GkmsTAKiHpw.png"></p>
+
+    </div>
+
+    <div class="about">
+        <h1>About this Post</h1>
+        <p>This post is written by Siqi Shu, licensed under <a
+                target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+    </div>
+</article>
+        <footer>
+    <div class="inner">
+        <div class="links">
+            
+            <div class="group">
+                <h4 class="title">深智一物 眾隱皆變</h4>
+                
+            </div>
+            
+        </div>
+        &copy; 2024 Siqi Shu<br />
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+</footer>
+
+
+        
+<script src="/js/main.js"></script>
+
+        
+<script src="/js/kursor.js"></script>
+
+        
+<script src="/js/run.js"></script>
+
+
+    </body>
+</html>

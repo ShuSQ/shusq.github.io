@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  
+  <title>AIM7 - Latent spaces and VAEs - Shu-Creative Computing</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+    <link rel='manifest' href='/manifest.json'>
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/cursor.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/components.css">
+
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+    <body>
+        <nav id="theme-nav">
+    <div class="inner">
+        <a class="title" href="/">Shu&#39;s Blog</a>
+        <div class="nav-arrow"></div>
+        <div class="nav-items">
+            <a class="nav-item nav-item-home" href="/">Home</a>
+            
+            
+            <a class="nav-item" href="/categories/essays">Thinking</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/pcomp">Pcomp&amp;AVCE</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/coding">Coding</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/portfolio">Portfolio</a>
+            
+            
+            
+            <a class="nav-item" href="/contact">About</a>
+            
+            
+            
+            <a class="nav-item nav-item-github nav-item-icon" href="https://github.com/ShuSQ" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-codepen nav-item-icon" href="https://codepen.io/shusq" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-patreon nav-item-icon" href="https://www.instagram.com/cheese_shu/" target="_blank">&nbsp;</a>
+            
+            
+        </div>
+    </div>
+</nav>
+        <article class="post">
+    <div class="meta">
+        
+        <div class="date" id="date">
+            
+            
+            
+            
+            
+            
+            
+            <span>July</span>
+            
+            
+            
+            
+            
+            
+            <span>30,</span>
+            <span>2021</span>
+        </div>
+        
+
+        <h2 class="title">AIM7 - Latent spaces and VAEs</h2>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="content">
+        <blockquote>
+<p>Latent spaces &amp; VAEs (pre-recorded lecture):</p>
+<ul>
+<li>Convolutions for working with image data and Convolutional Neural Networks</li>
+</ul>
+</blockquote>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*3RYcrBUpNVy8ebMLfmFu0w.png"></p>
+<p><strong>Fully-connected neuron layers:</strong> Each neuron in its layer will be connected to every output of the previous layer.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*O9VXx_JqzcXta8zccsR7IA.png"></p>
+<p><strong>Convolution:</strong> is an operation applied on an image.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*tahM2AkVvSRtGSqUnGRYyA.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*tEj39ZgxwKsP9tl8p7ryfQ.png"></p>
+<p>The same weights are applied as a filter, jumping over the whole image…effectively producing an image on the output!</p>
+<p>Convolutions were used before neural networks as transformation functions to process images.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*7HR45OLDVBAR4C2CZ9tp6A.png"></p>
+<p>Terminology: we called these 3x3 numbers “weights”, but with convolutions they are also referred to as kernel.</p>
+<p>Detail: to kepp the same size of the output image, we need to extend the original image by 1 pixel - we pretend that it includes zeros (also called “zero padding”).</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*gZRSxACexA5S0ZKab9ceoQ.png"></p>
+<p>Convolutional layers are usually followed by downsampling layers (pooling) which rescale the image (less information).</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*xCUIeeha17QfHrvoCl3yQw.png"></p>
+<p>“Later” convolutions are also looking at much larger region in the original image with their kernel (receptive field).</p>
+<p>This means, that the later convolutional layers can specialize on processing different scales of the image.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*8r6epjQRSxSX6Ouk5WFnvg.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*67ygVbhK301-KfqJGI_AiA.png"></p>
+<p>By now, we know most of the layers used in this CNN architecture! (one more detail: the Dropout layers)</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*rjgzTO-CuyutCDdJhQUJFw.png"></p>
+<p>This part of the model becomes useful as a general feature extractor (its learned representation-ability is data driven - depends on the dataset!)</p>
+<h4 id="General-feature-description"><a href="#General-feature-description" class="headerlink" title="General feature description"></a>General feature description</h4><p>Image -&gt; Feature extractor -&gt; Classification -&gt; label</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*9O3zAr1cSOYn9EoUcxlX3Q.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*Okiw6xHF764qcIKqAMp9hA.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*9Q302iDF0kkKTDhZ2lMNmg.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*byGaILiCfdu2gx-5En5hiQ.png"></p>
+<p>What we more or less want is flip the task - but it turns out this is too difficult task.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*NQeaeIpWV5Ae6KjXUN3IDg.png"></p>
+<p>Rephrase it as an identity operation, we want the model to encode image into some intermediate lower-dimensional representation and decoder to undo that work.</p>
+<p>Seemingly this is a useless task - we are making a machine for nothing. But as we saw in previous part (feature extraction), parts of the models can also be useful!</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*JRW2AUMlESm6hZjepCZR6g.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*nUJSjYl_PW541MSKU4nexA.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*Lw2iLXUjnqwZM9clbCEsWQ.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*sUYd-KrQURk8594S1ujwHQ.png"></p>
+<p>Encoding real samples into their latent representations.</p>
+<p>Then using these, we can generate interpolations.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*tW5yS2V1xs00ZdVYFy53Jg.png"></p>
+<p>This is a high dimensional space (like a cloth shape in 3D, but in 512D instead), in which we can explore relations between data.</p>
+<p>Each point in this space is a vector of 512 numbers (and so each point is an encoded real sample - and can also be used to generate an image).</p>
+<p>If we encoded images with some property and without this property (for example: smiling / neutral expression)…</p>
+<p>We can find clusters and check their relative positions: </p>
+<p>v = centroid of c1 - centroid of c2</p>
+<p>With labeled datasets we can extract visual attribute vectors.</p>
+<p>we can call this latent space arithmetic.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*8VzWWeNT2mtImykTtOqemQ.png"></p>
+<p>When we need an arbitrary feature extractor / transformer of image -&gt; feature.</p>
+<ul>
+<li>If we had labels (supervised scenario), we could used something similar like AlexNet…</li>
+<li>Without labels (unsupervised scenario) we can instead use these methods - Aesops or GANs.</li>
+</ul>
+<p>Intuition: if the encoder can create a “good enough” representation, that it can be used for reconstruction -&gt; then we hope that it will be good in other scenarios as well.</p>
+<p>Reinterpret material with shapes/details/imagery of another material.</p>
+<h3 id="Additional-readings"><a href="#Additional-readings" class="headerlink" title="Additional readings:"></a>Additional readings:</h3><h5 id="Convolutional-Neural-Networks"><a href="#Convolutional-Neural-Networks" class="headerlink" title="Convolutional Neural Networks"></a>Convolutional Neural Networks</h5><ul>
+<li><p>Convnets on ML4A: ml4a.github.io/ml4a/convnets/ </p>
+</li>
+<li><p>Interactive Convolutional Neural Network (runs in the browser and has good visualization): cs.cmu.edu/~aharley/vis/conv/flat.html</p>
+</li>
+</ul>
+<h5 id="AutoEncoders"><a href="#AutoEncoders" class="headerlink" title="AutoEncoders"></a>AutoEncoders</h5><ul>
+<li>Details about types of VAEs: lilianweng.github.io/lillog/2018/08/12/from-autoencoder-to-beta-vae.html</li>
+<li>VAE visualizations of latent space: hackernoon.com/latent-spacevisualization-deep-learning-bits-2-bd09a46920df</li>
+</ul>
+
+    </div>
+
+    <div class="about">
+        <h1>About this Post</h1>
+        <p>This post is written by Siqi Shu, licensed under <a
+                target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+    </div>
+</article>
+        <footer>
+    <div class="inner">
+        <div class="links">
+            
+            <div class="group">
+                <h4 class="title">深智一物 眾隱皆變</h4>
+                
+            </div>
+            
+        </div>
+        &copy; 2024 Siqi Shu<br />
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+</footer>
+
+
+        
+<script src="/js/main.js"></script>
+
+        
+<script src="/js/kursor.js"></script>
+
+        
+<script src="/js/run.js"></script>
+
+
+    </body>
+</html>

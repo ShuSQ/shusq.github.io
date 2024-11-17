@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  
+  <title>ml5.js - PoseNet - Shu-Creative Computing</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+    <link rel='manifest' href='/manifest.json'>
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/cursor.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/components.css">
+
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+    <body>
+        <nav id="theme-nav">
+    <div class="inner">
+        <a class="title" href="/">Shu&#39;s Blog</a>
+        <div class="nav-arrow"></div>
+        <div class="nav-items">
+            <a class="nav-item nav-item-home" href="/">Home</a>
+            
+            
+            <a class="nav-item" href="/categories/essays">Thinking</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/pcomp">Pcomp&amp;AVCE</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/coding">Coding</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/portfolio">Portfolio</a>
+            
+            
+            
+            <a class="nav-item" href="/contact">About</a>
+            
+            
+            
+            <a class="nav-item nav-item-github nav-item-icon" href="https://github.com/ShuSQ" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-codepen nav-item-icon" href="https://codepen.io/shusq" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-patreon nav-item-icon" href="https://www.instagram.com/cheese_shu/" target="_blank">&nbsp;</a>
+            
+            
+        </div>
+    </div>
+</nav>
+        <article class="post">
+    <div class="meta">
+        
+        <div class="date" id="date">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <span>October</span>
+            
+            
+            
+            <span>5,</span>
+            <span>2021</span>
+        </div>
+        
+
+        <h2 class="title">ml5.js - PoseNet</h2>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="content">
+        <blockquote>
+<p>在这一篇中集中学习poseNet的方法和使用示例。</p>
+</blockquote>
+<p>PoseNet是一个实时分析人体姿势的机器学习模型。PoseNet可以识别单个和多个姿势，但是其中一个版本只能检测图像或视频中的一个人，另一个版本可以检测到多人。</p>
+<p>PoseNet模型最早由Dan Oved迁移到Tensorflow.js中，你可以在这篇文章中学习更多：<a target="_blank" rel="noopener" href="https://medium.com/tensorflow/real-time-human-pose-estimation-in-the-browser-with-tensorflow-js-7dd0bc881cd5">Real-time Human Pose Estimation in the Browser with TensorFlow.js</a></p>
+<h3 id="QuickStart"><a href="#QuickStart" class="headerlink" title="QuickStart"></a>QuickStart</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> video = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;video&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Create a new poseNet method 创建一个新的PoseNet方法</span></span><br><span class="line"><span class="keyword">const</span> poseNet = ml5.poseNet(video, modelLoaded);</span><br><span class="line"></span><br><span class="line"><span class="comment">// When the model is loaded 当模型载入时</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">modelLoaded</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;Model Loaded!&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Listen to new &#x27;pose&#x27; events 监听新的‘pose’事件</span></span><br><span class="line">poseNet.on(<span class="string">&#x27;pose&#x27;</span>, <span class="function">(<span class="params">results</span>) =&gt;</span> &#123;</span><br><span class="line">  poses = results;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h3><p>我们有几种对<code>ml5.poseNet</code>初始化的方法。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Initialize with video, type and callback 初始化：视频，类型，回调函数</span></span><br><span class="line"><span class="keyword">const</span> poseNet = ml5.poseNet(?video, ?type, ?callback);</span><br><span class="line"><span class="comment">// OR Initialize with video, options and callback 初始化，视频，选项，回调函数</span></span><br><span class="line"><span class="keyword">const</span> poseNet = ml5.poseNet(?video, ?options, ?callback);</span><br><span class="line"><span class="comment">// OR Initialize WITHOUT video. Just options and callback here 初始化：选项，回调函数</span></span><br><span class="line"><span class="keyword">const</span> poseNet = ml5.poseNet(?callback, ?options);</span><br></pre></td></tr></table></figure>
+
+<p><strong>video：</strong>可选的，用于HTMLVideoElement输入。</p>
+<p><strong>Type：</strong>可选的，当我们要选择是<code>single</code>还是<code>multiple</code>时，更改<code>detectionType</code>。默认为<code>multiple</code>.</p>
+<p><strong>Callback：</strong>可选的，加载模型是时的回调函数。</p>
+<p>**Options： **可选的，包含影响posenet模型精度和结果属性的对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  architecture: <span class="string">&#x27;MobileNetV1&#x27;</span>,</span><br><span class="line">  imageScaleFactor: <span class="number">0.3</span>,</span><br><span class="line">  outputStride: <span class="number">16</span>,</span><br><span class="line">  flipHorizontal: <span class="literal">false</span>,</span><br><span class="line">  minConfidence: <span class="number">0.5</span>,</span><br><span class="line">  maxPoseDetections: <span class="number">5</span>,</span><br><span class="line">  scoreThreshold: <span class="number">0.5</span>,</span><br><span class="line">  nmsRadius: <span class="number">20</span>,</span><br><span class="line">  detectionType: <span class="string">&#x27;multiple&#x27;</span>,</span><br><span class="line">  inputResolution: <span class="number">513</span>,</span><br><span class="line">  multiplier: <span class="number">0.75</span>,</span><br><span class="line">  quantBytes: <span class="number">2</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Properties"><a href="#Properties" class="headerlink" title="Properties"></a>Properties</h3><p>.net</p>
+<blockquote>
+<p>PoseNet模型</p>
+</blockquote>
+<p>.video</p>
+<blockquote>
+<p>可选的添加视频</p>
+</blockquote>
+<p>.architecture</p>
+<blockquote>
+<p>模型的架构</p>
+</blockquote>
+<p>.detectionType</p>
+<blockquote>
+<p>识别类型</p>
+</blockquote>
+<p>.imageScaleFactor</p>
+<blockquote>
+<p>图片比例因子</p>
+</blockquote>
+<p>.outputStride</p>
+<blockquote>
+<p>可以是8，16，32，它指定了poseNet模型的输出步幅，数值越小，输出分辨率越高，精度越高，但速度更慢，牺牲准确性。</p>
+</blockquote>
+<p>.flipHorizontal</p>
+<blockquote>
+<p>布尔值，是否反转图像。</p>
+</blockquote>
+<p>.scoreThreshold</p>
+<blockquote>
+<p>临界值会返回一个值，在0～1之间，默认为0.5</p>
+</blockquote>
+<p>.maxPoseDetections</p>
+<blockquote>
+<p>最大的检测数，默认为5</p>
+</blockquote>
+<p>.multiplier</p>
+<blockquote>
+<p>可以是1.01， 1.0， 0.75，0.5之一。它是所有卷积操作的浮点乘数。数值越大，层的size越大，模型精度越高，速度更慢。</p>
+</blockquote>
+<p>.inputResolution</p>
+<blockquote>
+<p>可以是161，193，257，289，321，353，385，417，449，481，513，801之一，默认值为257.指定了图像在输入到PoseNet模型之前的大小，数值越大，精度越高，速度更慢。</p>
+</blockquote>
+<p>.quantBytes</p>
+<blockquote>
+<p>参数控制权重的字节。</p>
+</blockquote>
+<p>.nmsRadius</p>
+<blockquote>
+<p>如果两个部分的距离小于nmsRadius像素，则会互相抑制，默认为20.</p>
+</blockquote>
+<h3 id="Methods"><a href="#Methods" class="headerlink" title="Methods"></a>Methods</h3><p><strong>.on(‘pose’, …)</strong></p>
+<blockquote>
+<p>事件监听，返回pose被检测的结果，你可以和<code>.singlePose()</code>或<code>.multiPose()</code>一起使用，如果你传递了一个<code>video</code>给构造器。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">poseNet.on(<span class="string">&#x27;pose&#x27;</span>, callback);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>Callback: 必要的，一个回调函数可以在检测到pose的时候处理结果，例如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">poseNet.on(<span class="string">&#x27;pose&#x27;</span>, <span class="function">(<span class="params">results</span>)=&gt;</span> &#123;</span><br><span class="line">	<span class="comment">// do something with the results</span></span><br><span class="line">	<span class="built_in">console</span>.log(results);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Array：返回一个对象的数组。</p>
+</li>
+</ul>
+<p><strong>。singlePose()</strong></p>
+<blockquote>
+<p>提供一个数字，然后会产生magicSparkles</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">poseNet.singlePose(?input);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>input: 可选的，一个HTML视频或者图片元素，一个p5的图片或者是视频元素，如果没有输入提供，默认使用的是构造器的视频。</p>
+</li>
+<li><p>Array：返回一个对象数组。一个例子可以是：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">    pose: &#123;</span><br><span class="line">      keypoints: [&#123; <span class="attr">position</span>: &#123; x, y &#125;, score, part &#125;, ...],</span><br><span class="line">      leftAngle: &#123; x, y, confidence &#125;,</span><br><span class="line">      leftEar: &#123; x, y, confidence &#125;,</span><br><span class="line">      leftElbow: &#123; x, y, confidence &#125;,</span><br><span class="line">      ...</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><strong>.multiPose()</strong></p>
+<blockquote>
+<p>同样，产生magicSparkles</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">poseNet.multiPose(?input);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>input: 可选的，一个HTML视频或者图片元素。如果没有输入提供，默认使用的是构造器的视频。</p>
+</li>
+<li><p>Array: 返回一个对象数组，示例如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">    pose: &#123;</span><br><span class="line">      keypoints: [&#123; position: &#123; x, y &#125;, score, part &#125;, ...],</span><br><span class="line">      leftAngle: &#123; x, y, confidence &#125;,</span><br><span class="line">      leftEar: &#123; x, y, confidence &#125;,</span><br><span class="line">      leftElbow: &#123; x, y, confidence &#125;,</span><br><span class="line">      ...</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    pose: &#123;</span><br><span class="line">      keypoints: [&#123; position: &#123; x, y &#125;, score, part &#125;, ...],</span><br><span class="line">      leftAngle: &#123; x, y, confidence &#125;,</span><br><span class="line">      leftEar: &#123; x, y, confidence &#125;,</span><br><span class="line">      leftElbow: &#123; x, y, confidence &#125;,</span><br><span class="line">      ...</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h3 id="PoseNet-run-in-the-browser-with-TensorFlow-js"><a href="#PoseNet-run-in-the-browser-with-TensorFlow-js" class="headerlink" title="PoseNet run in the browser with TensorFlow.js"></a>PoseNet run in the browser with TensorFlow.js</h3><p>这是一些关于PoseNet迁移到TensorFlow.js的笔记，关于更多的内容，可以查看：<a target="_blank" rel="noopener" href="https://medium.com/tensorflow/real-time-human-pose-estimation-in-the-browser-with-tensorflow-js-7dd0bc881cd5">Real-time Human Pose Estimation in the Browser with TensorFlow.js</a></p>
+<p>PoseNet可以用来评估单个或是多个的pose，我们的样本可以是视频，也可以是图像，但是这有两个版本，单人pose检测更快，更简单。</p>
+<p>更深入的，pose检测发生在两个阶段：</p>
+<p>1.一个RGB图像输入，通过卷积神经网络。</p>
+<p>2.使用SinglePose或MultiPose解码算法，解码pose，pose的置信分数，以及pose的关键置信分数，你可以在model的输出找到。</p>
+<p>那这些关键词意味着什么？让我们重新梳理一下：</p>
+<p>**Pose – **在最高级别，PoseNet会返回一个pose对象，包含了每一个检测姿势的关键点和置信分数。</p>
+<p><img src="https://miro.medium.com/max/700/1*3bg3CO1b4yxqgrjsGaSwBw.png"></p>
+<p>**Pose confidence score – **这个决定了整体评估的置信度，它的范围从0.0到1.0，可以被用于隐藏那些不够明显的pose。</p>
+<p>**Keypoint – **包含一个人姿势评估的部分，例如鼻子，左耳，左膝，右脚等等，除了关键点的位置外，也会包含每个关键点的信心分数。PoseNet当前可以检测17个关键点，例如下图：</p>
+<p><img src="https://miro.medium.com/max/700/1*7qDyLpIT-3s4ylULsrnz8A.png"></p>
+<p>**Keypoint Confidence Score – **7这个评估了关键点的置信分数，范围在0.0～1.0之间，他可以用于隐藏不够明显的关键点。</p>
+<p>**Keypoint Position – **在输入图像中检测关键点的2Dx和y坐标。</p>
+<h3 id="第一部分：倒入TensorFlow-js和PoseNet库"><a href="#第一部分：倒入TensorFlow-js和PoseNet库" class="headerlink" title="第一部分：倒入TensorFlow.js和PoseNet库"></a>第一部分：倒入TensorFlow.js和PoseNet库</h3><p>许多工作都可以将抽象模型的复杂性并将功能封装到易于使用的方法。我们可以回顾一下设置PoseNet的基础知识。</p>
+<p>首先，可以通过npm安装：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install @ tensorflow-models/posenet</span><br></pre></td></tr></table></figure>
+
+<p>然后使用es6模块导入：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> posenet <span class="keyword">from</span> <span class="string">&#x27;@tensorflow-models/posenet&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> net = <span class="keyword">await</span> posenet.load();</span><br></pre></td></tr></table></figure>
+
+<p>或者在页面中引用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;!-- Load TensorFlow.js --&gt;</span><br><span class="line">    &lt;script src=<span class="string">&quot;https://unpkg.com/@tensorflow/tfjs&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line">    &lt;!-- Load Posenet --&gt;</span><br><span class="line">    &lt;script src=<span class="string">&quot;https://unpkg.com/@tensorflow-models/posenet&quot;</span>&gt;</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">    &lt;script type=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><br><span class="line">      posenet.load().then(<span class="function"><span class="keyword">function</span>(<span class="params">net</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// posenet model loaded</span></span><br><span class="line">      &#125;);</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="第二部分：单人Pose检测"><a href="#第二部分：单人Pose检测" class="headerlink" title="第二部分：单人Pose检测"></a>第二部分：单人Pose检测</h3><p><img src="https://miro.medium.com/max/513/1*SpWPwprVuNYhXs44iTSODg.png"></p>
+<p>单人检测模型是一个更加简单和快速的检测算法。理想的使用情况是只有一个人在输入的图像或视频中。不足之处是如果图片中出现了两个人，识别的姿势会是两个人组合起来的样子。</p>
+<p>让我们来看单人检测算法的输入内容：</p>
+<p>**Input image element – **一个html元素可以包含一个图像和预测的pose。但是输入的图像和视频元素需要是方形的。</p>
+<p>**Image scale factor – **一个在0.2～1之间的数字，默认是0.5，可以通过网络在feed之前进行缩放。我们可以通过调低这一属性，来提升图像的处理速度，但是会损失一部分的准确性。</p>
+<p>**Flip horizontal – **默认为false，如果图片需要左右翻转，你可以设置这一属性。</p>
+<p>**Output stride – **必须是32，16，或8.默认为16.这个参数会影响神经网络中层的高和宽。更深入地理解，它会影响pose识别的准确度和速度。更低的值会有更高的准确度，但是速度会更低，高值会加速，但是准确度下降。查看输出效果的最好方法，是从这个<a target="_blank" rel="noopener" href="https://storage.googleapis.com/tfjs-models/demos/posenet/camera.html">Single-pose estimation demo</a>查看。</p>
+<p>让我们来回顾一下single-pose检测算法的output：</p>
+<ul>
+<li>会包含有17个关键点的数组，以及置信分数。</li>
+<li>每个关键点会包含节点的位置信息和节点的置信分数。所有的关键点都会有在输入图片中的x和y坐标。可以直接映射到图像中。</li>
+</ul>
+<p>下面这个简短的代码块展示了single-pose检测算法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> imageScaleFactor = <span class="number">0.50</span>;</span><br><span class="line"><span class="keyword">const</span> flipHorizontal = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">const</span> outputStride = <span class="number">16</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> imageElement = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;cat&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// load the posenet model</span></span><br><span class="line"><span class="keyword">const</span> net = <span class="keyword">await</span> posenet.load();</span><br><span class="line"><span class="keyword">const</span> pose = <span class="keyword">await</span> net.estimateSinglePose(imageElement, scaleFactor, flipHorizontal, outputStride);</span><br></pre></td></tr></table></figure>
+
+<p>一个输出pose的例子看起来是这样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;score&quot;</span>: <span class="number">0.32371445304906</span>,</span><br><span class="line">  <span class="string">&quot;keypoints&quot;</span>: [</span><br><span class="line">    &#123; <span class="comment">// nose</span></span><br><span class="line">      <span class="string">&quot;position&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;x&quot;</span>: <span class="number">301.42237830162</span>,</span><br><span class="line">        <span class="string">&quot;y&quot;</span>: <span class="number">177.69162777066</span></span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="string">&quot;score&quot;</span>: <span class="number">0.99799561500549</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123; <span class="comment">// left eye</span></span><br><span class="line">      <span class="string">&quot;position&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;x&quot;</span>: <span class="number">326.05302262306</span>,</span><br><span class="line">        <span class="string">&quot;y&quot;</span>: <span class="number">122.9596464932</span></span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="string">&quot;score&quot;</span>: <span class="number">0.99766051769257</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123; <span class="comment">// right eye</span></span><br><span class="line">      <span class="string">&quot;position&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;x&quot;</span>: <span class="number">258.72196650505</span>,</span><br><span class="line">        <span class="string">&quot;y&quot;</span>: <span class="number">127.51624706388</span></span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="string">&quot;score&quot;</span>: <span class="number">0.99926537275314</span></span><br><span class="line">    &#125;,</span><br><span class="line">    ...</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="第二部分：Multi-person-Pose-Estimation"><a href="#第二部分：Multi-person-Pose-Estimation" class="headerlink" title="第二部分：Multi-person Pose Estimation"></a>第二部分：Multi-person Pose Estimation</h3><p><img src="https://miro.medium.com/max/513/1*EZOqbMLkIwBgyxrKLuQTHA.png"></p>
+<p>多人pose检测算法可以检测在一张图片中的多人姿势。它会更加复杂也处理起来更缓慢。即使是在多人图像中，它也更不容易识别出错误的姿势，换句话说，即使是检测单人pose，这个算法也更可取。</p>
+<p>进一步而言，这个算法另一个亮点是，他不会受到输入图像中人数影响。无论是15个人或5个人，计算的时间是一样的。</p>
+<p>让我们来看看inputs的内容：</p>
+<p>**Input image element – **和单人检测相同</p>
+<p>**Image scale factor –**和单人检测相同</p>
+<p>**Flip horizontal – **和单人检测相同</p>
+<p>**Output stride – **和单人检测相同</p>
+<p>**Maximum pose detections – **一个整数，默认为5。最大的姿势检测数量。</p>
+<p>**Pose confidence score threshold – **0.0到1.0，默认为0.5。控制最小的置信分数返回值。</p>
+<p>**Non-maximum suppression(NMS) radius – **以像素为单位的一个数字。这个控制了姿势之间的最小距离。默认值为20，这在大多数情况下使用。在准确度不够的时候我们可以调整这个数值。</p>
+<p>你可以在这个<a target="_blank" rel="noopener" href="https://storage.googleapis.com/tfjs-models/demos/posenet/camera.html">Multi-pose estimation demo</a>查看具体的实现效果。</p>
+<p>让我们来回顾一下输出：</p>
+<ul>
+<li>promise解决了poses的数组。</li>
+<li>每个pose都会包含相同的信息，和单人pose检测算法一样。</li>
+</ul>
+<p>下面简短的代码块显示了多人检测是如何实现的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> imageScaleFactor = <span class="number">0.50</span>;</span><br><span class="line"><span class="keyword">const</span> flipHorizontal = <span class="literal">false</span>;</span><br><span class="line"><span class="comment">// get up to 5 poses</span></span><br><span class="line"><span class="keyword">const</span> maxPoseDetections = <span class="number">5</span>;</span><br><span class="line"><span class="comment">// minimum confidence of the root part of a pose</span></span><br><span class="line"><span class="keyword">const</span> scoreThreshold = <span class="number">0.5</span>;</span><br><span class="line"><span class="comment">// minimum distance in pixels between the root parts of poses</span></span><br><span class="line"><span class="keyword">const</span> nmsRadius = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> imageElement = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;cat&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// load posenet</span></span><br><span class="line"><span class="keyword">const</span> net = <span class="keyword">await</span> posenet.load();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> poses = <span class="keyword">await</span> net.estimateMultiplePoses(</span><br><span class="line">imageElement, imageScaleFactor, flipHorizontal, outputStride, maxPoseDetections scoreThreshold, nmsRadius);</span><br></pre></td></tr></table></figure>
+
+<p>输出数组的例子看起来是这样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// array of poses/persons</span></span><br><span class="line">[ </span><br><span class="line">  &#123; <span class="comment">// pose #1</span></span><br><span class="line">    <span class="string">&quot;score&quot;</span>: <span class="number">0.42985695206067</span>,</span><br><span class="line">    <span class="string">&quot;keypoints&quot;</span>: [</span><br><span class="line">      &#123; <span class="comment">// nose</span></span><br><span class="line">        <span class="string">&quot;position&quot;</span>: &#123;</span><br><span class="line">          <span class="string">&quot;x&quot;</span>: <span class="number">126.09371757507</span>,</span><br><span class="line">          <span class="string">&quot;y&quot;</span>: <span class="number">97.861720561981</span></span><br><span class="line">         &#125;,</span><br><span class="line">        <span class="string">&quot;score&quot;</span>: <span class="number">0.99710708856583</span></span><br><span class="line">      &#125;,</span><br><span class="line">      ... </span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123; <span class="comment">// pose #2</span></span><br><span class="line">    <span class="string">&quot;score&quot;</span>: <span class="number">0.13461434583673</span>,</span><br><span class="line">    <span class="string">&quot;keypositions&quot;</span>: [</span><br><span class="line">      &#123; <span class="comment">// nose</span></span><br><span class="line">        <span class="string">&quot;position&quot;</span>: &#123;</span><br><span class="line">          <span class="string">&quot;x&quot;</span>: <span class="number">116.58444058895</span>,</span><br><span class="line">          <span class="string">&quot;y&quot;</span>: <span class="number">99.772533416748</span></span><br><span class="line">        &#125;,</span><br><span class="line">      <span class="string">&quot;score&quot;</span>: <span class="number">0.9978438615799</span></span><br><span class="line">      &#125;,</span><br><span class="line">      ...</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  ... </span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<h3 id="更进一步的技术探索"><a href="#更进一步的技术探索" class="headerlink" title="更进一步的技术探索"></a>更进一步的技术探索</h3><p>在这一部分，我们会深入理解单人姿势检测的技术细节，这个过程可能是这样的：</p>
+<p><img src="https://miro.medium.com/max/1400/1*ey139jykjnBzUqcknAjHGQ.png"></p>
+<p>一个重要的细节是，研究员同时训练了PoseNet的ResNet和MobileNet模型。但是ResNet模型有更高的准确度，但是更大且更多的层会让页面的加载时间不理想，特别是在实时应用的时候。我们通过MobileNet模型驱动，因为它是为移动设备而设计的。</p>
+<h4 id="重新查看单人pose检测算法"><a href="#重新查看单人pose检测算法" class="headerlink" title="重新查看单人pose检测算法"></a>重新查看单人pose检测算法</h4><h5 id="Processing-Model-Inputs-Output-Strides的解释"><a href="#Processing-Model-Inputs-Output-Strides的解释" class="headerlink" title="Processing Model Inputs: Output Strides的解释"></a>Processing Model Inputs: Output Strides的解释</h5><p>首先我们需要了解获取PoseNet模型的输出，通过讨论output strides。</p>
+<p>PoseNet是图像不变的，这意味着它可以在原始图像上预测姿势，而不需要考虑是否缩放。所以我们可以设置output strides，牺牲一部分的性能配置，提升PoseNet的准确性。</p>
+<p>Output stride决定了我们输出缩放了多少，相较于输入图像的大小。它会影响层的大小还有模型的输出。更高的output stride，会有更低的图层解析度在网络和outputs中，相应的影响准确度。</p>
+<p>output stride可以有8，16，32。换句话说，output stride为32会有最快速的表现但是最低的准确定，值为8的状况会有最高的准确度但是最低的速度，所以我们推荐使用16.</p>
+<p><img src="https://miro.medium.com/max/700/1*zXXwR16kprAWLPIOKCrXLw.png"></p>
+<p>当output stride设置为8或者16，层中的输入步幅降低，来创造更高的输出分辨率。</p>
+<h4 id="Model-Outputs-热力图和偏移向量"><a href="#Model-Outputs-热力图和偏移向量" class="headerlink" title="Model Outputs: 热力图和偏移向量"></a>Model Outputs: 热力图和偏移向量</h4><p>当PoseNet处理图片，实际上是返回了一个热力图，以及偏移向量，可以背解码同找到pose存在的更高置信区。下图是一个演示每个pose关键点是如何关联到热力张量和偏移向量张量。</p>
+<p><img src="https://miro.medium.com/max/700/1*mcaovEoLBt_Aj0lwv1-xtA.png"></p>
+<p>这些输出都是3D张量，我们可以通过分辨率来取代。分辨率由输入图片的大小以及output stride一起决定的，通过下列的公式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Resolution = ((InputImageSize - <span class="number">1</span>) / OutputStride) + <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// example: an iinput image with a width of 225 pixels and an output</span></span><br><span class="line"><span class="comment">// stride of 16 results in an output resolution of 15</span></span><br><span class="line"><span class="comment">// 15 = ((255-1)/16 + 1)</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="热力图"><a href="#热力图" class="headerlink" title="热力图"></a>热力图</h5><p>每一张热力图是3D张量的大小，分辨率x分辨率x17，因为有17个PoseNet可以识别的关键点。例如，一个图片大小为225，output stride是16，那么热力图会是15x15x17.每一个切片对应到具体的关键点。每个坐标都有一个置信分数。关键点类型存在的位置。可以被认为是原有的图像被切分成了15x15的网格，热力图可以提供分类每个关键点存在网格是什么样。</p>
+<h5 id="偏移向量"><a href="#偏移向量" class="headerlink" title="偏移向量"></a>偏移向量</h5><p>每个便宜向量是3D张量，分辨率x分辨率x34，34是关键点数量的两倍，所以一张大小为225的图像，output stride为16，那么它会是15x15x34. 因热力图金丝关键点的位置，偏移向量对应热力图点的坐标，前17张包含了x坐标的向量，后17张则为y坐标。偏移向量的大小和原始图像相同。</p>
+<h5 id="从模型的输出来识别Pose"><a href="#从模型的输出来识别Pose" class="headerlink" title="从模型的输出来识别Pose"></a>从模型的输出来识别Pose</h5><p>在图像从被投喂给模型之后，我们通过一系列的计算来检测pose。单人pose检测算法回返回pose的置信分数，包含了一个有关键点的数组，坐标，还有每个节点的分数。</p>
+<p>为了的到关键点的pose：</p>
+<p>1.<strong>sigmoid</strong>激活函数在热力图中去取得分数。</p>
+<p><code>scores = heatmap.sigmoid()</code></p>
+<p>2.<strong>argmax2d</strong>在关键节点置信分数去取得x和y的序列，和没部分的最高分数存在的坐标，这会是一个17x2的张量，热力图中最高分数的y和x序列。</p>
+<p><code>heatmapPositions = scores.argmax(y,x)</code></p>
+<p>3.<strong>offset vector</strong>从热力图中取回每个部分的x和y。一个17x2的张量。例如我们想的到一个序列为k的点的坐标：</p>
+<p><code>offsetVector = [offsets.get(y, x, k), offset.get(y, x, 17+k)]</code></p>
+<p>4.得到<strong>keypoint</strong>，热力图x和y的每个部分叠加通过output stride，当添加他们对应偏移向量，会和原始图像有相同的大小。</p>
+<p><code>keypointPositions = heatmapPositions * outputStride + offsetVectors</code></p>
+<p>5.最后，<strong>keypoint confidence score</strong>是热力图坐标的置信分数。pose的置信分数就是关键点分数的综合。</p>
+
+    </div>
+
+    <div class="about">
+        <h1>About this Post</h1>
+        <p>This post is written by Siqi Shu, licensed under <a
+                target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+    </div>
+</article>
+        <footer>
+    <div class="inner">
+        <div class="links">
+            
+            <div class="group">
+                <h4 class="title">深智一物 眾隱皆變</h4>
+                
+            </div>
+            
+        </div>
+        &copy; 2024 Siqi Shu<br />
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+</footer>
+
+
+        
+<script src="/js/main.js"></script>
+
+        
+<script src="/js/kursor.js"></script>
+
+        
+<script src="/js/run.js"></script>
+
+
+    </body>
+</html>

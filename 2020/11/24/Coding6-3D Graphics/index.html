@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  
+  <title>Coding6 - 3D Graphics Part2 - Shu-Creative Computing</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+    <link rel='manifest' href='/manifest.json'>
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/cursor.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/components.css">
+
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+    <body>
+        <nav id="theme-nav">
+    <div class="inner">
+        <a class="title" href="/">Shu&#39;s Blog</a>
+        <div class="nav-arrow"></div>
+        <div class="nav-items">
+            <a class="nav-item nav-item-home" href="/">Home</a>
+            
+            
+            <a class="nav-item" href="/categories/essays">Thinking</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/pcomp">Pcomp&amp;AVCE</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/coding">Coding</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/portfolio">Portfolio</a>
+            
+            
+            
+            <a class="nav-item" href="/contact">About</a>
+            
+            
+            
+            <a class="nav-item nav-item-github nav-item-icon" href="https://github.com/ShuSQ" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-codepen nav-item-icon" href="https://codepen.io/shusq" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-patreon nav-item-icon" href="https://www.instagram.com/cheese_shu/" target="_blank">&nbsp;</a>
+            
+            
+        </div>
+    </div>
+</nav>
+        <article class="post">
+    <div class="meta">
+        
+        <div class="date" id="date">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <span>November</span>
+            
+            
+            <span>24,</span>
+            <span>2020</span>
+        </div>
+        
+
+        <h2 class="title">Coding6 - 3D Graphics Part2</h2>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="content">
+        <blockquote>
+<p> We will discuss how to use Three.js to build a basic 3D world and create some 3D interactive elements.</p>
+</blockquote>
+<br/>
+
+<h3 id="1-WebGL-Basics"><a href="#1-WebGL-Basics" class="headerlink" title="1.WebGL Basics"></a>1.WebGL Basics</h3><p>We can use some middleware to help us create complex 3D scenes, such as Three.js, we’ll be using objects with specific methods defined by the Three.js API. You can go to its official website for more information: <a target="_blank" rel="noopener" href="https://threejs.org/">https://threejs.org</a>.</p>
+<p>Three.js has optimized WebGL to generate 3D scenes. WebGL is a 3D graphics context based on OpenGL, if you are very interested in WebGL, you can also visit [https: //webglfundamentals.org](<a target="_blank" rel="noopener" href="https://webglfundamentals/">https://webglfundamentals</a> .org/) for more information.</p>
+<p>Of course, we also need to understand some basic knowledge, understand what is geometry/model, how to use materials, how to add texture and create mapping, how to create lighting, as well as triangles and normals.</p>
+<p>Mr. Doob has made great contributions to the development of WebGL. He is also the author of Three.js. You can visit his website to learn about his work-<a target="_blank" rel="noopener" href="https://mrdoob.com/">https://mrdoob.com/</a>.</p>
+<h3 id="2-Models"><a href="#2-Models" class="headerlink" title="2.Models"></a>2.Models</h3><ul>
+<li><p>In many cases, specifically where common forms of representation are being used (human characters for example), models are prepared outside of the rendering engine, then imported.</p>
+</li>
+<li><p>In these cases, models are often groups of meshes, rather than one mesh. They may also have animations associated with them.</p>
+</li>
+<li><p>In modern openGL, any element can be treated as an openGL NODE. Nodes can have parents, and children.</p>
+</li>
+<li><p>Transforms affecting parents also affect children.</p>
+</li>
+<li><p>You can have lots of children - e.g. lots of body parts.</p>
+</li>
+<li><p>So you can think of models as groups of nodes organised in a hierarchy.</p>
+</li>
+<li><p>A model can also have all the features we are discussion today, baked in to the model for when you load it in the engine.</p>
+</li>
+<li><p>These features include parameters that say how they will react to lighting such as materials, normals), bump maps, and textures etc.</p>
+</li>
+<li><p>They will also have specific information about how the model can be deformed.</p>
+</li>
+<li><p>The entire package is a Resource.</p>
+</li>
+<li><p>We’re going to be using basic geometry with Three.js</p>
+</li>
+<li><p>But there’s nothing stopping you from using models if you want.</p>
+</li>
+<li><p>You can create, load, save and export models using Blender, which is a really fantastic piece of software:</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.blender.org/">https://www.blender.org/</a></p>
+</li>
+</ul>
+<h3 id="3-Three-js"><a href="#3-Three-js" class="headerlink" title="3.Three.js"></a>3.Three.js</h3><p>We need to create some standard objects, to help us build a 3D scene:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> camera = <span class="keyword">new</span> THREE.PerspectiveCamera(<span class="number">70</span>, <span class="built_in">window</span>.innerWidth / <span class="built_in">window</span>.innerHeight, <span class="number">1</span>, <span class="number">1000</span>);</span><br><span class="line"><span class="comment">// We need to create a scene and add things to it.   </span></span><br><span class="line"><span class="keyword">var</span> scene = <span class="keyword">new</span> THREE.Scene();</span><br><span class="line"><span class="comment">// Now we are goint to create some built in geometry </span></span><br><span class="line"><span class="comment">// It&#x27;s a box.    </span></span><br><span class="line"><span class="keyword">var</span> geometry = <span class="keyword">new</span> THREE.BoxGeometry(<span class="number">200</span>, <span class="number">200</span>, <span class="number">200</span>);</span><br><span class="line"><span class="comment">// We are going to want to texture the box.</span></span><br><span class="line"><span class="comment">// To do this we need a texture loader object to load the texture </span></span><br><span class="line"><span class="keyword">var</span> myTextureLoader = <span class="keyword">new</span> THREE.TextureLoader();</span><br><span class="line"><span class="comment">// Then we can load the texture into a variable</span></span><br><span class="line"><span class="keyword">var</span> myTexture = myTextureLoader.load(<span class="string">&#x27;sgpic10.jpg&#x27;</span>);</span><br><span class="line"><span class="comment">// Now we need to create a material</span></span><br><span class="line"><span class="comment">// This defines how the surface of the object reflects light</span></span><br><span class="line"><span class="comment">// We&#x27;re using Phong. There are lots of other types.      </span></span><br><span class="line"><span class="keyword">var</span> material = <span class="keyword">new</span> THREE.MeshPhongMaterial(&#123;<span class="attr">map</span>: myTexture&#125;);</span><br><span class="line"><span class="comment">// We can now create a mesh using the geomentry and the material</span></span><br><span class="line"><span class="keyword">var</span> mesh = <span class="keyword">new</span> THREE.Mesh(geometry, material);</span><br><span class="line"><span class="comment">// If we want to see stuff, we will need a light.</span></span><br><span class="line"><span class="comment">// The argument is the colour of the light in hexadecimal.      </span></span><br><span class="line"><span class="keyword">var</span> light = <span class="keyword">new</span> THREE.DirectionalLight(<span class="string">&quot;rgb(255,255,255)&quot;</span>);</span><br><span class="line"><span class="comment">// Now we can create our renderer. Thiis renders the scene. </span></span><br><span class="line">      </span><br><span class="line"><span class="comment">// There are lots of different kinds of renderers. </span></span><br><span class="line"><span class="comment">// They also have a lot of parameters!!</span></span><br><span class="line"><span class="keyword">var</span> renderer = <span class="keyword">new</span> THREE.WebGLRenderer(&#123; <span class="attr">preserveDrawingBuffer</span>: <span class="literal">true</span> &#125;);</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="4-Lighting"><a href="#4-Lighting" class="headerlink" title="4.Lighting"></a>4.Lighting</h3><p>Three.js is based on WebGL, and can have lots of lights. OpenGL is limited to only 8, but you can create as many as you like using shaders :-) You can create and position various lights to illuminate a scene. You can also adjust the ‘material’ properties of a 3D shape, to change how the object reacts to light.</p>
+<p>These lights have various parameters, but basically they throw simulated light rays onto the scene. You can control how they do this very precisely.</p>
+<p>There are 3 main lighting approaches in WebGL:</p>
+<ul>
+<li>Ambient Light - the average emission from all sources in the scene.</li>
+<li>Diffuse Light - directional light cast by a light source.</li>
+<li>Specular Light - directional light that reflects off an object.</li>
+<li>Ambient Light - this is flat shaded.</li>
+<li>Diffuse Light - this makes it possible to create the illusion of depth when combined with ambient light.</li>
+<li>Specular Light - this is the ‘shininess’ of the reflected light - can result in a highlight on an object, and infers something about the material being used.</li>
+</ul>
+<p>There is also emissive light - which is related to the colour of the object you are lighting. In Three.js, there are lots of lighting options. </p>
+<h3 id="5-Normals"><a href="#5-Normals" class="headerlink" title="5.Normals"></a>5.Normals</h3><p>A Normal is a vector perpendicular to the surface either from the surface centre, the vertex, or the object centre. Normals tell the renderer which direction the object or surface is facing. If the vertex Normal is pointing away from the viewer, you might not see the surface…</p>
+<p>We can invert normals very easily in Three.js, do this be specifying which side is the surface; we can do this when we set the material properties.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Material.side = THREE.BackSide, or Material.side = THREE.DoubleSide</span><br></pre></td></tr></table></figure>
+
+<p>The Vertex normal is the unit vector of the vertex position - the origin, this is because the unit vector of the vertex contains the direction that the vertex is going.</p>
+<p><img src="https://camo.githubusercontent.com/494fa643d150290bde7f0e039c1e199210074d42bc4b399637cd6206f1a33a19/68747470733a2f2f75616c2d6363692e6769746875622e696f2f6d69636b2f696d616765732f31302e6a7067"></p>
+<p><img src="https://camo.githubusercontent.com/0f7fee350ffcd34914096bb059d2c9401c885613eff2d4201a9fe88da79cfe14/68747470733a2f2f75616c2d6363692e6769746875622e696f2f6d69636b2f696d616765732f31312e6a7067"></p>
+<h3 id="6-Bump-Maps-Textures-and-Environments"><a href="#6-Bump-Maps-Textures-and-Environments" class="headerlink" title="6.Bump Maps, Textures and Environments"></a>6.Bump Maps, Textures and Environments</h3><p>Bump maps are pretty great, they give the effect of altering the geometry by simply adjusting the direction of the normal. This makes the light reflect differently, just as if the geometry was a different shape.</p>
+<p>Texture mapping is the most powerful method of creating coloured surfaces. A texture needs to be uploaded to the graphics card. Once there, you can bind it to the scene, draw with it, then unbind it, you can then bind a second texture in the same draw loop if you wish. This allows you to generate multi-textured scenes, you can also load textures very easily and apply them to meshes.</p>
+<p>When making 3D scenes, we use lights to generate more realistic looking environments. In the example we’ve seen, there’s an object lit with a texture, but we don’t have a sky. The easiest method for generating a sky is to do the following:</p>
+<ul>
+<li>Create a cube;</li>
+<li>Invert the normals so that they point inwards, not outwards (sometimes you don’t need to do this).</li>
+<li>Make the cube very large, so that it fills the screen in all directions.</li>
+<li>texture map it with some sky.</li>
+</ul>
+<p>This object is called a skybox, they are super efficient, and you should use them.</p>
+<div align="center"><iframe class="embedded-tutorial-code" src="https://mimicproject.com/code/08cb83eb-9d6a-f6d2-fc66-38847b83a1d1?embed=true&amp;showCode=true" allow="microphone" scrolling="no" style="width: 725px; height: 453px; overflow: hidden;">what?</iframe></div>
+
+<br/>
+
+<p>Three.js dynamic geometry examples with triangle rendering.</p>
+<div align="center"><iframe class="embedded-tutorial-code" src="https://mimicproject.com/code/cbba9b28-522f-089b-25c0-a23cde718b6b?embed=true&amp;showCode=true" allow="microphone" scrolling="no" style="width: 725px; height: 453px; overflow: hidden;">what?</iframe></div>
+
+
+    </div>
+
+    <div class="about">
+        <h1>About this Post</h1>
+        <p>This post is written by Siqi Shu, licensed under <a
+                target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+    </div>
+</article>
+        <footer>
+    <div class="inner">
+        <div class="links">
+            
+            <div class="group">
+                <h4 class="title">深智一物 眾隱皆變</h4>
+                
+            </div>
+            
+        </div>
+        &copy; 2024 Siqi Shu<br />
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+</footer>
+
+
+        
+<script src="/js/main.js"></script>
+
+        
+<script src="/js/kursor.js"></script>
+
+        
+<script src="/js/run.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  
+  <title>Coding14 - Python scrape data from websites - Shu-Creative Computing</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+    <link rel='manifest' href='/manifest.json'>
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/cursor.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/components.css">
+
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+    <body>
+        <nav id="theme-nav">
+    <div class="inner">
+        <a class="title" href="/">Shu&#39;s Blog</a>
+        <div class="nav-arrow"></div>
+        <div class="nav-items">
+            <a class="nav-item nav-item-home" href="/">Home</a>
+            
+            
+            <a class="nav-item" href="/categories/essays">Thinking</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/pcomp">Pcomp&amp;AVCE</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/coding">Coding</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/portfolio">Portfolio</a>
+            
+            
+            
+            <a class="nav-item" href="/contact">About</a>
+            
+            
+            
+            <a class="nav-item nav-item-github nav-item-icon" href="https://github.com/ShuSQ" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-codepen nav-item-icon" href="https://codepen.io/shusq" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-patreon nav-item-icon" href="https://www.instagram.com/cheese_shu/" target="_blank">&nbsp;</a>
+            
+            
+        </div>
+    </div>
+</nav>
+        <article class="post">
+    <div class="meta">
+        
+        <div class="date" id="date">
+            
+            <span>January</span>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <span>29,</span>
+            <span>2021</span>
+        </div>
+        
+
+        <h2 class="title">Coding14 - Python scrape data from websites</h2>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="content">
+        <blockquote>
+<p>In this article, we will know hot to use Python library build a scrape tool, help us get data we needed from websites. Web scraping is an automated process of collecting data from the Internet. Users do not need to spend a lot of time manually retrieving data. They only need to extract the required data through code, and further arrange and query to find the information that meets the expectations. Confusing information is processed in a structured way, or made into a visual case.</p>
+<p>Python has a very simple web scraping library, and it is very easy to clean, store and analyze data.</p>
+</blockquote>
+<h3 id="Prat1-Using-‘requests’-to-load-web-pages"><a href="#Prat1-Using-‘requests’-to-load-web-pages" class="headerlink" title="Prat1: Using ‘requests’ to load web pages"></a>Prat1: Using ‘requests’ to load web pages</h3><p><code>requests</code> allows us to send HTTP requests using Python.</p>
+<p>The HTTP request returns a response object with all the response data. The following is an example of obtaining the HTML of the page:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">res = requests.get(<span class="string">&#x27;https://www.bilibili.com&#x27;</span>)</span><br><span class="line"></span><br><span class="line">print(res.text)</span><br><span class="line">print(res.status_code)</span><br></pre></td></tr></table></figure>
+
+<p>In the above code, the content of the webpage is obtained through <code>requests</code>.</p>
+<p>Store the text as the response text as txt, and store the status_code in <code>status</code>.</p>
+<p>Then use <code>print</code> to print them all.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">res = requests.get(</span><br><span class="line"><span class="string">&#x27;https://www.bilibili.com&#x27;</span>)</span><br><span class="line"></span><br><span class="line">txt = res.text</span><br><span class="line">status = res.status_code</span><br><span class="line"></span><br><span class="line">print(txt, status)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Part2-Using-BeautifulSoup-to-extract-title"><a href="#Part2-Using-BeautifulSoup-to-extract-title" class="headerlink" title="Part2: Using BeautifulSoup to extract title"></a>Part2: Using BeautifulSoup to extract title</h3><p>We mainly use <code>BeautifulSoup</code> for web scraping, which has many functions to provide powerful solutions:</p>
+<ol>
+<li><p>Provides a lot of simple methods and Pythonic idioms for navigating, searching and modifying the DOM tree, without a lot of code when writing applications.</p>
+</li>
+<li><p>Beautiful Soup is at the top of the Python parser (lxml and html5lib), you can try different parsing strategies or increase flexibility.</p>
+</li>
+</ol>
+<p>Let’s look at a simple example of BeautifulSoup:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line">page = requests.get(<span class="string">&#x27;https://www.bilibili.com&#x27;</span>)</span><br><span class="line">soup = BeautifulSoup(page.content, <span class="string">&#x27;html.parser&#x27;</span>)</span><br><span class="line">title = soup.title.text</span><br></pre></td></tr></table></figure>
+
+<p>We use <code>requests</code> to get URL information, and store the title of the page into a variable named page_title through BeautifulSoup.</p>
+<p>You can see that once we import the BeautifulSoup of page.content, we can use the parsed DOM tree in a very Pythonic way:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line">page = requests.get(<span class="string">&quot;https://www.bilibili.com&quot;</span>)</span><br><span class="line">soup = BeautifulSoup(page.content, <span class="string">&#x27;html.parser&#x27;</span>)</span><br><span class="line"></span><br><span class="line">page_title = soup.title.text</span><br><span class="line"></span><br><span class="line">print(page_title)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Part3-lt-Head-gt-and-lt-BODY-gt"><a href="#Part3-lt-Head-gt-and-lt-BODY-gt" class="headerlink" title="Part3: &lt;Head&gt;and&lt;BODY&gt;"></a>Part3: &lt;Head&gt;and&lt;BODY&gt;</h3><p>Similarly, we can easily extract other parts of the web. You can see that we must call <code>.text</code> to get the string. Try to run the following code:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line">page = requests.get(<span class="string">&quot;https://www.bilibili.com&quot;</span>)</span><br><span class="line">soup = BeautifulSoup(page.content, <span class="string">&#x27;html.parser&#x27;</span>)</span><br><span class="line"></span><br><span class="line">page_title = soup.title.text</span><br><span class="line"></span><br><span class="line">page_body = soup.body</span><br><span class="line">page_head = soup.head</span><br><span class="line"></span><br><span class="line">print(page_body, page_head)</span><br></pre></td></tr></table></figure>
+
+<p>Use <code>requests</code> to grab web information.</p>
+<p>Store the title information in <code>page_title</code>, store the body information in <code>page_body</code>, and store the head information in <code>page_head</code>.</p>
+<p>When we print <code>page_body</code> and <code>page_head</code>, we will see that they are printed as <code>strings</code>, but in fact, when we use print(type(page_body)) to view the type, they are not strings.</p>
+<h3 id="Part4-Using-BeautifulSoup-to-select"><a href="#Part4-Using-BeautifulSoup-to-select" class="headerlink" title="Part4: Using BeautifulSoup to select"></a>Part4: Using BeautifulSoup to select</h3><p>Now let’s take a look at how to use BeautifuSoup’s method to select DOM elements.</p>
+<p>With the <code>soup</code> variable, we can use <code>.select</code> to manipulate it, just like the CSS selector in BeautifulSoup, we can access the DOM tree like using CSS to select elements:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line">page = requests.get(<span class="string">&quot;https://www.bilibili.com&quot;</span>)</span><br><span class="line">soup = BeautifulSoup(page.content, <span class="string">&#x27;html.parser&#x27;</span>)</span><br><span class="line"></span><br><span class="line">first_h1 = soup.select(<span class="string">&#x27;h1&#x27;</span>)[<span class="number">0</span>].text</span><br></pre></td></tr></table></figure>
+
+<p><code>.select</code> returns a Python list of all elements, so we can select [0] to index the first element when selecting.</p>
+<p>Create a variable <code>all_h1_tags</code> and set it to an empty list.</p>
+<p>Use <code>.select</code> to select all the <code>&lt;h1&gt;</code> tag lists, create a variable, and store the seventh element.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line">page = requests.get(<span class="string">&quot;https://www.bilibili.com&quot;</span>)</span><br><span class="line">soup = BeautifulSoup(page.content, <span class="string">&#x27;html parser&#x27;</span>)</span><br><span class="line"></span><br><span class="line">all_h1_tags = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> element <span class="keyword">in</span> soup.select(<span class="string">&#x27;h1&#x27;</span>):</span><br><span class="line">  all_h1_tags.append(element.text)</span><br><span class="line">  </span><br><span class="line">seventh_p_text = soup.select(<span class="string">&#x27;p&#x27;</span>)[<span class="number">6</span>].text</span><br><span class="line"></span><br><span class="line">print(all_h1_tags, seventh_p_text)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Part5-Grabbing-important-information"><a href="#Part5-Grabbing-important-information" class="headerlink" title="Part5: Grabbing important information"></a>Part5: Grabbing important information</h3><p>Use <code>.select</code> to extract the title, use <code>.select</code> to extract the product title of the element, and create a new dictionary in the format:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">info = &#123;</span><br><span class="line">  <span class="string">&quot;title&quot;</span>: <span class="string">&#x27;Asus AsusPro Adv... &#x27;</span>.strip(),</span><br><span class="line">  <span class="string">&quot;review&quot;</span>: <span class="string">&#x27;2 reviews\n\n\n&#x27;</span>.strip()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Here, we use the <code>strip</code> method to remove all extra line breaks and spaces that may be included in the output.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line">page = requests.get(<span class="string">&quot;https://www.bilibili.com&quot;</span>)</span><br><span class="line">soup = BeautifulSoup(page.content, <span class="string">&#x27;html.parser&#x27;</span>)</span><br><span class="line"></span><br><span class="line">top_items = []</span><br><span class="line"></span><br><span class="line">products = soup.select(<span class="string">&#x27;div.info-box&#x27;</span>)</span><br><span class="line"><span class="keyword">for</span> elem <span class="keyword">in</span> products:</span><br><span class="line">    title = elem.select(<span class="string">&#x27;div.info &gt; p.title&#x27;</span>)[<span class="number">0</span>].text</span><br><span class="line">    review_label = elem.select(<span class="string">&#x27;p.play&#x27;</span>)[<span class="number">0</span>].text</span><br><span class="line">    info = &#123;</span><br><span class="line">        <span class="string">&quot;title&quot;</span>: title.strip(),</span><br><span class="line">        <span class="string">&quot;review&quot;</span>: review_label.strip()</span><br><span class="line">    &#125;</span><br><span class="line">    top_items.append(info)</span><br><span class="line"></span><br><span class="line">print(top_items)</span><br></pre></td></tr></table></figure>
+
+<p>First, we select all the elements in <code>div.info-box</code> that provide us with a list of individual products, and then iterate through them. Because <code>select</code> allows re-use to get the title. Because we have already run <code>div.info-box</code>, <code>div,info&gt; p.title</code> will only return results within the range of the list. We select the 0th element of the list, then extract the text, and finally remove the extra spaces And added to the list.</p>
+<h3 id="Part6-Extracting-link"><a href="#Part6-Extracting-link" class="headerlink" title="Part6: Extracting link"></a>Part6: Extracting link</h3><p>Now that we know how to ask questions about the innerText of a text or element, let’s try to extract the links in the page. Here is an example provided:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line">page = requests.get(<span class="string">&quot;https://www.bilibili.com&quot;</span>)</span><br><span class="line">soup = BeautifulSoup(page.content, <span class="string">&#x27;html.parser&#x27;</span>)</span><br><span class="line"></span><br><span class="line">image_data = []</span><br><span class="line"></span><br><span class="line">images = soup.select(<span class="string">&#x27;img&#x27;</span>)</span><br><span class="line"><span class="keyword">for</span> image <span class="keyword">in</span> images:</span><br><span class="line">  src = image.get(<span class="string">&#x27;src&#x27;</span>)</span><br><span class="line">  alt = image.get(<span class="string">&#x27;alt&#x27;</span>)</span><br><span class="line">  image_data.append(&#123;<span class="string">&quot;src&quot;</span>: src, <span class="string">&quot;alt&quot;</span>: alt&#125;)</span><br><span class="line">  </span><br><span class="line">print(image_data)</span><br></pre></td></tr></table></figure>
+
+<p>Create a dictionary named <code>all_links</code> and store all link information in it:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">info = &#123;</span><br><span class="line">	<span class="string">&quot;href&quot;</span>: <span class="string">&quot;&lt;link here&gt;&quot;</span>,</span><br><span class="line">	<span class="string">&quot;text&quot;</span>: <span class="string">&quot;&lt;link text here&gt;&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line">page = requests.get(<span class="string">&quot;https://www.bilibili.com&quot;</span>)</span><br><span class="line">soup = BeautifulSoup(page.content, <span class="string">&#x27;html.parser&#x27;</span>)</span><br><span class="line"></span><br><span class="line">all_links = []</span><br><span class="line"></span><br><span class="line">links = soup.select(<span class="string">&#x27;a&#x27;</span>)</span><br><span class="line"><span class="keyword">for</span> ahref <span class="keyword">in</span> links:</span><br><span class="line">  text = ahref.text</span><br><span class="line">  text = text.strip() <span class="keyword">if</span> text <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">else</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">  </span><br><span class="line">  href = ahref.get(<span class="string">&#x27;href&#x27;</span>)</span><br><span class="line">  href = href.strip() <span class="keyword">if</span> href <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">else</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">  all_links.append(&#123;<span class="string">&quot;href&quot;</span>: href, <span class="string">&quot;text&quot;</span>: text&#125;)</span><br><span class="line">  </span><br><span class="line">print(all_links)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Part7-Generating-CSV-from-data"><a href="#Part7-Generating-CSV-from-data" class="headerlink" title="Part7: Generating CSV from data"></a>Part7: Generating CSV from data</h3><p>We can generate a CSV template from a single element box:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">import</span> csv</span><br><span class="line"></span><br><span class="line">page = requests.get(<span class="string">&quot;https://www.bilibili.com&quot;</span>)</span><br><span class="line">soup = BeautifulSoup(page.content, <span class="string">&#x27;html.parser&#x27;</span>)</span><br><span class="line"></span><br><span class="line">all_products = []</span><br><span class="line"></span><br><span class="line">products = soup.select(<span class="string">&#x27;div.info-box&#x27;</span>)</span><br><span class="line"><span class="keyword">for</span> product <span class="keyword">in</span> products:</span><br><span class="line">  </span><br><span class="line">  print(<span class="string">&quot;Work on product here&quot;</span>)</span><br><span class="line">  </span><br><span class="line">keys = all_products[<span class="number">0</span>].keys()</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;products.csv&#x27;</span>, <span class="string">&#x27;w&#x27;</span>, newline = <span class="string">&#x27;&#x27;</span>) <span class="keyword">as</span> output_file:</span><br><span class="line">  dict_writer = csv.DictWriter(output_file, keys)</span><br><span class="line">  dict_writer.writeheader()</span><br><span class="line">  dict_writer.writerows(all_products)</span><br></pre></td></tr></table></figure>
+
+<p>Let’s take a look at how the actual case demonstrates:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">import</span> csv</span><br><span class="line"></span><br><span class="line">page = requests.get(<span class="string">&quot;https://www.bilibili.com&quot;</span>)</span><br><span class="line">soup = BeautifulSoup(page.content, <span class="string">&#x27;html.parser&#x27;</span>)</span><br><span class="line"></span><br><span class="line">all_videos = []</span><br><span class="line">videos = soup.select(<span class="string">&#x27;div.info-box&#x27;</span>)</span><br><span class="line"><span class="keyword">for</span> video <span class="keyword">in</span> videos:</span><br><span class="line">    title = video.select(<span class="string">&#x27;div.info &gt; p.title&#x27;</span>)[<span class="number">0</span>].text.strip()</span><br><span class="line">    up_name = video.select(<span class="string">&#x27;p.up&#x27;</span>)[<span class="number">0</span>].text.strip()</span><br><span class="line">    play_num = video.select(<span class="string">&#x27;p.play&#x27;</span>)[<span class="number">0</span>].text.strip()</span><br><span class="line">    cover_img = video.select(<span class="string">&#x27;img&#x27;</span>)[<span class="number">0</span>].get(<span class="string">&#x27;src&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    all_videos.append(&#123;</span><br><span class="line">        <span class="string">&quot;title&quot;</span>: title,</span><br><span class="line">        <span class="string">&quot;upName&quot;</span>: up_name,</span><br><span class="line">        <span class="string">&quot;playNum&quot;</span>: play_num,</span><br><span class="line">        <span class="string">&quot;coverImg&quot;</span>: cover_img</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">keys = all_videos[<span class="number">0</span>].keys()</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;videos.csv&#x27;</span>, <span class="string">&#x27;w&#x27;</span>, newline=<span class="string">&#x27;&#x27;</span>) <span class="keyword">as</span> output_file:</span><br><span class="line">    dict_writer = csv.DictWriter(output_file, keys)</span><br><span class="line">    dict_writer.writeheader()</span><br><span class="line">    dict_writer.writerows(all_videos)</span><br></pre></td></tr></table></figure>
+
+<p>After execution, we will get a csv file!</p>
+<p>Throughout this article, we have learned how to grab text, tags, and links through Python. The list has been generated and exported as a csv file. Now you can use the learned methods to do more.</p>
+
+    </div>
+
+    <div class="about">
+        <h1>About this Post</h1>
+        <p>This post is written by Siqi Shu, licensed under <a
+                target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+    </div>
+</article>
+        <footer>
+    <div class="inner">
+        <div class="links">
+            
+            <div class="group">
+                <h4 class="title">深智一物 眾隱皆變</h4>
+                
+            </div>
+            
+        </div>
+        &copy; 2024 Siqi Shu<br />
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+</footer>
+
+
+        
+<script src="/js/main.js"></script>
+
+        
+<script src="/js/kursor.js"></script>
+
+        
+<script src="/js/run.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  
+  <title>IDS4 - Data Classification - Shu-Creative Computing</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+    <link rel='manifest' href='/manifest.json'>
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/cursor.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/components.css">
+
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+    <body>
+        <nav id="theme-nav">
+    <div class="inner">
+        <a class="title" href="/">Shu&#39;s Blog</a>
+        <div class="nav-arrow"></div>
+        <div class="nav-items">
+            <a class="nav-item nav-item-home" href="/">Home</a>
+            
+            
+            <a class="nav-item" href="/categories/essays">Thinking</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/pcomp">Pcomp&amp;AVCE</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/coding">Coding</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/portfolio">Portfolio</a>
+            
+            
+            
+            <a class="nav-item" href="/contact">About</a>
+            
+            
+            
+            <a class="nav-item nav-item-github nav-item-icon" href="https://github.com/ShuSQ" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-codepen nav-item-icon" href="https://codepen.io/shusq" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-patreon nav-item-icon" href="https://www.instagram.com/cheese_shu/" target="_blank">&nbsp;</a>
+            
+            
+        </div>
+    </div>
+</nav>
+        <article class="post">
+    <div class="meta">
+        
+        <div class="date" id="date">
+            
+            
+            
+            
+            
+            
+            
+            <span>July</span>
+            
+            
+            
+            
+            
+            
+            <span>15,</span>
+            <span>2021</span>
+        </div>
+        
+
+        <h2 class="title">IDS4 - Data Classification</h2>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="content">
+        <blockquote>
+<p>In this article, we will look at how to predict discrete labels.</p>
+</blockquote>
+<h3 id="Predicting-Discrete-Labels"><a href="#Predicting-Discrete-Labels" class="headerlink" title="Predicting Discrete Labels"></a>Predicting Discrete Labels</h3><p>Our intention is to make a model that generalises to a problem well, so that when it sees new data, it will predict the correct labels.</p>
+<p><img src="https://miro.medium.com/max/820/1*UkWCA_uBx5hA8gQqXrJzlw.png"></p>
+<h3 id="Evaluating-Classifiers"><a href="#Evaluating-Classifiers" class="headerlink" title="Evaluating Classifiers"></a>Evaluating Classifiers</h3><p>Overfitting - when the model fits to exactly to our dataset and doesn’t generalise to the problem well. This will perform badly on new data. Characterised, but low test set accuracy.</p>
+<p>Underfitting - when a model has failed to fit the necessary complexities of the data and problem. Characterised by low accuracy in general.</p>
+<h3 id="K-Nearest-Neighbour"><a href="#K-Nearest-Neighbour" class="headerlink" title="K Nearest Neighbour"></a>K Nearest Neighbour</h3><p>This simple classification algorithm is actually the one we used on MIMIC project with the Learner.js library. There is not even technically any training with this algorithm, the dataset is the model.</p>
+<h5 id="Predicting-a-new-label"><a href="#Predicting-a-new-label" class="headerlink" title="Predicting a new label"></a>Predicting a new label</h5><p>When we get a new data point to classify, we simply predict the label of the nearest example in the dataset; if k = 1, this is the single nearsest.</p>
+<p><img src="https://miro.medium.com/max/900/1*qB9hC_nBkRtIC_rMBWAenA.png"></p>
+<p>When we get a new data point to classify, we simply predict the label of the nearest example in the dataset; if k = 5, this is the most frequent of the 5 nearest.</p>
+<p><img src="https://miro.medium.com/max/920/1*fGDyTf8x96Xq87Og4UhOfg.png"></p>
+<h5 id="Euclidean-distance"><a href="#Euclidean-distance" class="headerlink" title="Euclidean distance"></a>Euclidean distance</h5><p>To find the nearest neighbours, we take the Euclidean distance, this is done using Pythagoras Theorem.</p>
+<p><img src="https://miro.medium.com/max/1200/1*KNnEb1bTFmNNioBjP9OEMQ.png"></p>
+<p>This works in more than 2 dimensions, so we can use this no matter how many features we have.</p>
+<p><img src="https://miro.medium.com/max/1160/1*Xya4LUq_UCKyvaCWQiHiPg.png"></p>
+<h5 id="Why-change-K"><a href="#Why-change-K" class="headerlink" title="Why change K?"></a>Why change K?</h5><p>Imagine we have a dataset collected with a proximity sensor that records how near art gallery visitors are to our smart machine installation lighting experiences.</p>
+<p>We have used a KNN classifier to model people’s habaviour around it, and change to different lighting patterns depending on what class the model has predicted.</p>
+<p>Mostly the sensor is pretty accurate at telling us where visitors are, but about 10% of the time it fails to measure correctly and gives us what is essentially a random number.</p>
+<h5 id="Noise-in-the-data"><a href="#Noise-in-the-data" class="headerlink" title="Noise in the data"></a>Noise in the data</h5><p>Our feature representation and dataset is actually good, so there should be two distinct groups, however, the noise has muddled the groups a bit.</p>
+<p>We know the behavior we want the model to capture is less intermingled (closer to the red line); this is sometimes called irreducible error.</p>
+<p><img src="https://cdn-images-1.medium.com/max/1200/1*KJmePKXSu7Djlb5Kjnwrfw.png"></p>
+<h5 id="Decision-Boundary"><a href="#Decision-Boundary" class="headerlink" title="Decision Boundary"></a>Decision Boundary</h5><p>We show the dataset here, with a decision boundary. This shows us the classes that would be predicted for a wide range of values.</p>
+<p>With k = 1, there are lots of small pockets of each class as the classifier responds to the noise because even one bad piece of data can throw off the classifier.</p>
+<p>This is a danger of overfitting the data.</p>
+<p><img src="https://cdn-images-1.medium.com/max/1200/1*nHGTTCv6xFkzvoehGEV3kQ.png"></p>
+<p>With k = 5, the boundary begins to smooth out.</p>
+<p><img src="https://cdn-images-1.medium.com/max/1200/1*UvQdN9LyzoxDaAoRX9CoJw.png"></p>
+<p>With the k = 20, the boundary now looks like how we know we want our model to bah, with the noise in the dataset not having as much influence.</p>
+<p>We can now use this model to accurately predict visitors behavior in the installation and provide appropriate response.</p>
+<p><img src="https://cdn-images-1.medium.com/max/1200/1*aciNcYtGw5lgmspVI2TWyA.png"></p>
+<p>However, if in fact the phenomena we are trying to model actually has this complex shape and variation, having a high k value will smooth over all this variation we actually want in the model.</p>
+<p>This would be a case of underfitting, and we would model error is down to high bias.</p>
+<p>Relation ships are not alwat simple or linear, and one of the advantages of KNN is it can fit very comple decision boundaries.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*19WkImi2ujOH4c63BfJXXA.png"></p>
+<h5 id="Ocam’s-Razor"><a href="#Ocam’s-Razor" class="headerlink" title="Ocam’s Razor"></a>Ocam’s Razor</h5><p>Ocam’s Razor tells us to pick the simplest solution our evidence suggests. If we have enough data, we can justify a complex decision boundary (left).</p>
+<p>If not, weshould favour a simpler model (centre).</p>
+<p>We would say the model on the right has high variance, in that small changes in the training set result in large changes to the model.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*evlv5qUTLSC2CX3g6xR7vg.png"></p>
+<h3 id="Decision-Trees"><a href="#Decision-Trees" class="headerlink" title="Decision Trees"></a>Decision Trees</h3><p>What is decision trees?</p>
+<p>A series of binary choices, model trained to 93% accuracy.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*EfKSEjTLSyEHiXU0P0gJuQ.png"></p>
+<p>We. Start at the root node, leaf nodes determine a final choice.</p>
+<p>Clearly show decisions made by each block.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*2u7MVVFvyRDNzRC5tdLtpQ.png"></p>
+<h5 id="Gini-Impurity"><a href="#Gini-Impurity" class="headerlink" title="Gini Impurity"></a>Gini Impurity</h5><p>Each node tells us how many samples in the training set belong to each class at that point. It also tells us the “GIni Impurity”. This is a measure of the ratio of training instances for that node.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*4vYNjW3tgcwi51wn-qeH8g.png"></p>
+<p>1 - ((320/331)^2 + (11/331)^2) = 0.064</p>
+<p>If Gini Impurity is 0, then the all the training examples in that leaf node are of the same class and the node is “pure”.</p>
+<p>In general, the lower impurity, the better the prediction is at that node.</p>
+<p>Unlike some models, Decision Trees are considered white box, in that we can look inside and watch every once the model has made to arrive at its prediction. This is in comparison to black box models like Neural  Networks.</p>
+<h5 id="Training"><a href="#Training" class="headerlink" title="Training"></a>Training</h5><p>We will use the CART algorithm.</p>
+<p>When we are “growing” the tree, we pick a feature (e.g. total sulphur dioxide) and a threshold (e.g. &lt;= 71.5) for the new node.</p>
+<p>Unsurprisingly, we aim to minimise the gini impurity when training.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*MaRNXVcTSDxJdaF55N5VRA.png"></p>
+<p>Left=9/221 samples, Gini=0.346</p>
+<p>Right=212/221 samples, Gini=0.081</p>
+<p>CART cost function:</p>
+<ul>
+<li>(9/221 * 0.346) + (212/221 * 0.081)</li>
+</ul>
+<p>High impurity has less of a impact on the cost if the amount of training data in that node after the split is a small proportion.</p>
+<p>We keep going recursively splitting until we reach the maximum specified depth or the best split we can do doesn’t reduce the cost function.</p>
+<h5 id="Reducing-Overfitting"><a href="#Reducing-Overfitting" class="headerlink" title="Reducing Overfitting"></a>Reducing Overfitting</h5><p>We have seen that with a model that has max_depth = 2, we can clearly see the two decision boundaries. If we increase the max_depth, we get a more complex model with more choices, and a more complex decision boundary.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*4vSZndnacXjhmUO8sjg5eA.png"></p>
+<p>For the same reasons as with changing the k value in KNNs, we should only have a model that is as complicated as we as need. This really looks like it has overfit to the data, and the lower depth makes a simpler model that will generalise better.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*G5P1pKH3-RPG3KksBZ_1Jw.png"></p>
+<h3 id="Random-Forest"><a href="#Random-Forest" class="headerlink" title="Random Forest"></a>Random Forest</h3><h5 id="Bagging-Decision-Trees"><a href="#Bagging-Decision-Trees" class="headerlink" title="Bagging Decision Trees"></a>Bagging Decision Trees</h5><p>Random Forests train mutiple Decision Trees at once.</p>
+<p>We then pick the most common prediction out all of them.</p>
+<p>We can do this with any types of classifiers, and its known bagging.</p>
+<p>For Random Forests, each tree is trained on a different subset of features, meaning that when we ahve averaged all the results across we are likely to get a better, more robust result.</p>
+<p>It can also show feature importance, as we know which features were involved in the trees that contributed to correct results. A Random Forest with all 12 features gets 99.2% test set accuracy.</p>
+<p>This graph shows feature importance and that chlorides and total sulphur dioxide are in fact the biggest contributors to this models performance.</p>
+<p>Interestingly, quality scores are the least important to predicting whether a wine is white or red.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*W2L7QTXjZ2w_fM2BUnZhHg.png"></p>
+<h5 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h5><p>Both KNN and Decision Trees are capable of fitting complex decision boundaries. But this might cause overfitting, depending on the complexity of your problem, and the amount and quality of your data. You can reduce this by restricting the complexity of the models, but be careful not to underfoot. These are issues for both regression and classification tasks.</p>
+
+    </div>
+
+    <div class="about">
+        <h1>About this Post</h1>
+        <p>This post is written by Siqi Shu, licensed under <a
+                target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+    </div>
+</article>
+        <footer>
+    <div class="inner">
+        <div class="links">
+            
+            <div class="group">
+                <h4 class="title">深智一物 眾隱皆變</h4>
+                
+            </div>
+            
+        </div>
+        &copy; 2024 Siqi Shu<br />
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+</footer>
+
+
+        
+<script src="/js/main.js"></script>
+
+        
+<script src="/js/kursor.js"></script>
+
+        
+<script src="/js/run.js"></script>
+
+
+    </body>
+</html>

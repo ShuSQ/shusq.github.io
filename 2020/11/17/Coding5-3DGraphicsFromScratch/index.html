@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  
+  <title>Coding5 - 3D Graphics From Scratch - Shu-Creative Computing</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+    <link rel='manifest' href='/manifest.json'>
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/cursor.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/components.css">
+
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+    <body>
+        <nav id="theme-nav">
+    <div class="inner">
+        <a class="title" href="/">Shu&#39;s Blog</a>
+        <div class="nav-arrow"></div>
+        <div class="nav-items">
+            <a class="nav-item nav-item-home" href="/">Home</a>
+            
+            
+            <a class="nav-item" href="/categories/essays">Thinking</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/pcomp">Pcomp&amp;AVCE</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/coding">Coding</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/portfolio">Portfolio</a>
+            
+            
+            
+            <a class="nav-item" href="/contact">About</a>
+            
+            
+            
+            <a class="nav-item nav-item-github nav-item-icon" href="https://github.com/ShuSQ" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-codepen nav-item-icon" href="https://codepen.io/shusq" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-patreon nav-item-icon" href="https://www.instagram.com/cheese_shu/" target="_blank">&nbsp;</a>
+            
+            
+        </div>
+    </div>
+</nav>
+        <article class="post">
+    <div class="meta">
+        
+        <div class="date" id="date">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <span>November</span>
+            
+            
+            <span>17,</span>
+            <span>2020</span>
+        </div>
+        
+
+        <h2 class="title">Coding5 - 3D Graphics From Scratch</h2>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="content">
+        <blockquote>
+<p> In this unit, we will try to use simple 2D drawing methods to create basic 3D graphics, which can also help you better understand, how the 3D graphics system creates perspective.</p>
+</blockquote>
+<br/>
+
+<h3 id="1-Beginning"><a href="#1-Beginning" class="headerlink" title="1.Beginning"></a>1.Beginning</h3><p>Let’s start with a video:</p>
+<div align="center"><iframe width="560" height="315" src="https://www.youtube.com/embed/yMeSw00n3Ac" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+
+<p>This is the first 3D computer graphics applied to movies, created by artist Larry Cuba, he and John Whitney are both very important people in the field of experimental film and computer graphics.</p>
+<br/>
+
+<h3 id="2-2D-Perspective-Projection"><a href="#2-2D-Perspective-Projection" class="headerlink" title="2.2D Perspective Projection"></a>2.2D Perspective Projection</h3><p>In order to draw a 3D scene, we need to create depth. So we need to understand the idea of perspective and projection.<br>We can create a simple perspective projection through code:</p>
+<div align="center"><iframe class="embedded-tutorial-code" src="https://mimicproject.com/code/d2e93d74-8a13-0d7c-6e06-68048f433b4c?embed=true&amp;showCode=true" allow="microphone" scrolling="no" style="width: 725px; height: 453px; overflow: hidden;">what?</iframe></div>
+
+<p>First, we create a bunch of random coordinates. They are many 3D vectors. We also call them vertices. When we create them in 3D, we assign x, y and z coordinates to each vertex, and the z coordinate is the vertex. Provides depth.</p>
+<p>We start with a bunch of 3D points, x,y,z; then we use z to work out new positions for x and y. So we are going to scale the x and y coordinates of each vertex based on a value we derive from the z coordinate of each vertex.</p>
+<p>We get this new value by adding the Field of View to the z coordinate, and dividing the FOV by the result.</p>
+<br/>
+
+<h3 id="3-Field-of-View"><a href="#3-Field-of-View" class="headerlink" title="3. Field of View"></a>3. Field of View</h3><p>We could just use the z coordinate to directly scale the x and y values, as well as the size of the point we will draw. However, this really doesn’t work very well, and don’t simulate real world experience as well as we might like.</p>
+<p>In order to make this a bit better, we generate an intermediate value called a <em>Field of View</em>. Field of view is basically a term that means ‘what the camera can see’, but it also describes the extent to which we understand size and distance in a visual scene.</p>
+<p>One simple way to emulate field of view mathematically to scale a vertex is to generate a value, add the z coordinate of the vertex, and divide by the starting value.</p>
+<p>This produces a factor that represents the ratio of the field of view to the vertex z position. There are other ways of doing this which are slightly better, but we will come on to those later.</p>
+<p>scale = for / (fov + z3d);</p>
+<p>x = x * scale;</p>
+<p>y = y * scale;</p>
+<p>z = z;</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> canvas = <span class="built_in">document</span>.querySelector(<span class="string">&quot;canvas&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> width = <span class="built_in">window</span>.innerWidth;</span><br><span class="line"><span class="keyword">var</span> height = <span class="built_in">window</span>.innerHeight;</span><br><span class="line"><span class="keyword">var</span> context = canvas.getContext(<span class="string">&quot;2d&quot;</span>);</span><br><span class="line">canvas.width = width;</span><br><span class="line">canvas.height = height;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> fov = <span class="number">200</span>;</span><br><span class="line"><span class="comment">// This array is used to create an individual 3D vertex, represented by a 3D vector xyz</span></span><br><span class="line"><span class="keyword">var</span> point = [];</span><br><span class="line"><span class="comment">// This is where we stash all the vertices</span></span><br><span class="line"><span class="keyword">var</span> points = [];</span><br><span class="line">  <span class="comment">// This is temp storage for when we draw each 3D vertex</span></span><br><span class="line"><span class="keyword">var</span> point3d = [];</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> HALF_WIDTH = width / <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> HALF_HEIGHT = height / <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> numPoints = <span class="number">1000</span>;</span><br><span class="line">  <span class="comment">// This is temp storage for all the individual vertex coordinates in the vector</span></span><br><span class="line"><span class="keyword">var</span> x3d = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">var</span> y3d = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">var</span> z3d = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// This generates a static random starfield.</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; numPoints; i++) &#123;</span><br><span class="line">  <span class="comment">// randomly produce a number between 0 and 1</span></span><br><span class="line">  <span class="comment">// for each x, y and z coordinate</span></span><br><span class="line">  <span class="comment">// scale it (using width or height)</span></span><br><span class="line">  <span class="comment">// then centre it using width or hight</span></span><br><span class="line">    point = [(<span class="built_in">Math</span>.random() * width / <span class="number">2</span>) - width / <span class="number">4</span>, (<span class="built_in">Math</span>.random() * height / <span class="number">2</span>) - height / <span class="number">4</span>, (<span class="built_in">Math</span>.random() * width / <span class="number">2</span>) - width / <span class="number">4</span>];</span><br><span class="line">  <span class="comment">// add the vertex </span></span><br><span class="line">    points.push(point);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Now we draw the static random starfield</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">draw</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    </span><br><span class="line"><span class="comment">// This just clears the screen and paints it black  </span></span><br><span class="line">    context.fillStyle = <span class="string">&quot;rgb(0,0,0)&quot;</span>;</span><br><span class="line">    context.fillRect(<span class="number">0</span>, <span class="number">0</span>, width, height);</span><br><span class="line"><span class="comment">// This loop takes a bunch of 3D vertices and draws them using a 2D perspective projection</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; numPoints; i++) &#123;</span><br><span class="line">        </span><br><span class="line">      	<span class="comment">// Get a vertex</span></span><br><span class="line">        point3d = points[i];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// // Get the z coordinate - this is the depth</span></span><br><span class="line">        z3d = point3d[<span class="number">2</span>];</span><br><span class="line">                </span><br><span class="line">        <span class="comment">// if the z coordinate for this vertex is beyond Fielf of View (FOV),</span></span><br><span class="line">        <span class="comment">// Add half the width to move it back. This makes an endless starfield.</span></span><br><span class="line">        <span class="comment">// feel free to disable this if you want...</span></span><br><span class="line">        <span class="keyword">if</span> (z3d &lt; -fov) z3d += HALF_WIDTH;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// replace the original z position with this new z position.    </span></span><br><span class="line">        point3d[<span class="number">2</span>] = z3d;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// Now get all the coordinates in to separate values to make them easier to wrangle        </span></span><br><span class="line">        x3d = point3d[<span class="number">0</span>];</span><br><span class="line">        y3d = point3d[<span class="number">1</span>];</span><br><span class="line">        z3d = point3d[<span class="number">2</span>];</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// Decide on the size of the point by taking the FOV and dividing it by the FOV + the z pos</span></span><br><span class="line">        <span class="keyword">var</span> scale = fov / (fov + z3d);      </span><br><span class="line">        <span class="comment">// Now create the 2D perspective projection.</span></span><br><span class="line">        <span class="comment">// create a 2D x and y position by multiplying the x and y coordinates by the scale</span></span><br><span class="line">        <span class="comment">// Add half the width and height to translate the coordinates to the origin.</span></span><br><span class="line">        <span class="keyword">var</span> x2d = (x3d * scale) + HALF_WIDTH;</span><br><span class="line">        <span class="keyword">var</span> y2d = (y3d * scale) + HALF_HEIGHT;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Draw a square of size &#x27;scale&#x27;, in position x2d, y2d.</span></span><br><span class="line"></span><br><span class="line">        context.fillStyle = <span class="string">&quot;rgb(255,255,255)&quot;</span>;</span><br><span class="line">        context.fillRect(x2d, y2d,scale,scale);</span><br><span class="line">  </span><br><span class="line">        <span class="comment">//That really is it...</span></span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">	requestAnimationFrame(draw);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">	requestAnimationFrame(draw);</span><br></pre></td></tr></table></figure>
+
+<br/>
+
+<h3 id="4-Unit-Vector"><a href="#4-Unit-Vector" class="headerlink" title="4.Unit Vector"></a>4.Unit Vector</h3><p>The unit vector gives you a normalised vector with a length of 1. It doesn’t tell you how far away things are; instead, it tells you what direction you need to go in to get to them. It provides this information as a cartesian coordinate.</p>
+<p>How can we calculate the unit vector?</p>
+<p>Get the difference <em>v</em> between points <em>a</em> and <em>b</em>; this is just an element wise subtraction.</p>
+<p>Then, divide each element in <em>v</em> by the magnitude of <em>v</em>.(Remember, <em>v</em> is the difference in three dimensions)</p>
+<p>The magnitude of <em>v</em> is the same as the distance between <em>a</em> and <em>b</em>.</p>
+<br/>
+
+<h3 id="5-Vertices-Faces-and-Primitives"><a href="#5-Vertices-Faces-and-Primitives" class="headerlink" title="5.Vertices Faces and Primitives"></a>5.Vertices Faces and Primitives</h3><p>Vertices are collections of 3D position vectors; a 3D object usually has a number of vertices. We use these vertices to describe the faces of a 3D object, often do this by using the vertices to specify triangles; we can also use ‘quads’, which we can think of as planes.</p>
+<p>Planes are very basic 2D shapes in 3D space; planes have four vertices, they are usually square, but don’t have to be. Planes have 1 face, or 2faces if you want to see both side. When you do that ,it is no longer 2D. It becomes an infinitely thin 3D object. In openGL, we need to specify that a collection of vertices is a face. We also need to tell the renderer how to render that face.</p>
+<p>3D shapes are sometimes called Primitives. Some easy primitives to generate are the Platonic solids, platonic solids are interesting because each face of a platonic solid is the same size and shape.</p>
+<br/>
+
+<h3 id="6-Scaling-Rotating-and-Translating-with-Matrices"><a href="#6-Scaling-Rotating-and-Translating-with-Matrices" class="headerlink" title="6.Scaling, Rotating and Translating with Matrices"></a>6.Scaling, Rotating and Translating with Matrices</h3><p>We can use matrix transformations to do this all for us.</p>
+<p>This is what openGL does behind the scenes. It has a bunch of matrix operations that you can set up with a single command; this handles the whole pipeline.</p>
+<p><strong>Order of Transformations</strong></p>
+<ul>
+<li>TransformedVector = TranslationMatrix * RotationMatrix * ScaleMatrix * OriginalVector;</li>
+</ul>
+<p>In openGL, depth is usually represented along the z axis; in order to render 3D objects properly in openGL, you need to use something called a “Depth Buffer”, or z buffer. The z buffer is disabled by default, which means when you start coding in openGL, you can not draw depth properly.</p>
+<p>The z buffer knows what the current z value is for each pixel on the screen; if the z value in a 3D object is greater than the z value in the buffer for that pixel, the z buffer draws the pixel. To enable the depth buffer in openFrameworks, you would do this:</p>
+<p>ofEnableDepthTest();</p>
+<h3 id="7-Works"><a href="#7-Works" class="headerlink" title="7.Works"></a>7.Works</h3><p>Below I will show some drawing examples:</p>
+<p><a target="_blank" rel="noopener" href="https://mimicproject.com/code/392940d0-810f-55cc-b542-e7da59c55f6a">3D Knot Exploration by Nan</a></p>
+<p><img src="https://miro.medium.com/max/334/1*mAgXeziM8INX8N5KiVenrA.gif"></p>
+<br/>
+
+<p><a target="_blank" rel="noopener" href="https://mimicproject.com/code/36b22038-f693-fcca-60e8-6023db08d9f9">Superformula by Froyo</a></p>
+<p><img src="https://miro.medium.com/max/334/1*Ngh8FFxaJBuLJxX8-9skIg.gif"></p>
+<br/>
+
+<p><a target="_blank" rel="noopener" href="https://mimicproject.com/code/f2a48c41-7a50-c0c5-c5bc-912de7b873a8">Butterfly curve by SSQ</a></p>
+<p><img src="https://miro.medium.com/max/700/1*H2Hw_o9ptlvZ0MjDzH-Wng.gif"></p>
+<p>I also share some other formulas, which can replace my code to explore more interesting things!</p>
+<br/>
+
+<h4 id="蝶形曲線-butterfly-curve"><a href="#蝶形曲線-butterfly-curve" class="headerlink" title="蝶形曲線 butterfly curve"></a>蝶形曲線 butterfly curve</h4><p>x= Math.exp(Math.cos(j))-2<em>Math.cos(4</em>j)-Math.pow(Math.sin(j/12),5)*Math.sin(j)</p>
+<p>y= Math.exp(Math.cos(j))-2<em>Math.cos(4</em>j)-Math.pow(Math.sin(j/12),5)*Math.cos(j)</p>
+<p>*<em>Final:**var point = [(Math.exp(Math.cos(spacing</em>j))-2<em>Math.cos(spacing</em>4<em>j)-Math.pow(Math.sin(spacing</em>j/12),5))<em>Math.sin(spacing</em>j) * s,(Math.exp(Math.cos(spacing<em>j))-2</em>Math.cos(spacing<em>4</em>j)-Math.pow(Math.sin(spacing<em>j/12),5))<em>Math.cos(spacing</em>j)</em> s,z];</p>
+<p>**Wiki:**<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Butterfly_curve_(transcendental)">https://en.wikipedia.org/wiki/Butterfly_curve_(transcendental)</a></p>
+<hr>
+<h4 id="紡錘線-dumbbell-Curve"><a href="#紡錘線-dumbbell-Curve" class="headerlink" title="紡錘線 dumbbell Curve"></a>紡錘線 dumbbell Curve</h4><p>x=a*j</p>
+<p>y=a*Math.pow(j,2)*Math.sqrt(1-Math.pow(j,2))</p>
+<hr>
+<h4 id="三尖瓣線-tricuspoid"><a href="#三尖瓣線-tricuspoid" class="headerlink" title="三尖瓣線 tricuspoid"></a>三尖瓣線 tricuspoid</h4><p>x= 2<em>a</em>Math.cos(j)+a<em>Math.cos(2a</em>j);</p>
+<p>y= 2<em>a</em>Math.sin(j)-a<em>Math.sin(2a</em>j);</p>
+<p><strong>Final:</strong> var point = [(2<em>Math.cos(spacing</em>j)+Math.cos(2<em>spacing</em>j))* s,(2<em>Math.sin(spacing</em>j)-Math.sin(2<em>spacing</em>j))* s,z];</p>
+<p>**Wiki:**<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Deltoid_curve">https://en.wikipedia.org/wiki/Deltoid_curve</a></p>
+<hr>
+<h4 id="擺線-epicycloid"><a href="#擺線-epicycloid" class="headerlink" title="擺線 epicycloid"></a>擺線 epicycloid</h4><p>x= 2<em>Math.cos(j) - Math.cos(2</em>j);</p>
+<p>y= 2<em>Math.sin(j) - Math.sin(2</em>j);</p>
+<p>*<em>Final:**var point = [(2</em>Math.cos(j) - Math.cos(2<em>j))</em> s,(2<em>Math.sin(j) - Math.sin(2</em>j))* s,z];</p>
+<p>// when a=2b, nephroid</p>
+<p>x= 3<em>Math.cos(j) - Math.cos(3</em>j);</p>
+<p>y= 3<em>Math.sin(j) - Math.sin(3</em>j);</p>
+<p>*<em>Final:**var point = [(3</em>Math.cos(j) - Math.cos(3<em>j))</em> s,(3<em>Math.sin(j) - Math.sin(3</em>j))* s,z];</p>
+<p>歸納與總結：</p>
+<p>var side= 5; // Q為任意的大於3的數都可以生成角度。</p>
+<p>var point = [(side<em>Math.cos(j) + Math.cos(side</em>j))* s,(side<em>Math.sin(j) - Math.sin(side</em>j))* s,z];</p>
+<hr>
+<h4 id="Web-Sketchpad"><a href="#Web-Sketchpad" class="headerlink" title="Web Sketchpad"></a>Web Sketchpad</h4><p>x= Math.cos(14<em>j) +Math.cos(14</em>j)/2+Math.sin(3*j)/3</p>
+<p>y= Math.sin(14<em>j) +Math.sin(14</em>j)/2+Math.cos(3*j)/3</p>
+<p>*<em>Final:**var point = [(Math.cos(20</em>j) +Math.cos(20<em>j)/2+Math.sin(1</em>j)/3)* s,(Math.sin(20<em>j) +Math.sin(20</em>j)/2+Math.cos(1<em>j)/3)</em> s,z];</p>
+<p>（我也不知道為啥沒有生成游泳圈的樣子）= =</p>
+<hr>
+<p>x=((1+Math.pow(Math.sin(j),2))*Math.cos(j))</p>
+<p>y=((Math.pow(Math.sin(j),2)-1)*Math.sin(j))</p>
+<p>// 添加項數：Math.round(Math.random()) 隨機抽取掉50%的點，投射到(0, 0, z)上</p>
+<p><a target="_blank" rel="noopener" href="https://math.libretexts.org/Bookshelves/Calculus/Map%3A_Calculus__Early_Transcendentals_(Stewart)/10%3A_Parametric_Equations_And_Polar_Coordinates/10.01%3A_Curves_Defined_by_Parametric_Equations">Curves Defined by Parametric Equations</a></p>
+<hr>
+<h4 id="Other-example-from-Wiki"><a href="#Other-example-from-Wiki" class="headerlink" title="Other example from Wiki"></a>Other example from Wiki</h4><p>x= Math.cos(80*j) -Math.cos(j)*Math.sin(j)</p>
+<p>y= 2<em>Math.sin(j)-Math.sin(80</em>j)</p>
+<p>x= Math.cos(9<em>j)-Math.pow(Math.cos(100</em>j),3);</p>
+<p>y= Math.sin(200<em>j)-Math.pow(Math(9</em>j),4);</p>
+<hr>
+<h4 id="雙曲八面體-Hyperbolic-Octahedron"><a href="#雙曲八面體-Hyperbolic-Octahedron" class="headerlink" title="雙曲八面體 Hyperbolic Octahedron"></a>雙曲八面體 Hyperbolic Octahedron</h4><p>x= Math.pow(Math.cos(j/2)*Math.cos(j),3);</p>
+<p>y= Math.pow(Math.sin(j/2)*Math.cos(j),3);</p>
+<p>z= Math.pow(Math.sin(j),3)</p>
+<p><a target="_blank" rel="noopener" href="https://mathworld.wolfram.com/HyperbolicOctahedron.html">example from wolfram</a></p>
+<hr>
+<h4 id="心形線-heart-Curve"><a href="#心形線-heart-Curve" class="headerlink" title="心形線 heart Curve"></a>心形線 heart Curve</h4><p>x= Math.cos(2<em>j)+Math.cos(6</em>j)/2+Math.sin(4*j)/3;</p>
+<p>y= Math.sin(2<em>j)+Math.sin(6</em>j)/2+Math.cos(4*j)/3;</p>
+
+    </div>
+
+    <div class="about">
+        <h1>About this Post</h1>
+        <p>This post is written by Siqi Shu, licensed under <a
+                target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+    </div>
+</article>
+        <footer>
+    <div class="inner">
+        <div class="links">
+            
+            <div class="group">
+                <h4 class="title">深智一物 眾隱皆變</h4>
+                
+            </div>
+            
+        </div>
+        &copy; 2024 Siqi Shu<br />
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+</footer>
+
+
+        
+<script src="/js/main.js"></script>
+
+        
+<script src="/js/kursor.js"></script>
+
+        
+<script src="/js/run.js"></script>
+
+
+    </body>
+</html>

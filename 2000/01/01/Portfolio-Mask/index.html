@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  
+  <title>Arduino - 蓝牙通信LED口罩 - Shu-Creative Computing</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+    <link rel='manifest' href='/manifest.json'>
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/cursor.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/components.css">
+
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+    <body>
+        <nav id="theme-nav">
+    <div class="inner">
+        <a class="title" href="/">Shu&#39;s Blog</a>
+        <div class="nav-arrow"></div>
+        <div class="nav-items">
+            <a class="nav-item nav-item-home" href="/">Home</a>
+            
+            
+            <a class="nav-item" href="/categories/essays">Thinking</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/pcomp">Pcomp&amp;AVCE</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/coding">Coding</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/portfolio">Portfolio</a>
+            
+            
+            
+            <a class="nav-item" href="/contact">About</a>
+            
+            
+            
+            <a class="nav-item nav-item-github nav-item-icon" href="https://github.com/ShuSQ" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-codepen nav-item-icon" href="https://codepen.io/shusq" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-patreon nav-item-icon" href="https://www.instagram.com/cheese_shu/" target="_blank">&nbsp;</a>
+            
+            
+        </div>
+    </div>
+</nav>
+        <article class="post">
+    <div class="meta">
+        
+        <div class="date" id="date">
+            
+            <span>January</span>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <span>1,</span>
+            <span>2000</span>
+        </div>
+        
+
+        <h2 class="title">Arduino - 蓝牙通信LED口罩</h2>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="content">
+        <blockquote>
+<p> <strong>Project Summary</strong> :</p>
+<p> 在疫情下，通过Arduino设计并开发的情绪口罩，支持多传感器，蓝牙控制及序列化液晶屏动画等多功能，通过C++实现。</p>
+<p> The project is an emotional expression design under the COVID-19 epidemic. Through literature research and questionnaire research, we found that it is difficult for people wearing masks to convey the emotions they want to express, worse, it may cause some psychological problems.The social distancing may have a lot to do with that, as a lot of people lost their emotional support. Therefore, we visualize some simple emotions, such as greetings, likes, excitement and confusion. We use light strips to display on the mask, and different expressions are used in different scenes to comfort people’s hearts. You can check our repository in github: <a target="_blank" rel="noopener" href="https://github.com/ShuSQ/CCI_Pcomp_FP_coding">CCI_Pcomp_Final Project_Repository</a>.</p>
+</blockquote>
+</br>
+
+<h3 id="PART-1-Learn-Try-and-Test"><a href="#PART-1-Learn-Try-and-Test" class="headerlink" title="PART 1: Learn, Try and Test:"></a>PART 1: Learn, Try and Test:</h3><p>We spend about one week or more to learn code libraries,try different sensors and test the Arduino handware, including LED Strips, Bluetooth HM-10, ESP8266 WIFI, Microphone Module，Nokia 5110 LCD，Muscle Sensor，NANO，PS2 Rocker, and so on. We analyze and compare materials from comfort, aesthetics and affordance. </p>
+<p>🤯<strong>Difficulty:</strong> Some handware have low induction, and it takes a long time to test, but the effect is still not ideal, so we have to give up and recreate our prototype.</p>
+<p><strong>⤴️Input：</strong></p>
+<ul>
+<li>EMG sensor </li>
+<li>Bluetooth HM-10 </li>
+<li>Tilt switch</li>
+<li>iPhone (sent out strings) 📱</li>
+</ul>
+<p>⤵️<strong>Output：</strong></p>
+<ul>
+<li><p>LED Strips 5 patterns</p>
+</li>
+<li><p>Servo and Mechanical Flower</p>
+</li>
+<li><p>Nokia 5110 LCD screen </p>
+</li>
+<li><p>iPhone (print texts)  📲</p>
+</li>
+</ul>
+</br>
+
+<h4 id="1-Test-LED-Strips"><a href="#1-Test-LED-Strips" class="headerlink" title="1.Test LED Strips"></a><strong>1.Test LED Strips</strong></h4><p>I just put one video to show our test case, you can learn more about <a target="_blank" rel="noopener" href="https://learn.adafruit.com/rgb-led-strips">RGB LED Strips</a> from this link.</p>
+<div align="center"><iframe width="725" height="453" src="https://www.youtube.com/watch?v=T9ErnsbeFio" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+
+</br>
+
+<h4 id="2-EMG-Sensor"><a href="#2-EMG-Sensor" class="headerlink" title="2.EMG Sensor"></a><strong>2.EMG Sensor</strong></h4><p> You can learn more about EMG sensor from below links:</p>
+<p><a target="_blank" rel="noopener" href="https://learn.adafruit.com/getting-started-with-myoware-muscle-sensor/code">getting-started-with-myoware-muscle-sensor</a></p>
+<p><a target="_blank" rel="noopener" href="https://medium.com/@leex5202/an-unofficial-introductory-tutorial-to-myoware-muscle-sensor-development-kit-e2169948e63">an-unofficial-introductory-tutorial-to-myoware-muscle-sensor-development-kit</a></p>
+<p><a target="_blank" rel="noopener" href="https://ltlemur04.wixsite.com/roboticnation/single-post/2018/10/28/Myoware-Muscle-Sensor">Myoware-Muscle-Sensor</a></p>
+<div align="center"><iframe width="725" height="453" src="https://www.youtube.com/embed/qee_3e__SGc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+
+<p>My codes will show how I send message and control servo:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;Servo.h&gt;</span><br><span class="line">&#x2F;&#x2F;Threshold for servo motor control with muscle sensor.</span><br><span class="line">&#x2F;&#x2F;You can set a threshold according to the maximum and minimum values of the muscle sensor.</span><br><span class="line">#define THRESHOLD 800 &#x2F;&#x2F;肌肉力的阈值</span><br><span class="line">&#x2F;&#x2F;Pin number where the sensor is connected. (Analog 0)</span><br><span class="line">#define EMG_PIN 0</span><br><span class="line">&#x2F;&#x2F;Pin number where the servo motor is connected. (Digital PWM 10)</span><br><span class="line">#define SERVO_PIN 10</span><br><span class="line">&#x2F;&#x2F;Define Servo motor</span><br><span class="line">Servo SERVO_1;</span><br><span class="line">int pos &#x3D; 0;</span><br><span class="line">&#x2F;*-------------------------------- void setup ------------------------------------------------*&#x2F;</span><br><span class="line">void setup()&#123;</span><br><span class="line">  &#x2F;&#x2F;BAUDRATE set to 9600, remember it to set monitor serial properly.</span><br><span class="line">  Serial.begin(9600);</span><br><span class="line">  &#x2F;&#x2F;Set servo motor to digital pin 3</span><br><span class="line">  SERVO_1.attach(SERVO_PIN);</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;*--------------------------------  void loop  ------------------------------------------------*&#x2F;</span><br><span class="line">void loop()&#123;</span><br><span class="line">  &#x2F;&#x2F;The “Value” variable reads the value from the analog pin to which the sensor is connected.</span><br><span class="line">  int value &#x3D; analogRead(EMG_PIN);</span><br><span class="line">  &#x2F;&#x2F;If the sensor value is GREATER than the THRESHOLD, the servo motor will turn to 180 degrees.</span><br><span class="line">  if(value &gt; THRESHOLD)&#123;</span><br><span class="line">  for (pos &#x3D; 0; pos &lt;&#x3D; 180; pos+&#x3D; 2) &#123;</span><br><span class="line">    SERVO_1.write(pos);</span><br><span class="line">    delay(10);</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F;  SERVO_1.write(150);  &#x2F;&#x2F;伺服器写入的转角</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F;If the sensor is LESS than the THRESHOLD, the servo motor will turn to 0 degrees.</span><br><span class="line">  else&#123;</span><br><span class="line">    SERVO_1.write(0);</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F;You can use serial monitor to set THRESHOLD properly, comparing the values shown when you open and close your hand.</span><br><span class="line">  Serial.println(value);</span><br><span class="line">   delay(800); &#x2F;&#x2F;数据采集的频率</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</br>
+
+<h4 id="3-Microphone"><a href="#3-Microphone" class="headerlink" title="3.Microphone"></a><strong>3.Microphone</strong></h4><p>Voice is a great way to achieve contactless remote control,  like today’s smart speakers and home voice assistants. You can learn more about microphone kit from below links:</p>
+<p><a target="_blank" rel="noopener" href="https://randomnerdtutorials.com/guide-for-microphone-sound-sensor-with-arduino/">guide-for-microphone-sound-sensor-with-arduino</a></p>
+<p><a target="_blank" rel="noopener" href="http://arduinolearning.com/code/ky038-microphone-module-and-arduino-example.php">ky038-microphone-module-and-arduino-example</a></p>
+<div align="center"><iframe width="725" height="453" src="https://www.youtube.com/embed/Xhx-ZqV-SDI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+
+<p>My codes will show how I light the LED by voice :</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">int soundPin &#x3D; A0;</span><br><span class="line">int ledPin &#x3D; 13;</span><br><span class="line">int sensorValue &#x3D; 0;</span><br><span class="line"></span><br><span class="line">void setup () </span><br><span class="line">&#123;</span><br><span class="line">  Serial.begin (9600);</span><br><span class="line">  pinMode (ledPin, OUTPUT);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">void loop () </span><br><span class="line">&#123;</span><br><span class="line">  sensorValue &#x3D; analogRead (soundPin);</span><br><span class="line">  Serial.println (sensorValue, DEC);</span><br><span class="line">  &#x2F;&#x2F;if sensor goes above max light led (could be buzzer)</span><br><span class="line">  if(sensorValue &gt; 52)</span><br><span class="line">  &#123;</span><br><span class="line">    digitalWrite (ledPin, HIGH);</span><br><span class="line">    delay (1000);</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F;switch off LED</span><br><span class="line">  digitalWrite (ledPin, LOW);</span><br><span class="line">  delay (100);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</br>
+
+<h4 id="4-PS2-Rocker-🕹"><a href="#4-PS2-Rocker-🕹" class="headerlink" title="4.PS2 Rocker 🕹"></a><strong>4.PS2 Rocker</strong> 🕹</h4><p>There is no doubt, PS2 can increase the fun of the device. Who can reject a flexible button without trying it?</p>
+<div align="center"><iframe width="725" height="453" src="https://www.youtube.com/embed/iSCSeNHbogg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+
+<p>My codes will show how I get xyz data:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">int Xaxis &#x3D; A0;</span><br><span class="line">int Yaxis &#x3D; A1;</span><br><span class="line">int Zsw &#x3D; A2;</span><br><span class="line">int value &#x3D; 0;</span><br><span class="line">void setup() &#123;</span><br><span class="line">Serial.begin(9600);</span><br><span class="line">&#125;</span><br><span class="line">void loop() &#123;</span><br><span class="line">value &#x3D; analogRead(Xaxis);&#x2F;&#x2F; 读取 X 轴模拟端口0 Read X axis analog port 0</span><br><span class="line">Serial.print(&quot;X:&quot;);</span><br><span class="line">Serial.println(value,DEC);</span><br><span class="line">value &#x3D; analogRead(Yaxis);</span><br><span class="line">Serial.print(&quot; | Y:&quot;);&#x2F;&#x2F; 读取 Y 轴模拟端口1 Read Y-axis analog port 1</span><br><span class="line">Serial.println(value,DEC);</span><br><span class="line">value &#x3D; analogRead(Zsw);&#x2F;&#x2F; 读取 Z 轴模拟端口2 Read Z axis analog port 2</span><br><span class="line">Serial.print(&quot; | Z:&quot;);</span><br><span class="line">Serial.println(value,DEC);</span><br><span class="line">delay(1000);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</br>
+
+<h4 id="5-Tilt-Switch"><a href="#5-Tilt-Switch" class="headerlink" title="5.Tilt Switch"></a><strong>5.Tilt Switch</strong></h4><p>Swing your widget to achieve some interesting effects~</p>
+<div align="center"><iframe width="725" height="453" src="https://www.youtube.com/embed/LFjMGJ2wFag" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+
+</br>
+
+<h4 id="6-Bluetooth-HM-10"><a href="#6-Bluetooth-HM-10" class="headerlink" title="6.Bluetooth HM-10"></a><strong>6.Bluetooth HM-10</strong></h4><p>The Bluetooth module helps us realize the communication between the devices, and interact with the devices through the interface on the screen.</p>
+<p>Learn more about HM-10:</p>
+<p><a target="_blank" rel="noopener" href="https://create.arduino.cc/projecthub/ingo-lohs/bluetooth-hm-10-module-6eb803?ref=similar&ref_id=122355">bluetooth-HM-10-module</a></p>
+<div align="center"><iframe width="725" height="453" src="https://www.youtube.com/embed/O-ImjbGQpPM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+
+<p>My codes will show how I use HM-10:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;SoftwareSerial.h&gt;</span><br><span class="line">SoftwareSerial mySerial(8,9); &#x2F;&#x2F;rx, tx</span><br><span class="line">char a;</span><br><span class="line">void setup() &#123;</span><br><span class="line">  &#x2F;&#x2F; put your setup code here, to run once:</span><br><span class="line">  pinMode(13, OUTPUT);</span><br><span class="line">  mySerial.begin(9600);</span><br><span class="line">&#125;</span><br><span class="line">void loop() &#123;</span><br><span class="line">  &#x2F;&#x2F; put your main code here, to run repeatedly:</span><br><span class="line">  &#x2F;&#x2F; 如果硬件串口有數據</span><br><span class="line">  if(Serial.available())</span><br><span class="line">  &#123;</span><br><span class="line">    &#x2F;&#x2F;從硬件串口讀出一字節，寫入軟件串口</span><br><span class="line">    mySerial.write(Serial.read());</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F;如果軟件串口有數據</span><br><span class="line">  if(mySerial.available()&gt;0)</span><br><span class="line">  &#123;</span><br><span class="line">    &#x2F;&#x2F;從軟件串口讀出一字節，寫入硬件串口</span><br><span class="line">    a &#x3D; mySerial.read();</span><br><span class="line">    if(a&#x3D;&#x3D;‘1’)</span><br><span class="line">    &#123;</span><br><span class="line">      digitalWrite(13, HIGH);</span><br><span class="line">      mySerial.write(“power on”);</span><br><span class="line">    &#125;</span><br><span class="line">    else if(a&#x3D;&#x3D;‘2’)</span><br><span class="line">    &#123;</span><br><span class="line">      digitalWrite(13, LOW);</span><br><span class="line">      mySerial.write(“power off”);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</br>
+
+<h4 id="7-Nokia-5110-LCD"><a href="#7-Nokia-5110-LCD" class="headerlink" title="7.Nokia 5110 LCD"></a><strong>7.Nokia 5110 LCD</strong></h4><p>Nokia 5110 has 84x48 pixels, is a simple screen to use easily as a panel, if you like pixel style works, Nokia 5110 is very suitable for creation.</p>
+<p>Learn more about Nokia LCD:</p>
+<p><a target="_blank" rel="noopener" href="http://old.sgreg.fi//blog/article/xbm-images-and-animations-on-a-nokia-lcd">xbm-images-and-animations-on-a-nokia-lcd</a></p>
+<p>Use those tools to create your pixel:</p>
+<p><a target="_blank" rel="noopener" href="https://chuiliu.github.io/demo/pixel/">https://chuiliu.github.io/demo/pixel/</a></p>
+<p><a target="_blank" rel="noopener" href="https://javl.github.io/image2cpp/">https://javl.github.io/image2cpp/</a></p>
+</br>
+
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*NM8Bha9WPCrMWGJWQY6_Ig.png"></p>
+<p><em>My test .png</em></p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*tsbCjsjgj_l5aCszzK30bA.png"></p>
+<p><em>display in Nokia 5110 LCD</em> </p>
+</br>
+
+<h3 id="PART-2-Coding-Soldering-and-Playing"><a href="#PART-2-Coding-Soldering-and-Playing" class="headerlink" title="PART 2: Coding, Soldering and Playing:"></a>PART 2: Coding, Soldering and Playing:</h3><p>After testing different sensors and components, we started to build real products.</p>
+<h4 id="1-LED-Strips-Mask-🚥"><a href="#1-LED-Strips-Mask-🚥" class="headerlink" title="1.LED Strips Mask 🚥"></a><strong>1.LED Strips Mask</strong> 🚥</h4><p><img src="https://cdn-images-1.medium.com/max/1600/1*2srbw3cLikQa0udbUQN4_w.jpeg"></p>
+<p>The appearance of the product consists of 8 strips of 11 RGB LED strips. We have selected different types of fabrics for their housing. Cotton is the main fabric, and the laser fabric is the decorative fabric. We designed different patterns according to the needs of users in different scenarios.  For example, a smile can express daily greetings, love can express likes, question marks can express confusion and an exclamation point can express excitement. We use the Bluetooth HM-10 module and iPhone. The phone is used as an output device, to communicate and control the display of LEDs, also, as an input device, to display text messages in the screen returned by the Bluetooth.</p>
+<p>🤯<strong>Difficulty:</strong>  The sequence of the RGB light does not correspond to the expression used by the library. We need to manually test each light bulb. For example, we want to light the 68th light, pixels.setColor(68, R,G,B), but the 69th light which is no setting will also light up a strange color.</p>
+<p>Learn more about referens:</p>
+<p><a target="_blank" rel="noopener" href="https://create.arduino.cc/projecthub/DKARDU/how-to-make-leds-diy-face-mask-using-led-strip-arduino-nano-3eb17a?ref=search&ref_id=NANO&offset=87">how-to-make-leds-diy-face-mask-using-led-strip-arduino-nano</a></p>
+<p>coding example：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/DKARDU/newfacemask/blob/main/gif_led.ino">https://github.com/DKARDU/newfacemask/blob/main/gif_led.ino</a></p>
+<div align="center"><iframe width="725" height="453" src="https://www.youtube.com/embed/If_3no_Huz0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+
+</br>
+
+<h4 id="2-Control-the-Servo-by-EMG-Sensor"><a href="#2-Control-the-Servo-by-EMG-Sensor" class="headerlink" title="2.Control the Servo by EMG Sensor"></a><strong>2.Control the Servo by EMG Sensor</strong></h4><p>We have made a mechanical flower that is opened and closed by the control of the servo, which is driven by the muscle sensor to sense muscle changes. We hope that when the user smiles, there will be a corresponding external display. The blossoming action is beautiful and can convey friendliness and represent hope.</p>
+<p><strong>Material:</strong> We first used corrugated cardboard as the petal material, but its fatigue resistance is low. Then, we chose PVC plastic and packaged them with colored paper and laser fabric. For the flower stem material, we first used Dupont thread for testing, but its deflection was large, and it was difficult to restore. So we chose thin plastic strips, which is better than the former in rebound effects.</p>
+<p><strong>Assembly:</strong> We used a welded cross perforated alloy plate as a fixed cable component, and four nylon wires pull the petals. </p>
+<p><strong>Debugging:</strong> We set the best rotation angle of the servo and fix the relative position of the mechanical flower and servo.We programmed for loop to control the pulling force time, which makes the movement process more visualized.It is important to set the threshold for the servo.</p>
+<p>🤯<strong>Difficulty:</strong> Material selection is demanding, requiring constant trial and error. Since each part is designed and assembled separately, the mechanical energy loss is large, resulting in poor structural integrity, so the result is not that ideal.</p>
+<p><img src="https://cdn-images-1.medium.com/max/2400/1*tdHYB8ex2HvTERJ0IHlFlw.png"></p>
+<p><em>Ideal petal structure</em></p>
+</br>
+
+<p><img src="https://cdn-images-1.medium.com/max/2400/1*ch9Tkoe2zlN_z3TCzilEPw.png"></p>
+<p><em>Combination of petal fabric</em></p>
+</br>
+
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*z9BIkt7S1QlWW1uiC3FjpQ.png"></p>
+<p><em>Mask surface material</em></p>
+</br>
+
+<h4 id="3-Nokia-5110-LCD-Animation-📺"><a href="#3-Nokia-5110-LCD-Animation-📺" class="headerlink" title="3.Nokia 5110 LCD Animation 📺"></a><strong>3.Nokia 5110 LCD Animation</strong> 📺</h4><p>We connect an 84x48 LCD screen, which can be written animation. The .bmp format image data is transformed into arrays that can be read by Arduino. We design 20 illustrations and achieve funny animation by controlling frame and delay time. </p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*UK1Hn8spqSHjGr0qrfGrsw.png"></p>
+<p><em>Cute scripts by Yi Dai</em></p>
+</br>
+
+<div align="center"><iframe width="725" height="453" src="https://www.youtube.com/embed/Fwyc4ksLFuE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+
+</br>
+
+<h4 id="4-Circuit-Diagram-and-Soldering-📺"><a href="#4-Circuit-Diagram-and-Soldering-📺" class="headerlink" title="4.Circuit Diagram and Soldering 📺"></a><strong>4.Circuit Diagram and Soldering</strong> 📺</h4><p>🖊Simply mark our circuit interface.</p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*UzL6vFvU86F_vZ3qN_H-5A.png"></p>
+</br>
+
+<p>🖱Drawn by EAGLE:</p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*co2FM5XnZIaPZ_UQL3rG0Q.png"></p>
+</br>
+
+<p>🧩Connect them and solder them together!</p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*gczdW2hhkcWgsPLHdiZmtw.png"></p>
+<h4 id="5-Final-Results-💎"><a href="#5-Final-Results-💎" class="headerlink" title="5.Final Results  💎"></a><strong>5.Final Results</strong>  💎</h4><p><img src="https://cdn-images-1.medium.com/max/2400/1*r4u42CLV_RDUQf-lHooHNQ.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/2400/1*LjPIOoVxxAppIrtjLiHbRQ.png"></p>
+</br>
+
+<p>💡About housing：</p>
+<p>To place the Arduino board and the soldering board, we first made a 10<em>8</em>6 box, but its volume is large, and it is inconvenient to fix it. We have to explore a new shape. We chose a U-shaped pillow, which users can hang around their necks. It is convenient and comfortable.</p>
+</br>
+
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*v8yrnR18LheGjd1HhSrXNg.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*r5EAXcIe9e36CzYAlLJirg.png"></p>
+<p><em>Combined with the U-shaped pillow, it makes wearing more comfortable and looks more natural.</em></p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*qEyuwBmrISYKwNziQdIM1A.png"></p>
+<hr>
+<p>🎈Our final repository:</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/ShuSQ/CCI_Pcomp_FP_coding">https://github.com/ShuSQ/CCI_Pcomp_FP_coding</a></p>
+<hr>
+</br>
+
+<div align="center"><iframe width="725" height="453" src="https://www.youtube.com/embed/fpW72V-UKM4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+
+</br>
+
+<h4 id="6-Future-possibilities-for-this-project"><a href="#6-Future-possibilities-for-this-project" class="headerlink" title="6.Future possibilities for this project"></a><strong>6.Future possibilities for this project</strong></h4><ul>
+<li>Continue to improve the components and operation of the mechanical flower.</li>
+<li>Find a better appearance for the mask and a way to fit the face.</li>
+<li>Look for more flexible LED control methods and achieve a variety of dynamic effects,</li>
+<li>Simplify the circuit, reduce the number and size of mounted components, make the device lighter and more comfortable to carry.</li>
+<li>Consider adding a small fan (through the servo rotating), and establishing a ventilation system inside the mask, to solve the problem of poor breathing when the mask is worn for a long time.</li>
+</ul>
+<p>~</p>
+</br>
+
+<hr>
+<p><code>Else</code></p>
+<p>Finally, I still want to thank my partner Yi Dai. She has made great contributions to the project and can always inspire new ideas. She is responsible and hardworking. She is a very ideal partner and impressive. Thanks again.</p>
+
+    </div>
+
+    <div class="about">
+        <h1>About this Post</h1>
+        <p>This post is written by Siqi Shu, licensed under <a
+                target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+    </div>
+</article>
+        <footer>
+    <div class="inner">
+        <div class="links">
+            
+            <div class="group">
+                <h4 class="title">深智一物 眾隱皆變</h4>
+                
+            </div>
+            
+        </div>
+        &copy; 2024 Siqi Shu<br />
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+</footer>
+
+
+        
+<script src="/js/main.js"></script>
+
+        
+<script src="/js/kursor.js"></script>
+
+        
+<script src="/js/run.js"></script>
+
+
+    </body>
+</html>

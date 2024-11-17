@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  
+  <title>Coding2 - Sounds and Sample - Shu-Creative Computing</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+    <link rel='manifest' href='/manifest.json'>
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/cursor.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/components.css">
+
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+    <body>
+        <nav id="theme-nav">
+    <div class="inner">
+        <a class="title" href="/">Shu&#39;s Blog</a>
+        <div class="nav-arrow"></div>
+        <div class="nav-items">
+            <a class="nav-item nav-item-home" href="/">Home</a>
+            
+            
+            <a class="nav-item" href="/categories/essays">Thinking</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/pcomp">Pcomp&amp;AVCE</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/coding">Coding</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/portfolio">Portfolio</a>
+            
+            
+            
+            <a class="nav-item" href="/contact">About</a>
+            
+            
+            
+            <a class="nav-item nav-item-github nav-item-icon" href="https://github.com/ShuSQ" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-codepen nav-item-icon" href="https://codepen.io/shusq" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-patreon nav-item-icon" href="https://www.instagram.com/cheese_shu/" target="_blank">&nbsp;</a>
+            
+            
+        </div>
+    </div>
+</nav>
+        <article class="post">
+    <div class="meta">
+        
+        <div class="date" id="date">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <span>October</span>
+            
+            
+            
+            <span>27,</span>
+            <span>2020</span>
+        </div>
+        
+
+        <h2 class="title">Coding2 - Sounds and Sample</h2>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="content">
+        <blockquote>
+<p> I synthesized a piece of my audio through Maximilian.js, and learned more about other ways to adjust the sample.</p>
+</blockquote>
+<br/>
+
+<h3 id="1-Sample"><a href="#1-Sample" class="headerlink" title="1.Sample!"></a>1.Sample!</h3><p>Sample!</p>
+<p>In this article, I will start trying to synthesize different waveforms; “samples” are the numbers and values we use to describe between -1 and 1.</p>
+<p>We can run the sample values at a certain rate through the speaker. If the rate is fast, the pitch will be high, the rate will be slow, and the pitch will be very low. Another tip is that you can halve the playback speed by playing each sample value twice.</p>
+<p>What if we play sample data at a speed of 3/4 (75%). Values between two values may not exist in the array. For example, mySampleArray[1.5] cannot be obtained. So at this time, we can process it through interpolation.</p>
+<p><img src="https://camo.githubusercontent.com/9e2adde1df3976364530b7bb98376c1179582978774eb1e841f8c364e459d9d4/68747470733a2f2f75706c6f61642e77696b696d656469612e6f72672f77696b6970656469612f636f6d6d6f6e732f362f36382f4c696e6561725f696e746572706f6c6174696f6e2e706e67"></p>
+<p>Here, we will create the maxiSample object through the Maximilian library:</p>
+<p><code>var mySample = new maximJs.maxiSample();</code></p>
+<p>Then use the webAudio API method to import audio:</p>
+<p><code>maxiAudio.loadSample(&#39;uploaded-sample.wav&#39;, mySample)</code>;</p>
+<p>maxiClock is a simple metronome. BPM can set the playback rate through events that need to be touched every minute. Here is how to set it:</p>
+<p><code>var myClock = new maximJs.maxiClock();</code><br><code>myClock.setTempo(myTempo);</code><br><code>myClock.setTicksPerBeat(2);</code></p>
+<p>In order to take effect in the code correctly, we need to add the maxiClock.ticker() method.</p>
+<p><code>if (myClock.tick) &#123;mySample.trigger();&#125;</code></p>
+<p>Or add other control methods:</p>
+<p><code>if (myClock.tick &amp;&amp; myClock.playHead&gt;=100) &#123;mySample.trigger();&#125;</code></p>
+<p>Here is a piece of audio I synthesized:</p>
+<p><a target="_blank" rel="noopener" href="https://mimicproject.com/code/edd851ca-026b-b2d9-7b96-848f874139e9">https://mimicproject.com/code/edd851ca-026b-b2d9-7b96-848f874139e9</a></p>
+<div align="center"><iframe class="embedded-tutorial-code" src="https://mimicproject.com/code/edd851ca-026b-b2d9-7b96-848f874139e9?embed=true&amp;showCode=true" allow="microphone" scrolling="no" style="width: 725px; height: 453px; overflow: hidden;">what?</iframe></div>
+
+</br>
+
+<p>There is also a more advanced, Louis demo, which can be controlled by a webcam:</p>
+<p><a target="_blank" rel="noopener" href="https://mimicproject.com/code/90def343-a896-31d4-d818-20d89b9bc631">https://mimicproject.com/code/90def343-a896-31d4-d818-20d89b9bc631</a></p>
+</br>
+
+
+
+
+    </div>
+
+    <div class="about">
+        <h1>About this Post</h1>
+        <p>This post is written by Siqi Shu, licensed under <a
+                target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+    </div>
+</article>
+        <footer>
+    <div class="inner">
+        <div class="links">
+            
+            <div class="group">
+                <h4 class="title">深智一物 眾隱皆變</h4>
+                
+            </div>
+            
+        </div>
+        &copy; 2024 Siqi Shu<br />
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+</footer>
+
+
+        
+<script src="/js/main.js"></script>
+
+        
+<script src="/js/kursor.js"></script>
+
+        
+<script src="/js/run.js"></script>
+
+
+    </body>
+</html>

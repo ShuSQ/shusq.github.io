@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  
+  <title>AIM6 - Generating Sequences - Shu-Creative Computing</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+    <link rel='manifest' href='/manifest.json'>
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/cursor.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/components.css">
+
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+    <body>
+        <nav id="theme-nav">
+    <div class="inner">
+        <a class="title" href="/">Shu&#39;s Blog</a>
+        <div class="nav-arrow"></div>
+        <div class="nav-items">
+            <a class="nav-item nav-item-home" href="/">Home</a>
+            
+            
+            <a class="nav-item" href="/categories/essays">Thinking</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/pcomp">Pcomp&amp;AVCE</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/coding">Coding</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/portfolio">Portfolio</a>
+            
+            
+            
+            <a class="nav-item" href="/contact">About</a>
+            
+            
+            
+            <a class="nav-item nav-item-github nav-item-icon" href="https://github.com/ShuSQ" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-codepen nav-item-icon" href="https://codepen.io/shusq" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-patreon nav-item-icon" href="https://www.instagram.com/cheese_shu/" target="_blank">&nbsp;</a>
+            
+            
+        </div>
+    </div>
+</nav>
+        <article class="post">
+    <div class="meta">
+        
+        <div class="date" id="date">
+            
+            
+            
+            
+            
+            
+            
+            <span>July</span>
+            
+            
+            
+            
+            
+            
+            <span>25,</span>
+            <span>2021</span>
+        </div>
+        
+
+        <h2 class="title">AIM6 - Generating Sequences</h2>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="content">
+        <h3 id="Motivation-for-sequential-models"><a href="#Motivation-for-sequential-models" class="headerlink" title="Motivation for sequential models"></a>Motivation for sequential models</h3><p><img src="https://cdn-images-1.medium.com/max/800/1*0AE3bXjdmybnJf7mIm66tA.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*Hd_gu8ZtjYh9rxypnKX7zg.png"></p>
+<p>In this essay, closer look into the unit design, how can this be used for data generation.</p>
+<h3 id="Example-1-Music-Generation"><a href="#Example-1-Music-Generation" class="headerlink" title="Example 1: Music Generation"></a>Example 1: Music Generation</h3><p>Example of a possible model with two layers of LSTMs. We prepared our dataset as sequences of 40 frames predicting the next 1 frame (“many to one”), the model learns the transformation of x-&gt; y.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*niq64EcSbBsHrLOGhU7u-w.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*zVxASiHENPtmLS-_VdyJVw.png"></p>
+<p>Check the generated music sample: <a target="_blank" rel="noopener" href="https://soundcloud.com/previtus/ml-jazz-meanderings-ml-generated-sounds-1/s-DCZbx">https://soundcloud.com/previtus/ml-jazz-meanderings-ml-generated-sounds-1/s-DCZbx</a></p>
+<h3 id="Example-2-Stock-Market"><a href="#Example-2-Stock-Market" class="headerlink" title="Example 2: Stock Market"></a>Example 2: Stock Market</h3><p>There are similarities between the “next value prediction” task and a generative task (given the way how we use these models).</p>
+<p>Remember this when you are using them for your creative projects -&gt; we might want irregularities, model breaking, training on multiple sources…etc.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*G_I-4hZ7-kV2YmEZhi4yIw.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*IAgAInMMt1bdXpLFw9vHDw.png"></p>
+<p>The less common, even worse outcome.</p>
+<h3 id="Vanilla-RNN"><a href="#Vanilla-RNN" class="headerlink" title="Vanilla RNN"></a>Vanilla RNN</h3><p>As math formulas:</p>
+<blockquote>
+<p>ℎ𝑡 = 𝑡𝑎𝑛ℎ(𝑊𝑥ℎ ∗ 𝑥𝑡 + 𝑊ℎℎ ∗ ℎ𝑡−1) </p>
+<p>y𝑡 = 𝑊𝑦ℎ ∗ℎ𝑡</p>
+</blockquote>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*wf5_w2V49Hb7G1Tqba6kYg.png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RNN</span>:</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">step</span>(<span class="params">self, x</span>):</span></span><br><span class="line">    <span class="comment"># update the hidden state</span></span><br><span class="line">    self.h = np.tanh(np.dot(self.w_hh, self.h) + np.dot(self.W_xh, x))</span><br><span class="line">    <span class="comment"># compute the output vector</span></span><br><span class="line">    <span class="keyword">return</span> np.dot(self.W_hy, self.h)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Forgetting-information"><a href="#Forgetting-information" class="headerlink" title="Forgetting information"></a>Forgetting information</h3><p><img src="https://cdn-images-1.medium.com/max/800/1*BLbekZS0UatqGVdCqiElVw.png"></p>
+<p>Which has one weakness -ℎ𝑡 carries information to be stored in the memory and aloso for output…</p>
+<h6 id="Long-Short-Term-Memory-Unit-LSTM"><a href="#Long-Short-Term-Memory-Unit-LSTM" class="headerlink" title="Long Short Term Memory Unit (LSTM)"></a>Long Short Term Memory Unit (LSTM)</h6><p>This will be a rough animation of data passing through LSTM. Kepp in mind that we do not really care about each detail at this point - rather we wwant to see why is it better at remembering long-term dependencies than the vanilla RNN…</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*pSFUWLF5J5qmr8hPwk_Gfg.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*ZUH6UimLVAuj-Vuv4QUqVA.png"></p>
+<p>Main idea: independent channel to carry long-term memory.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*AJ454DiqkJKxDtwaBwANIg.png"></p>
+<p><strong>Forget gate</strong> influences what we delete from memory.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*UDq6re8rwSi9KSFuarL11Q.png"></p>
+<p><strong>Input gate</strong> selects what to read from input.</p>
+<p><img src="https://cdn-images-1.medium.com/max/1200/1*N0vM-whmk4ItAQqvFxZJqg.png"></p>
+<p>Then we add it to the memory.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*dEOSca3qJ8buDzyyBfDglw.png"></p>
+<p><strong>Output gate</strong> combines everything together.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*rkrgu6KBvFu7VjfUdx6tGA.png"></p>
+<p>These operations are inlfuenced by learned parameters (W, U, b).</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*d1cEZD6rHC9r9vq7q68HhQ.png"></p>
+<p>In addition to the basic RNN we have a special channel for long-term mem.</p>
+<h3 id="In-depth-look-RNNs-and-LSTMs"><a href="#In-depth-look-RNNs-and-LSTMs" class="headerlink" title="In-depth look: RNNs and LSTMs"></a>In-depth look: RNNs and LSTMs</h3><p>Recurrent Neural Networks (RNN): Simpler unit design</p>
+<p>Long-Short Term Memory (LSTM): More complex unit design, made to remember longer dependencies inside the data.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*upAQ9ex6aUmt-0KPNBwxcw.png"></p>
+<p>In code we set up the dimension of the data flowing through these models - that’s the size of the vectors h and c.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> tensorflow.keras <span class="keyword">import</span> layers</span><br><span class="line"></span><br><span class="line">model.add(Layers.RNN(<span class="number">128</span>))</span><br><span class="line">model.add(Layers.LSTM(<span class="number">128</span>))</span><br></pre></td></tr></table></figure>
+
+<h5 id="Loss-functions"><a href="#Loss-functions" class="headerlink" title="Loss functions"></a>Loss functions</h5><p>We want to measure the distance between two vector (typically this is betwenn predictions and labels):</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*kXIj2duyGENTduPtL866Wg.png"></p>
+<h5 id="Cross-Entropy-loss"><a href="#Cross-Entropy-loss" class="headerlink" title="Cross-Entropy loss"></a>Cross-Entropy loss</h5><p><img src="https://cdn-images-1.medium.com/max/1200/1*5zyjvJTMWuRWutOq5AGTiQ.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/1200/1*Rq8yIeYC2pvjfHZrbQQoZw.png"></p>
+
+    </div>
+
+    <div class="about">
+        <h1>About this Post</h1>
+        <p>This post is written by Siqi Shu, licensed under <a
+                target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+    </div>
+</article>
+        <footer>
+    <div class="inner">
+        <div class="links">
+            
+            <div class="group">
+                <h4 class="title">深智一物 眾隱皆變</h4>
+                
+            </div>
+            
+        </div>
+        &copy; 2024 Siqi Shu<br />
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+</footer>
+
+
+        
+<script src="/js/main.js"></script>
+
+        
+<script src="/js/kursor.js"></script>
+
+        
+<script src="/js/run.js"></script>
+
+
+    </body>
+</html>

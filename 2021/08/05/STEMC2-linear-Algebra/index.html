@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  
+  <title>STEMC2 - Linear Algebra - Shu-Creative Computing</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+    <link rel='manifest' href='/manifest.json'>
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/cursor.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/components.css">
+
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+    <body>
+        <nav id="theme-nav">
+    <div class="inner">
+        <a class="title" href="/">Shu&#39;s Blog</a>
+        <div class="nav-arrow"></div>
+        <div class="nav-items">
+            <a class="nav-item nav-item-home" href="/">Home</a>
+            
+            
+            <a class="nav-item" href="/categories/essays">Thinking</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/pcomp">Pcomp&amp;AVCE</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/coding">Coding</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/portfolio">Portfolio</a>
+            
+            
+            
+            <a class="nav-item" href="/contact">About</a>
+            
+            
+            
+            <a class="nav-item nav-item-github nav-item-icon" href="https://github.com/ShuSQ" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-codepen nav-item-icon" href="https://codepen.io/shusq" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-patreon nav-item-icon" href="https://www.instagram.com/cheese_shu/" target="_blank">&nbsp;</a>
+            
+            
+        </div>
+    </div>
+</nav>
+        <article class="post">
+    <div class="meta">
+        
+        <div class="date" id="date">
+            
+            
+            
+            
+            
+            
+            
+            
+            <span>August</span>
+            
+            
+            
+            
+            
+            <span>5,</span>
+            <span>2021</span>
+        </div>
+        
+
+        <h2 class="title">STEMC2 - Linear Algebra</h2>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="content">
+        <p>When programming, we tend to think of vectors as lists of numbers, [0,1], [1,0,3,5]</p>
+<p>We may have seen the maths notation like this:</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*U-FLscBIp-xmUKbTFVzS1w.png"></p>
+<p>Or as points in space, if we are dealing with images, but we can also think of them as pointing in directions.</p>
+<p><img src="https://cdn-images-1.medium.com/max/1200/1*jLc63H0VJxfzhoD_ExBL2g.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/1200/1*KGJbfAbhy7Yc0UE6EKXlyQ.png"></p>
+<p>We can add them together:</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*rHXl75Dd_zPFGt79Ij0EZA.png"></p>
+<p>And this also makes sense in space:</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*fNT_TR2k4ZRU9SD5UB-j9w.png"></p>
+<p>We can multiply:</p>
+<p><img src="https://cdn-images-1.medium.com/max/1200/1*5lq_5l7mIScd6gxO9zUk-g.png"></p>
+<p>And this also makes sense in space:</p>
+<p><img src="https://cdn-images-1.medium.com/max/1200/1*WHoCkLL1jHRULflck_-v-Q.png"></p>
+<p>Linear transformations:</p>
+<ul>
+<li>Lines remain lines (not curved)</li>
+<li>Origin remains fixed</li>
+<li>Grid lines remain parallel and evenly spaced</li>
+</ul>
+<p>Scale, shear, rotation, reflection</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*GDawG6XXcpqcYOyB0dHBng.png"></p>
+<p>These two particular vectors of length 1 about the origin on the x and y axis are known as basis vectors.</p>
+<p><img src="https://cdn-images-1.medium.com/max/1200/1*KGJbfAbhy7Yc0UE6EKXlyQ.png"></p>
+<p>We have seen matrices as 2D lists of numbers (like images!)</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*Krxjbtfl79nYaWDlDzS66w.png"></p>
+<p>We can describe any linear transformation by providing a matrix which dictates where i and j are translated to.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*Vlr0g4LVpYIOAdTJpnPomg.png"></p>
+<p>We can think of any vector as a combination of i and j. So if we translate i and j by a certain amount, we can apply that to any vector.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*9H-_TN9kkrEw64iIznfP2g.png"></p>
+<p>So given any vector[x,y] and transformation matrix we know:</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*jThiQTn0OcJ8bgHMENz3aw.png"></p>
+<p>Given us the new vector after the transformation.</p>
+<p>So what does this mean for iamges?</p>
+<p>Every image is just a set of points.</p>
+<p>When we translate by some matrix, we now know how to translate each point!</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*beTMYEokKMZ6i_6QAyA5kw.png"></p>
+<p>We take all the coordinates of the image, and apply the transform to them.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*uGVccaJbMSXBPSbdaFCdsA.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*sdG4jxbIwcKJr7yjO8KgVg.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*Ss1gFkwzPCB7PPwNN6stPA.png"></p>
+<p>Interpolation is a set of techniques for estimating missing data.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*khJ9If6nX6mSyGxsJBwPPg.png"></p>
+<p>When we were resamping audio, this is what was happening.</p>
+<p>Resampled to play back at a higher sample rate, we need to fill in the gaps.</p>
+<p>For Linear Interpolation -&gt; We can use trigonometry -&gt; SOHCATOA</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*Ze7rcfY1BU1AD2-wMFeVQQ.png"></p>
+<p>Also works in 2D, which is what we need for the transformed images.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*zg7ToriVJ4D9DAjkofTUMw.png"></p>
+<p>We take the original images coordinates, transform them to get new ones.</p>
+<p>Then we take the pixel values from the oriinal image and remap them onto the new coordinates.</p>
+<p>Looking at the transformation [2 0 |0 1], which is a stretch in the x axis, we can see that once we have shifted the values we know about onto the new coordinates, we are left with gaps in between columns that we have no direct mapping for:</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*s1oGIt2kcnRox7fP_qSM3A.png"></p>
+<p>We can use interpolation to fill in the gaps!</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*va-BX3n_1Qoo9oFM0B01Lw.png"></p>
+<p>This also applies if we are left with new coordinates that are between grid points on the original image.</p>
+
+    </div>
+
+    <div class="about">
+        <h1>About this Post</h1>
+        <p>This post is written by Siqi Shu, licensed under <a
+                target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+    </div>
+</article>
+        <footer>
+    <div class="inner">
+        <div class="links">
+            
+            <div class="group">
+                <h4 class="title">深智一物 眾隱皆變</h4>
+                
+            </div>
+            
+        </div>
+        &copy; 2024 Siqi Shu<br />
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+</footer>
+
+
+        
+<script src="/js/main.js"></script>
+
+        
+<script src="/js/kursor.js"></script>
+
+        
+<script src="/js/run.js"></script>
+
+
+    </body>
+</html>

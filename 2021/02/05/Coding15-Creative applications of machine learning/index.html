@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  
+  <title>Coding15 - Creative applications of machine learning - Shu-Creative Computing</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+    <link rel='manifest' href='/manifest.json'>
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/cursor.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/components.css">
+
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+    <body>
+        <nav id="theme-nav">
+    <div class="inner">
+        <a class="title" href="/">Shu&#39;s Blog</a>
+        <div class="nav-arrow"></div>
+        <div class="nav-items">
+            <a class="nav-item nav-item-home" href="/">Home</a>
+            
+            
+            <a class="nav-item" href="/categories/essays">Thinking</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/pcomp">Pcomp&amp;AVCE</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/coding">Coding</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/portfolio">Portfolio</a>
+            
+            
+            
+            <a class="nav-item" href="/contact">About</a>
+            
+            
+            
+            <a class="nav-item nav-item-github nav-item-icon" href="https://github.com/ShuSQ" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-codepen nav-item-icon" href="https://codepen.io/shusq" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-patreon nav-item-icon" href="https://www.instagram.com/cheese_shu/" target="_blank">&nbsp;</a>
+            
+            
+        </div>
+    </div>
+</nav>
+        <article class="post">
+    <div class="meta">
+        
+        <div class="date" id="date">
+            
+            
+            <span>February</span>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <span>5,</span>
+            <span>2021</span>
+        </div>
+        
+
+        <h2 class="title">Coding15 - Creative applications of machine learning</h2>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="content">
+        <blockquote>
+<p>This session is about familiarising yourself with the basics of machine learning; it’s also about getting a better understanding of what machine learning systems do, and how they can be manipulated for creative purposes. As a result, we are going to focus on simple machine learning algorithms, rather than more complex ones. However, what we will learn is just how powerful even simple machine learning systems can be!</p>
+</blockquote>
+<h3 id="Simple-can-be-powerful"><a href="#Simple-can-be-powerful" class="headerlink" title="Simple can be powerful"></a>Simple can be powerful</h3><p>Some of these approaches are a little bit complicated when you are starting out, and it’s easy to not fully understand what you are doing. Also, some machine learning approaches require some extra hardware. We are not going to cover some of these generative approaches in this session, as it’s just an introduction. </p>
+<p>First, we are going to concentrate of getting comfortable with basic concepts. These are surprisingly easy to get started with using a little bit of JavaScript, and some starter code. We are going to have a look at some code examples that make it easier to get started, without introducing too many complex ideas.</p>
+<h3 id="Supervised-learning-using-RAPID-Lib"><a href="#Supervised-learning-using-RAPID-Lib" class="headerlink" title="Supervised learning using RAPID Lib"></a>Supervised learning using RAPID Lib</h3><p>We are mostly going to be using what we call “supervised” learning approaches; supervised learning uses examples to train models; the supervised learning algorithms that will be covered in the course can be broadly grouped into two types: Classification and Regression.</p>
+<p>We will be using a JavaScript machine learning library called RAPIDLib. We will also get ‘control data’ from sliders, the mouse and keyboard and other places.</p>
+<p>For this first part we are just going to get comfortable with using a machine learning system called RapidLib. RapidLib takes an input, for example the mouse, and records it alongside some output, we will them train a model and use this to map 2 dimensional mouse input(x,y) to control 4 synthesis parameters.</p>
+<p>You can try: <a target="_blank" rel="noopener" href="https://mimicproject.com/guides/RAPIDMIX">RAPIDMIX</a></p>
+<p>This explains how you can start to create your own machine learning system very quickly without any prior experience.</p>
+<p><strong>How it works</strong></p>
+<p>Use the example below to randomise synth parameters until you find a sound you like, you can also use the sliders to control the sound in more detail. Move the mouse to somewhere on the screen, then click and hold to record samples. </p>
+<p>When you have a few, hit ‘t’ to train; now when you move the mouse around you will be able to explore your newly trained sound space.</p>
+<p>Try clearing the dataset ‘x’, change the training examples to see how this changes the behavior of the system after it is re-trained. Spend some time experimenting with the trained models to start to understand how the models are changed.</p>
+<p>We have learned how to create a basic dataset, and train a simple regression model to explore and control a range of sounds created by a synthesizer. We did not need to worry that much about the actural synthesizer controls(the parameters), or what they did instead we used machine learning to make up a range of sounds based on some random examples. We then moved through the sound world produced by the machine learning system using some simple inputs.</p>
+<h3 id="Classification"><a href="#Classification" class="headerlink" title="Classification"></a>Classification</h3><p>We are going to look in more detail at Classification, we will explore how classification models work using a simple visualization, also will use machine listening technology and simple classification model to detect different types of sounds automatically.</p>
+<p>When relationship between your inputs and your outputs is complex, classification algorithms can allow you to build things that would be challenging or impossible to program yourself by hand. This is what makes machine learning so exciting, you can create highly complex systems without having to program them manually. This is really powerful, and also pretty simple.</p>
+<p>Now we are going to create a very simple classification model, use something called ‘K-Nearest Neighbour’ to classify some inputs. So what is K-Nearest Neighbour?</p>
+<p>K-Nearest Neighbour, or KNN, can be used for Classification or Regression. We are going to use it for Classification. This means it is going to tell us waht kind of input we have, based on its similarity to other inputs we have told the model about. KNN does this by comparing the current input with a previous stored inputs using a distance measurement, one simple example of a distance measurement is the euclidean distance. You definitely already know what this is, but possibly have not thought about it this way.</p>
+<p>Getting the distance between two points in 2D is identical to working out the length of the hypotenuse of a rightangled triangle, with the two points being at each end. Square the two straight sides, add them, and the square root of this is the length of the diagonal side. This works no matter how many dimensions your shape has. It’s a fundamental concept taht is used all the time.</p>
+<p>The KNN gives a new input the same ‘class’ or label as a certain number of its nearest neighbors, the number of neighbours that it checks against is a small value, represented by the letter K. If K = 1, them the new input is given the same class as its nearest neighbor. If K is &gt; 1, say 5, them the 5 nearest nearest neighbours are checked. The new input gets the most common class of those nearest neighbours. Often they are weighted based on how similar they are. K-Nearest Neighbour is not that great, but it is super simple and pretty effective for the stuff we are doing today. When deciding on an approach to take, we compared algorithm’s sensitivity to noise and their capacity to learn complexity. Often this choice can be a payoff between the two.</p>
+<p><strong>Recap</strong></p>
+<p>So we looked at Classification in more detail, we also thought about the problems that can occurwith classification, we then looked at how we can use a simple form of classification to detect different types of sounds, we found out that this was pretty impressive.</p>
+<h3 id="Regression"><a href="#Regression" class="headerlink" title="Regression"></a>Regression</h3><p>Let’s think about Regression in more detail. We can use this using the MIMIC regression explorer.  Regression models can be used to map continuous inputs. As with Classification, different algorithms produce different types of lines or curves given the same data. As such, it is important to pick an algorithm that can model the appropriate complexity. As with classification, there is currently no choice of regression algorithm in Rapidlib. “Many to many mappings” are when we map lots of inputs to lots of outputs, they can allow us to quickly build a complicated system. With this, you can design interactions that react to people’s movements or actions without directly having to consider the exact mathematical relationship between input and output. </p>
+<p>Later on, we will see how you can use regression to control 3 parameters of a granular synth with just 1 slider. Although we could literally use loads. First we are going to look at the Regression Explorer. This will help us get a more intuitive grasp of waht is going on when we create and use regression models. You can use the Regression Explorer on the MIMIC platform.</p>
+
+    </div>
+
+    <div class="about">
+        <h1>About this Post</h1>
+        <p>This post is written by Siqi Shu, licensed under <a
+                target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+    </div>
+</article>
+        <footer>
+    <div class="inner">
+        <div class="links">
+            
+            <div class="group">
+                <h4 class="title">深智一物 眾隱皆變</h4>
+                
+            </div>
+            
+        </div>
+        &copy; 2024 Siqi Shu<br />
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+</footer>
+
+
+        
+<script src="/js/main.js"></script>
+
+        
+<script src="/js/kursor.js"></script>
+
+        
+<script src="/js/run.js"></script>
+
+
+    </body>
+</html>

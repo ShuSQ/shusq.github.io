@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  
+  <title>AIM4 - Neural Networks/Loss and Optimization - Shu-Creative Computing</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+    <link rel='manifest' href='/manifest.json'>
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/cursor.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/components.css">
+
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+    <body>
+        <nav id="theme-nav">
+    <div class="inner">
+        <a class="title" href="/">Shu&#39;s Blog</a>
+        <div class="nav-arrow"></div>
+        <div class="nav-items">
+            <a class="nav-item nav-item-home" href="/">Home</a>
+            
+            
+            <a class="nav-item" href="/categories/essays">Thinking</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/pcomp">Pcomp&amp;AVCE</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/coding">Coding</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/portfolio">Portfolio</a>
+            
+            
+            
+            <a class="nav-item" href="/contact">About</a>
+            
+            
+            
+            <a class="nav-item nav-item-github nav-item-icon" href="https://github.com/ShuSQ" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-codepen nav-item-icon" href="https://codepen.io/shusq" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-patreon nav-item-icon" href="https://www.instagram.com/cheese_shu/" target="_blank">&nbsp;</a>
+            
+            
+        </div>
+    </div>
+</nav>
+        <article class="post">
+    <div class="meta">
+        
+        <div class="date" id="date">
+            
+            
+            
+            
+            
+            
+            
+            <span>July</span>
+            
+            
+            
+            
+            
+            
+            <span>22,</span>
+            <span>2021</span>
+        </div>
+        
+
+        <h2 class="title">AIM4 - Neural Networks/Loss and Optimization</h2>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="content">
+        <h3 id="Recap"><a href="#Recap" class="headerlink" title="Recap"></a>Recap</h3><p>A look at how we would implement on from scratch in Python.</p>
+<ul>
+<li>Dtaset preparation (including batches)</li>
+<li>Linear Algebra</li>
+<li>Basic introduction to optimising weights</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*jD2_zxB3R4FprF4kED5OsA.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/1200/1*2JS67Hxvum2bruv89KuuDw.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/1200/1*5n1zXmfDDZHxSR9RJqChkQ.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/1200/1*HpjE3sQwIXnBbNQTsqfWXQ.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/1200/1*fzu1VTbwBWIH4aKcw6_qug.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/1200/1*pKTGcpCiX2Xk4pPhOjRm2w.png"></p>
+<p>Almost always, we apply an “activation function” to the weighted sum.</p>
+<p>Without an explicit function: Neuron outputs the weighted sum.</p>
+<p>Alternatively: do some extra computation (the “activation function”) on the weighted sum and output the result of that:</p>
+<ul>
+<li>Inspired by real neurons: fire only when “input” exceed a certain threshold.</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*y3e0ZpQn8chPasdtw1a8TA.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/1200/1*wwklC96nXxfO72mYohfkow.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/1200/1*vxwArphGSQzX8eiTjGXVTQ.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*bUczB5WK7kEwVZXG7o-saQ.png"></p>
+<h5 id="In-Summary"><a href="#In-Summary" class="headerlink" title="In Summary"></a>In Summary</h5><p>Neural Networks consist of the following components:</p>
+<ul>
+<li>An input layer</li>
+<li>An arbitrary amount of hidden layers</li>
+<li>An output layer</li>
+<li>A set of weights and biases between each layer, W and b</li>
+<li>A choice of activation function for each hidden layer</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*JBQSkfdRGI3eg4XfAr5rxA.png"></p>
+<h3 id="Loss-and-Optimisation"><a href="#Loss-and-Optimisation" class="headerlink" title="Loss and Optimisation"></a>Loss and Optimisation</h3><p>How to get your NN to learn the right thing fast?</p>
+<p>Loss: what does it mean to learn the “right” thing?</p>
+<p>A neural network is a function:</p>
+<ul>
+<li>output = 5 x input + 2</li>
+</ul>
+<p>Weights inside each neuron are just numbers that determine what the NN’s function looks like, but good values are unknown in advance.</p>
+<ul>
+<li>output = a x input + b</li>
+</ul>
+<p>Training is just the process of finding these good values!</p>
+<p>Training examplex are “hints” about what function the neural net should learn.</p>
+<p>An very simple untrained NN: output = w1 x input</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Training data:</span><br><span class="line">Input Target</span><br><span class="line">3			6</span><br><span class="line">-2		-4</span><br><span class="line">0			0</span><br><span class="line">5			10</span><br></pre></td></tr></table></figure>
+
+<p>What is a good value for w1? How do you know?</p>
+<p>w1 = 2 seems to fit this data well.</p>
+<p>Linear regression:</p>
+<p>y = w1 * X + w0</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*Vw-m2J4C6bpxf2hN8U8gKA.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/1200/1*KVDpmnphZzUadaCH0KnbPw.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/1200/1*pmZ0GiWS1D_0_5SVEObW5g.png"></p>
+<p>Which is better and why?</p>
+<p> Can we come up with a function (measurement) that gives us better (lower) scores for better lines and worse (higher) scores for worse lines?</p>
+<p>Computes a number using only information about:</p>
+<ul>
+<li>The training data targets (“outputs”)</li>
+<li>The neural network’s predicted output values for those targets</li>
+</ul>
+<p>Desirable properties:</p>
+<ul>
+<li>A bigger distance between the training data and network output is bad (higher score)</li>
+<li>We generally care about distacne for all examples, on “average”</li>
+<li>We do not care about whether line is above or below an example, only how far it is.</li>
+</ul>
+<p>One solution: cost = sum of absolute distances between each example target and the neural network’s output for that example.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*gsjq4uZA9RAPiQHpUW1Ngg.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*tRjqqfG0G5hEysGA4a5aXQ.png"></p>
+<p>perhaps penalize large distances more harshly than small ones.</p>
+<h3 id="Mean-squared-error"><a href="#Mean-squared-error" class="headerlink" title="Mean-squared error"></a>Mean-squared error</h3><p>For each exmaple:</p>
+<ul>
+<li>Compute difference between NN’s predicted output and the training example’s actual target value (i.e., vertical distance between point and line)</li>
+<li>Square this value</li>
+</ul>
+<p>Add up the squared difference for all examples.</p>
+<p>Loss = (predicted1 - target1) ^2 + (predicted2 - target2)^ 2 + … + (predictedn - targetn)^2</p>
+<h3 id="Regression"><a href="#Regression" class="headerlink" title="Regression"></a>Regression</h3><p>NN outputs some numeric value between -/+ inf</p>
+<p>Mean-squared error (MSE)</p>
+<p>Mean squared logarithmic (“log”) error (MSLE)</p>
+<ul>
+<li>First compute the natural log (ln) of the difference between each target/predicted value pair, then compute mean-squared error</li>
+<li>Penalises very large differences less than MSE</li>
+</ul>
+<p>Mean absolute error (MAE)</p>
+<ul>
+<li>Our first approach: Doesn’t attempt to overly penalzie large errors at all</li>
+<li>May be better if your data has outliers</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*Nv1EO6fj3VsQDmYEq6pcFg.png"></p>
+<h5 id="Binary-classification"><a href="#Binary-classification" class="headerlink" title="Binary classification"></a>Binary classification</h5><p>Targets are 0 or 1, NN outputs something in (0,1) range.</p>
+<ul>
+<li>Binary cross-entropy loss<ul>
+<li>Summarises average difference between actual and predicted probability distributions for predicting class 1.</li>
+<li>Treats NN output of 0.95 as “95% certain it’s class 1”; takes this into account when computing loss</li>
+</ul>
+</li>
+<li>Others exist but not really used for NNs</li>
+</ul>
+<h5 id="Multi-class-classification"><a href="#Multi-class-classification" class="headerlink" title="Multi-class classification"></a>Multi-class classification</h5><p>Targets are expressed as 0, 1, … n</p>
+<p>NN outputs n values between 0 and 1.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*_nAimy50jDN-eTvBVo2dgg.png"></p>
+<p>Multi-class cross-entropy loss</p>
+<ul>
+<li>Summarises average difference between actual and predicted probability distributions for all classes</li>
+<li>Use this by default</li>
+</ul>
+<p>Sparse multi-class cross-entropy loss</p>
+<ul>
+<li>Same idea, but doesn’t require you to use “one-hot” encoding of each training example.</li>
+<li>Great when you have thousands possible output “classes” (e.g., words in an NLP model!)</li>
+</ul>
+<p>KL divergence</p>
+<ul>
+<li>A measure of how different two probability distributions are</li>
+<li>Sometimes used when NN is doing something more complex than multi-class classification (e.g., autoencoder learning a feature representation / embedding)</li>
+</ul>
+<p>Resources:</p>
+<p>Nice blog post on choosing a loss function -</p>
+<p><a target="_blank" rel="noopener" href="https://machinelearningmastery.com/how-to-choose-lossfunctions-when-training-deep-learning-neural-networks/">https://machinelearningmastery.com/how-to-choose-lossfunctions-when-training-deep-learning-neural-networks/</a></p>
+<h3 id="Optimisation"><a href="#Optimisation" class="headerlink" title="Optimisation"></a>Optimisation</h3><p>So how do we find good weights?</p>
+<p>i.e., how do we find weight values that result in a small loss value?</p>
+<p>i.e., what should we know about training so it’s not a mystery, and we have a hope of fixing things if it goes wrong?</p>
+<p>A simple example: 1 unknown weight to set</p>
+<p>A very simple untrained NN: output = w1 x input</p>
+<p>Choose mean-squared error as our loss function.</p>
+<p>How does loss change with different values of w1, for a given dataset?</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*0V-xtjtfqfKF94zKBJgqDA.png"></p>
+<p>But, we cannot “see” this function directly! We can measure the loss for any given value of w1; we can also compute the slope of the line at any given value of w1, like trying to navigate hilly terrain in a fog; many optimisation methods have been developed for finding good values under such circumstances.</p>
+<p>Gradient descent: a simple, standard optimisation method.</p>
+<ol>
+<li>Pick a random value of w1. Compute loss and slope(gradient) of w1.</li>
+<li>Pick a new value for w1.<ul>
+<li>Travel “downwards” in slope</li>
+<li>If slope is steep, take a big hop in that direction. If gradual, take a smaller hop.</li>
+<li>The “learning rate” of NN is a value between 0.0 and 1.0 that is used to scale these big/small steps.</li>
+</ul>
+</li>
+<li>Repeat:<ul>
+<li>For a fixed number of iterations</li>
+<li>Or until change in loss each iteration is very very small</li>
+</ul>
+</li>
+</ol>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*JKo849qlay-UuS7_WWNLMg.png"></p>
+<h5 id="Possible-problem-1-Learning-rate-may-be-unsuitable"><a href="#Possible-problem-1-Learning-rate-may-be-unsuitable" class="headerlink" title="Possible problem #1: Learning rate may be unsuitable"></a>Possible problem #1: Learning rate may be unsuitable</h5><p>If too small: Takes a looooong time to get to minimum</p>
+<p>If too big: Can get lost and never find the minimum</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*NyhyoekaNjQWNMM10vk4yw.png"></p>
+<h5 id="Possible-problem-2-Optimization-may-get-stuck-in-a-local-minimum"><a href="#Possible-problem-2-Optimization-may-get-stuck-in-a-local-minimum" class="headerlink" title="Possible problem #2: Optimization may get stuck in a local minimum"></a>Possible problem #2: Optimization may get stuck in a local minimum</h5><p><img src="https://cdn-images-1.medium.com/max/800/1*bB6mBbbqgtGRX84Bfwjttg.png"></p>
+<p>In practice, we always have more than 1 unknown weight, so optimization is finding a minimum in a bumpy surface.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*6cLiw2vNe4E-y1ocCv8_HA.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*Wbp01OTydb5boOgKcV9Pjg.png"></p>
+<p>Contour plots: Lines show paths of equal loss</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*1_3FqO0mVB3BxecZtIiYZg.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*039kj99yBeSB0nt0PH9k9g.png"></p>
+<p>Stochastic gradient descent (SGD) can help avoid local minima (or at least find better local minima).</p>
+<p>“Vanilla” (“batch”) gradient descent: use loss computed on all training examples to find the gradient for a particular set of weight values, then follow this gradient downhill.</p>
+<ul>
+<li>Smooth path, but will not “explore” the terrain much.</li>
+</ul>
+<p>Stochastic gradient descent: choose a single random example and compute the gradient for a particular set of weight values, then follow this gradient one step. Then choose another single random exmaple and repeat.</p>
+<ul>
+<li>More wiggly path, will explore more terrain over the same number of iterations (but may need more iterations to converge)</li>
+</ul>
+<h5 id="Mini-batch-gradient-descent"><a href="#Mini-batch-gradient-descent" class="headerlink" title="Mini-batch gradient descent"></a>Mini-batch gradient descent</h5><p>A compromise between SGD and vanilla gradient descent: compute gradient at each step using a small number of examples (e.g., 32)</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*sHUMxm2kvtdYseXhA2g21g.png"></p>
+<h5 id="Possible-problem-3-Sometimes-it’s-hard-to-find-a-good-set-of-tradeoffs-using-the-methods-we-have-discussed-so-far…"><a href="#Possible-problem-3-Sometimes-it’s-hard-to-find-a-good-set-of-tradeoffs-using-the-methods-we-have-discussed-so-far…" class="headerlink" title="Possible problem #3:  Sometimes, it’s hard to find a good set of tradeoffs using the methods we have discussed so far…"></a>Possible problem #3:  Sometimes, it’s hard to find a good set of tradeoffs using the methods we have discussed so far…</h5><p><img src="https://cdn-images-1.medium.com/max/800/1*9M4AqVbZQzDHALvocKYAHA.png"></p>
+<h5 id="Possible-problem-4-The-optimal-weights-might-not-be-so-optimal-after-all"><a href="#Possible-problem-4-The-optimal-weights-might-not-be-so-optimal-after-all" class="headerlink" title="Possible problem #4: The optimal weights might not be so optimal after all"></a>Possible problem #4: The optimal weights might not be so optimal after all</h5><p>Training finds optimal weight values for the training set.</p>
+<p>In the real world, you often want your neural network to perform well on data that isn’t in the training set!</p>
+<p>We usually want to “generalise”, not “memorise”.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*1WclypTtD9IdaecbxORREQ.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/1200/1*-N3GfrY6swX5Hukr_B7-OA.png"></p>
+<p>Orange Line has higher loss, but it seems to capture the trend in the data better.</p>
+<p>Variation in training examples could be “noise”: maybe we should not try so hard to fit them exactly?</p>
+<h5 id="One-solution-Regularisation"><a href="#One-solution-Regularisation" class="headerlink" title="One solution: Regularisation"></a>One solution: Regularisation</h5><p>“Weight” regularisation: loss function includes a penalty for weights that become too large.</p>
+<p>Dropout: during training, each neuron “drops out” with some small probability during each epoch. Model is forced to avoid relying too much on particular features.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*n3PQ4d80ZRbY9VUKmKozMg.png"></p>
+<h5 id="Another-solution-Early-stopping"><a href="#Another-solution-Early-stopping" class="headerlink" title="Another solution: Early stopping"></a>Another solution: Early stopping</h5><p>Split the available data into 3 different parts:</p>
+<ul>
+<li>Training set, test set (always use one anyway!), validation set.</li>
+</ul>
+<p>Train on the training set</p>
+<p>Keep an eye on loss on the validation set</p>
+<p>Stop training when loss on the validation set starts to go up</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*MsGKp_ulvAEpSU9KGFNv8g.png"></p>
+<h5 id="One-last-trick-Data-augmentation"><a href="#One-last-trick-Data-augmentation" class="headerlink" title="One last trick: Data augmentation"></a>One last trick: Data augmentation</h5><p>More data is almost always better.</p>
+<p>Media data can often be easily “augmented” by introducing random variations during training.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*-Y7it2Pjkck7qgimlODh4w.png"></p>
+<h5 id="A-final-detour-Backpropagation"><a href="#A-final-detour-Backpropagation" class="headerlink" title="A final detour: Backpropagation"></a>A final detour: Backpropagation</h5><p>Training a neural network involves:</p>
+<ul>
+<li>Choosing random values for all weights</li>
+<li>Passing some (1/all/some) training examples through the network and computing the loss as well as the gradient of the loss function</li>
+<li>Using information about the current loss &amp; gradient to choose how to change the weights (i.e., a “direction” and an “amount” for each weight)</li>
+<li>Different optimisation methods will use loss function value &amp; gradient in slightly different ways to try to get to a good set of weights</li>
+<li>Backpropogation: this is the algorithm for computing the gradient of the loss function.</li>
+</ul>
+<h5 id="Why-is-backpropagation-cool-amp-important"><a href="#Why-is-backpropagation-cool-amp-important" class="headerlink" title="Why is backpropagation cool &amp; important?"></a>Why is backpropagation cool &amp; important?</h5><p>Taking a purely mathematical approach to computing gradient is slooow.</p>
+<p>Back-propagation is more efficient (fewer # of computational steps, less time in practice)</p>
+<ul>
+<li>Gradient for final layer of weights is computed first</li>
+<li>Parts of this computation are used to compute the gradient for weights in the previous layer</li>
+<li>And so on</li>
+</ul>
+<h3 id="General-tips-for-making-NNs-that-work"><a href="#General-tips-for-making-NNs-that-work" class="headerlink" title="General tips for making NNs that work"></a>General tips for making NNs that work</h3><ol>
+<li>Start with mean-squared error for regression, cross-entropy loss for classification unless you have a reason not to<ul>
+<li>E.g., you are using a research paper or existing implementation that uses something else.</li>
+</ul>
+</li>
+<li>Start with adam optimiser unless you have a reason not to </li>
+<li>Sanity check throughout:<ul>
+<li>Keep an eye on your loss through each training epoch</li>
+<li>Examine your data (visualize it, look at examples that are misclassified, etc.)</li>
+<li>Try training on a really small version of your dataset and make sure you can overfit (if not, something is wrong!)</li>
+</ul>
+</li>
+<li>When things do not work, try changing: your data, your features, data augmentation, your network architecture, your loss function, your activation function, regularization, your optimizer, your optimizer parameters.</li>
+<li>Use a validation dataset for early stopping if you can, and only trust your held-out test set (if that) to indicate how well your trained model may work on new data.</li>
+</ol>
+<h3 id="Finasl-notes"><a href="#Finasl-notes" class="headerlink" title="Finasl notes"></a>Finasl notes</h3><ol>
+<li><p>Even experts do not always know waht the “best” loss functio nor optimizer is.</p>
+</li>
+<li><p>ML involves a lot of experimentation:</p>
+<ul>
+<li>Some tools can make this easier, e.g., Kera Tuner</li>
+<li>You can also make this easier by keeping track of your results, using visualisations and sanity checks frequently, etc.</li>
+</ul>
+</li>
+<li><p>You do not need to make perfect decisions, only reasonably good ones.</p>
+<ul>
+<li>Choice and processing of training data, choice of model type, choice of learning problem are all likely to have big impacts.</li>
+</ul>
+</li>
+<li><p>Loss is only a number</p>
+<ul>
+<li>What really matters is how well your model works in teh “real world”</li>
+</ul>
+</li>
+</ol>
+<h3 id="Other-resources"><a href="#Other-resources" class="headerlink" title="Other resources"></a>Other resources</h3><p>Great tutorial with visualisations for different optimization methods </p>
+<p><a target="_blank" rel="noopener" href="https://towardsdatascience.com/a-visual-explanation-of-gradient-descent-methods-momentum-adagrad-rmsprop-adam-f898b102325c">https://towardsdatascience.com/a-visual-explanation-of-gradient-descent-methods-momentum-adagrad-rmsprop-adam-f898b102325c</a></p>
+<p>Great video going into more detail about gradient descent, in general: </p>
+<p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=IHZwWFHWa-w">https://www.youtube.com/watch?v=IHZwWFHWa-w</a></p>
+<p>Great video from the same source about how gradient descent relates to back- propagation</p>
+<p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=Ilg3gGewQ5U&amp;list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi&amp;index=3">https://www.youtube.com/watch?v=Ilg3gGewQ5U&amp;list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi&amp;index=3</a></p>
+<p>Nice blog post on gradient descent </p>
+<p><a target="_blank" rel="noopener" href="https://towardsdatascience.com/gradient-descent-algorithm-and-its-variants-10f652806a3">https://towardsdatascience.com/gradient-descent-algorithm-and-its-variants-10f652806a3</a></p>
+<p>Another blog post, comparing gradient descent, SGD, and mini-batch: </p>
+<p><a target="_blank" rel="noopener" href="https://machinelearningmastery.com/gentle-introduction-mini-batch-gradient-descent-configure-batch-size/">https://machinelearningmastery.com/gentle-introduction-mini-batch-gradient-descent-configure-batch-size/</a></p>
+<p>General deep learning practical tricks summary</p>
+<p><a target="_blank" rel="noopener" href="https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-deep-learning-tips-and-tricks">https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-deep-learning-tips-and-tricks</a></p>
+
+    </div>
+
+    <div class="about">
+        <h1>About this Post</h1>
+        <p>This post is written by Siqi Shu, licensed under <a
+                target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+    </div>
+</article>
+        <footer>
+    <div class="inner">
+        <div class="links">
+            
+            <div class="group">
+                <h4 class="title">深智一物 眾隱皆變</h4>
+                
+            </div>
+            
+        </div>
+        &copy; 2024 Siqi Shu<br />
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+</footer>
+
+
+        
+<script src="/js/main.js"></script>
+
+        
+<script src="/js/kursor.js"></script>
+
+        
+<script src="/js/run.js"></script>
+
+
+    </body>
+</html>

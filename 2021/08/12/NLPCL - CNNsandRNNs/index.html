@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  
+  <title>CNNs&amp;RNNs - Relationships between words - Shu-Creative Computing</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+    <link rel='manifest' href='/manifest.json'>
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/cursor.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/components.css">
+
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+    <body>
+        <nav id="theme-nav">
+    <div class="inner">
+        <a class="title" href="/">Shu&#39;s Blog</a>
+        <div class="nav-arrow"></div>
+        <div class="nav-items">
+            <a class="nav-item nav-item-home" href="/">Home</a>
+            
+            
+            <a class="nav-item" href="/categories/essays">Thinking</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/pcomp">Pcomp&amp;AVCE</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/coding">Coding</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/portfolio">Portfolio</a>
+            
+            
+            
+            <a class="nav-item" href="/contact">About</a>
+            
+            
+            
+            <a class="nav-item nav-item-github nav-item-icon" href="https://github.com/ShuSQ" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-codepen nav-item-icon" href="https://codepen.io/shusq" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-patreon nav-item-icon" href="https://www.instagram.com/cheese_shu/" target="_blank">&nbsp;</a>
+            
+            
+        </div>
+    </div>
+</nav>
+        <article class="post">
+    <div class="meta">
+        
+        <div class="date" id="date">
+            
+            
+            
+            
+            
+            
+            
+            
+            <span>August</span>
+            
+            
+            
+            
+            
+            <span>12,</span>
+            <span>2021</span>
+        </div>
+        
+
+        <h2 class="title">CNNs&amp;RNNs - Relationships between words</h2>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="content">
+        <h3 id="Order-Matters-amp-Distance-Matters"><a href="#Order-Matters-amp-Distance-Matters" class="headerlink" title="Order Matters &amp; Distance Matters"></a>Order Matters &amp; Distance Matters</h3><p>Our previous represenatations have only considered word presence and frequency:</p>
+<blockquote>
+<p>Jon hit the cricket bat</p>
+<p>The cricket bat hit Jon</p>
+</blockquote>
+<p>These two sentences mean different things, but would look the same.</p>
+<p>Where wods are in a sentence matters:</p>
+<blockquote>
+<p>Jon, despite being a mild mannered and unremarkable man normally unlikely to get angry, flew into a rage.</p>
+</blockquote>
+<p>The word <strong>rage</strong> relates to <strong>Jon</strong> but is far away from it in the sentence.</p>
+<h4 id="N-grams"><a href="#N-grams" class="headerlink" title="N-grams"></a>N-grams</h4><p>We have looked at n-grams as tokens as ways of capturing links between words; however, these can make your vocabulary large, and your input sparse.</p>
+<h3 id="Markov-Models"><a href="#Markov-Models" class="headerlink" title="Markov Models"></a>Markov Models</h3><p>We have also looked at Markov Models as a way of modelling sequences (by looking at the probability of transitioning from state &lt;-&gt; state)</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*Nhack2cY6jnlCE12Sp9z7g.png"></p>
+<p>Before we kick into the more complex set ups, its important to remember these things are essentially the same as the straight forward neural networks we’ve seen before.</p>
+<p>Different layers pass information between each other, being changed by weights. The aim is to get the best version of these weights, and we do this by iteratively nudging them towards better performances.</p>
+<h3 id="Sliding-Windows"><a href="#Sliding-Windows" class="headerlink" title="Sliding Windows"></a>Sliding Windows</h3><p>How can we capture spatial information about text input?</p>
+<p>We take a filter and slide it over windows of time series data; Originally designed for image tasks.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*mI8F1LVV6t4UfI8wKj70fQ.png"></p>
+<p>The network learns filters that activate when it detects some specific type of feature at some spatial position in the input.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*-lAMACulAf8qYyqw3chqXg.png"></p>
+<p>The filter we slide is across is known as a kernel.</p>
+<p>The amount we move it by is known as the stride.</p>
+<p>Each filter has a set of weights, and an activation function.</p>
+<p>Multiply input by weights element-wise.</p>
+<p>Sum and put through activation function (often ReLU), move and continue.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*goAgNoJYTjdWkAjR51uztA.png"></p>
+<p>z_0 = max(sum(x8w), 0).</p>
+<h4 id="Padding"><a href="#Padding" class="headerlink" title="Padding"></a>Padding</h4><p>You are going to miss some numbers at the edge. We can stop this by padding, better than missing data.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*J0NLlUHcpBJZ9Pp9oazuSw.png"></p>
+<h3 id="A-Text-Dataset-Supervised-learning-needs-pairs"><a href="#A-Text-Dataset-Supervised-learning-needs-pairs" class="headerlink" title="A Text Dataset - Supervised learning needs pairs"></a>A Text Dataset - Supervised learning needs pairs</h3><p>We take sentences from books and guess the genre, out of 6 possible.</p>
+<p>This is one input example e.g. one document.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*ufCCM4WiHAdoNVXV0qLspg.png"></p>
+<p>We only care about one dimension with Word Vector Inputs(this is 3x1).</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*L2vkJP2MJtuTTu6LH8VOVA.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*G-q5GezVFignRPqle3a0gw.png"></p>
+<h4 id="Pooling"><a href="#Pooling" class="headerlink" title="Pooling"></a>Pooling</h4><p>We actually have multiple filter/kernels in each layer.</p>
+<p>We use pooling as a dimensionality reduction and to learn higher order features.</p>
+<p>We take subsections and amalgamate by either max or average.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*PYWJgD2lD32LtmWIB-ikcw.png"></p>
+<h4 id="Dropout"><a href="#Dropout" class="headerlink" title="Dropout"></a>Dropout</h4><p>We sometimes also add in a dropout layer. This 0’s a certain percentage of random units every pass.</p>
+<p>Helps prevent overfitting. Doesn’t happen when doing inference with the trained model.</p>
+<h3 id="CNN-Structure"><a href="#CNN-Structure" class="headerlink" title="CNN Structure"></a>CNN Structure</h3><p><img src="https://cdn-images-1.medium.com/max/800/1*RsygWiodN829bMRUF9qvqw.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*RE0cIK2IuuiAY0KQeo8GhA.png"></p>
+<p>We update the weights in the same manner as normal feed forward networks.</p>
+<p>Using backpropagation and some optimizer.</p>
+<p>Using a loss function appropriate to the task e.g. for 2 class classification its binary cross entropy loss.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*XdsGpzSl2uE76DJUmfmGsQ.png"></p>
+<h4 id="Feedback-loops"><a href="#Feedback-loops" class="headerlink" title="Feedback loops"></a>Feedback loops</h4><p>RNNs are more similar to the feedforward networks. Built up of interconnected neurons.</p>
+<p>A traditional neuron just sums up inputs then outputs.</p>
+<p>We add in each token one by one but the information is lost.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*hwZXHaFbPzm2BJbygSbUhQ.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*jg-EO9NWiDZ9YHbUkHQFtw.png"></p>
+<p>Each example is still one set of word embeddings and one label.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*zDSi6AP1Y88qBl9W723VpQ.png"></p>
+<p>However, each token is fed in 1 by 1, with the current step referred to as t.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*F9hZgdignJCCFqv89SsSMw.png"></p>
+<p>For our classification task, we only care about the last output.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*HGjyTZMjSXVOv2xnYYIOMw.png"></p>
+<p>Same as with the normal neural network we use back propagation to pass the loss back along the network and update the weights.</p>
+<p>Its slightly more complicated with the recurrent layers and it referred to as back propagation through time.</p>
+<p>Its a classification task, so we are looking for 100% accuracy in the best case.</p>
+<h4 id="Other-Types-of-RNN-Neuron"><a href="#Other-Types-of-RNN-Neuron" class="headerlink" title="Other Types of RNN Neuron"></a>Other Types of RNN Neuron</h4><p>There have been improvements to RNN neurons over the years.</p>
+<p>They remember, but also forget what’s not important</p>
+<ul>
+<li>GRU</li>
+<li>LSTM</li>
+</ul>
+<p>We’ve been making classifiers so our dataset has consisted of pairs of input sentences and labels.</p>
+<p>This means we can give it new sentences and it will guess the label.</p>
+
+    </div>
+
+    <div class="about">
+        <h1>About this Post</h1>
+        <p>This post is written by Siqi Shu, licensed under <a
+                target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+    </div>
+</article>
+        <footer>
+    <div class="inner">
+        <div class="links">
+            
+            <div class="group">
+                <h4 class="title">深智一物 眾隱皆變</h4>
+                
+            </div>
+            
+        </div>
+        &copy; 2024 Siqi Shu<br />
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+</footer>
+
+
+        
+<script src="/js/main.js"></script>
+
+        
+<script src="/js/kursor.js"></script>
+
+        
+<script src="/js/run.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  
+  <title>AIM5 - Classifying Sequences - Shu-Creative Computing</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+    <link rel='manifest' href='/manifest.json'>
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/cursor.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/components.css">
+
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+    <body>
+        <nav id="theme-nav">
+    <div class="inner">
+        <a class="title" href="/">Shu&#39;s Blog</a>
+        <div class="nav-arrow"></div>
+        <div class="nav-items">
+            <a class="nav-item nav-item-home" href="/">Home</a>
+            
+            
+            <a class="nav-item" href="/categories/essays">Thinking</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/pcomp">Pcomp&amp;AVCE</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/coding">Coding</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/portfolio">Portfolio</a>
+            
+            
+            
+            <a class="nav-item" href="/contact">About</a>
+            
+            
+            
+            <a class="nav-item nav-item-github nav-item-icon" href="https://github.com/ShuSQ" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-codepen nav-item-icon" href="https://codepen.io/shusq" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-patreon nav-item-icon" href="https://www.instagram.com/cheese_shu/" target="_blank">&nbsp;</a>
+            
+            
+        </div>
+    </div>
+</nav>
+        <article class="post">
+    <div class="meta">
+        
+        <div class="date" id="date">
+            
+            
+            
+            
+            
+            
+            
+            <span>July</span>
+            
+            
+            
+            
+            
+            
+            <span>24,</span>
+            <span>2021</span>
+        </div>
+        
+
+        <h2 class="title">AIM5 - Classifying Sequences</h2>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="content">
+        <p>How does non-sequential data look and how do we process it?</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*ox3eE50yRjw64uXzl2w4CA.png"></p>
+<p>What propeties does sequential data have?</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*j-t381UEFH-Mt7pft4FW6A.png"></p>
+<p>We want to build a model that considers the sequentiality of the data.</p>
+<h3 id="Data-representation"><a href="#Data-representation" class="headerlink" title="Data representation"></a>Data representation</h3><ul>
+<li>One-hot vectors</li>
+<li>Embeddings “someone else” gave us </li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*YfD7jwtTMYeUlkiijr2Xow.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*QULtuyowQeHKmaY8c_Kn8g.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*hpyhOfjDLLXUHUZbOE1Z8A.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*OkwYo05W4TYqSuluabYBmA.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*ZQnKghuFb52LfkF7-GIKXQ.png"></p>
+<p>Encode music using the Fourier Transform (fft) to get spectrogram (which can be considered as image arepresentation).</p>
+<p>We can later decode  the predictions using the inverse fft.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*Sveg0yaQprCplq_1vwjUng.png"></p>
+<p>We saw examples of sequential data:</p>
+<ul>
+<li>Text</li>
+<li>Video frames</li>
+<li>Audio</li>
+<li>Actions</li>
+<li>(and you can imagine other real-world data which we could abstract into representation of sequences)</li>
+</ul>
+<p>So far we used very simplified schematics of what the [model] is … let’s explore this in more detail.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*iQA8gcY6qcET1ji4qpyK6Q.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*CqK39oOZ1o_1EOk4H4NSjQ.png"></p>
+<p>We usually have some model parameters that we can set so that the model does what we want from it. We usually define what we want using a loss function on the predicted outputs and the desired output values.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*hAAvgsJyJNoFAuhY9Rs_xg.png"></p>
+<p>Let’s say that someone told us that these values for the parameters are going to work the best:</p>
+<p>W = [1, -1, 0, 0]</p>
+<p>b = [0.1, 0.1, 0.1, 0.1]</p>
+<p>V = [1, 1, -1, 1]</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*urJOmWSI9MrfZqdamjM7Ig.png"></p>
+<p>This is to illustrate that by using parameters to influence what happens to the input (W, b) and what is kept in the memory (V)…</p>
+<p>We can influence the behaviour of the model. Iteratively change parameters (W, b, V) so that the loss gets smaller.</p>
+<p>Find parameters which will minimize the distance between the prediction our model is giving and the labels we have (loss).</p>
+<p>Different scenarios for sequential modelling - depending on the task and the dataset we might be using different model variants.</p>
+<p>Classification:</p>
+<ul>
+<li>We want to classify the input data into its class.</li>
+<li>For example: input = mail text, label = spam / not-spam</li>
+</ul>
+<p>Regression:</p>
+<ul>
+<li>We want to assign a continuous value to the input data.</li>
+<li>For example: input = movie frames, label = expected IMDb rating.</li>
+</ul>
+<p>Generation:</p>
+<ul>
+<li>We want to use the model to predict a believable continuation to what we show it.</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*ifgvkIHG-xnSxRqXwmyA7A.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*VZlnfwt5kq-7E5RZ7EhU8Q.png"></p>
+<p>Type of the model you would use depends on your data and the task you want to solve…</p>
+<h3 id="Examples-from-real-world-research"><a href="#Examples-from-real-world-research" class="headerlink" title="Examples from real-world research"></a>Examples from real-world research</h3><p><img src="https://cdn-images-1.medium.com/max/1200/1*VNJeLDhtzkEszKxuYsRNCA.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/1200/1*SAHBjZu3E48Q8D5jE03PzA.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/1200/1*xWmCrnScSTStVxvqiy5n8g.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/1200/1*YzUMBQNDL8IOm3kOWMhXJg.png"></p>
+
+    </div>
+
+    <div class="about">
+        <h1>About this Post</h1>
+        <p>This post is written by Siqi Shu, licensed under <a
+                target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+    </div>
+</article>
+        <footer>
+    <div class="inner">
+        <div class="links">
+            
+            <div class="group">
+                <h4 class="title">深智一物 眾隱皆變</h4>
+                
+            </div>
+            
+        </div>
+        &copy; 2024 Siqi Shu<br />
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+</footer>
+
+
+        
+<script src="/js/main.js"></script>
+
+        
+<script src="/js/kursor.js"></script>
+
+        
+<script src="/js/run.js"></script>
+
+
+    </body>
+</html>

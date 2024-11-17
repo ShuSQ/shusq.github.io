@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  
+  <title>AIM2 - Make it a Feature - Shu-Creative Computing</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+    <link rel='manifest' href='/manifest.json'>
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/cursor.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/components.css">
+
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+    <body>
+        <nav id="theme-nav">
+    <div class="inner">
+        <a class="title" href="/">Shu&#39;s Blog</a>
+        <div class="nav-arrow"></div>
+        <div class="nav-items">
+            <a class="nav-item nav-item-home" href="/">Home</a>
+            
+            
+            <a class="nav-item" href="/categories/essays">Thinking</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/pcomp">Pcomp&amp;AVCE</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/coding">Coding</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/portfolio">Portfolio</a>
+            
+            
+            
+            <a class="nav-item" href="/contact">About</a>
+            
+            
+            
+            <a class="nav-item nav-item-github nav-item-icon" href="https://github.com/ShuSQ" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-codepen nav-item-icon" href="https://codepen.io/shusq" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-patreon nav-item-icon" href="https://www.instagram.com/cheese_shu/" target="_blank">&nbsp;</a>
+            
+            
+        </div>
+    </div>
+</nav>
+        <article class="post">
+    <div class="meta">
+        
+        <div class="date" id="date">
+            
+            
+            
+            
+            
+            
+            
+            <span>July</span>
+            
+            
+            
+            
+            
+            
+            <span>18,</span>
+            <span>2021</span>
+        </div>
+        
+
+        <h2 class="title">AIM2 - Make it a Feature</h2>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="content">
+        <p>We have seen how different representations (beyond the raw form) of our media inputs can help us build more accurate classifiers, depending on the problems we are trying to solve.</p>
+<p>For video input, we have looked at:</p>
+<ul>
+<li>MobileNet (good for objects)</li>
+<li>BodyPix (good for bodies)</li>
+</ul>
+<p>For Audio:</p>
+<ul>
+<li>FFT, MFCCs, Musical Inputs</li>
+</ul>
+<p>These preprocessing steps presented our data in a way that meant the learning algorithms had an easier job identifying the differences between each class.</p>
+<p>Given just raw media data, our models have to learn about things in the world (bodies, objects, music) in order to learn the differences between our classes.</p>
+<p>When we have 2 input features, we can look at our datasets as 2D plots. And we can see a classification problem as dividing up this plot.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*B_wGLsF9GgiCNDa6NdQ8gw.png"></p>
+<h5 id="Improving-Classifications"><a href="#Improving-Classifications" class="headerlink" title="Improving Classifications"></a>Improving Classifications</h5><p>This logic works when we have more input features, but its hard to visualise!</p>
+<p>Each learning algorithm will have its own approach to dividing up the space, and the types of Decision Boundaries it is able to make.</p>
+<p>Whilst some learning models can fit complex decision boundaries, the more our representation highlights the differences between classes, the easier it is to build a good model!</p>
+<p>Complex models also often require more data. We can often achieve better representations of real time media data using time based features.</p>
+<p>We can now use some maths to aggregate inputs over time:</p>
+<ul>
+<li>Smoothing / removing noise</li>
+<li>Finding rate and direction changes</li>
+<li>Finding amount of changes</li>
+</ul>
+<p>We take our array of existing inputs and each value becomes the average over the previous n values.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*Bd36ynAR-us4zLG6B1bDsQ.png"></p>
+<p>Window size effects smoothing.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*NgLM9bMmXIg4tHW2cJe_7Q.png"></p>
+<p>Using these two featuers, it is hard to separate the classes.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*xYZG_FrAVfW2IdP9HLhyYA.png"></p>
+<p>When we take a running average, it smooths out the noise and makes the classes much more separable.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*NxquGHGR_i6SKEFpSORwtA.png"></p>
+<p>First order difference can tell us the rate of change:</p>
+<p>at = a(t) - a(t-1)</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*z3FE0jpBSSR5tKYHtKZmxg.png"></p>
+<p>Second order difference can tell us the rate of that change.</p>
+<p>There are two clear groups here (different gestures/activities?) that we can see when measured with first order difference, which we would not get when just looking at values.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*f96Hs0QYcI6ftLlZGDLvpQ.png"></p>
+<h5 id="Variance"><a href="#Variance" class="headerlink" title="Variance"></a>Variance</h5><p>Standard deviation tells us how much variance there is in a window of data.</p>
+<p>Variance is the mean distance from the mean of the group.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*QxN5jadcijj1d2few2qOlw.png"></p>
+<h5 id="Standard-deviation"><a href="#Standard-deviation" class="headerlink" title="Standard deviation"></a>Standard deviation</h5><p>Standard Deviation tells us how much variance there is in a window of data. Variance is the mean disstance from the mean of the group. Standard deviation is the square root of this.</p>
+<p>This representation can highlight differences between classes that raw data would not.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*i830bkKaXOueYwUhzQfsYw.png"></p>
+<h3 id="Effect-on-Classification"><a href="#Effect-on-Classification" class="headerlink" title="Effect on Classification"></a>Effect on Classification</h3><p>These two inputs do not allow to easily separate the two classes.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*b7JaAPAPyOLYzaQwSkQeRQ.png"></p>
+<p>Taking the first order difference of one input, and the standard deviation of another makes the differences between each class much clearer.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*97r5zdVoKyzErC4bQ3E9UA.png"></p>
+<p>Smoothing them with a running average makes it even clearer.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*lC34cejgd5rtIy6kTSW_Wg.png"></p>
+<p>Whilst some learning models can fit complex decision boudnaries, the more our representation highlights the differences between classes, the easier it is to build a good model.</p>
+<p>Complex models also often require more data.</p>
+<p>We can often achieve better representations of real time media data using time based features. In situations where the exact values may not match between examples in a class, but the way they change over time might.</p>
+<p>We can add features to our datasets using the Learning.js library:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">learner.setFeatures([</span><br><span class="line">  &#123;<span class="attr">featuresL</span>:[<span class="string">&quot;standardDeviation&quot;</span>],</span><br><span class="line">  <span class="built_in">window</span>:[<span class="number">5</span>],</span><br><span class="line">  inputs:[<span class="number">0</span>,<span class="number">1</span>]&#125;</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+
+<p>Demo: <a target="_blank" rel="noopener" href="https://mimicproject.com/code/ac8f243b-4c35-4004-d32e-b94b1f6d1eae">https://mimicproject.com/code/ac8f243b-4c35-4004-d32e-b94b1f6d1eae</a></p>
+<p>Class 1 = small movements, Class 2 = Big movements</p>
+<p>We can see how using standard deviation allows us to model phenomena we could with just raw coordinates as we move towards classifying gestures rather than just poses.</p>
+<h5 id="Continuous-Labels"><a href="#Continuous-Labels" class="headerlink" title="Continuous Labels"></a>Continuous Labels</h5><p>Up until this point we have been tackling classification tasks, which means we have been identifying discrete classes.</p>
+<p>The labels we store in our dataset, and the labels we apply to new data are discrete numbers.</p>
+<p>However, we can also use models that can use continuous labels! This means we can provide a few examples mappings from inputs to outputs, and the model can learn to fill in the gaps.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*Q-bVLqT6MZXgjNHFQR8azQ.png"></p>
+<h5 id="Mappings-for-Music"><a href="#Mappings-for-Music" class="headerlink" title="Mappings for Music"></a>Mappings for Music</h5><p>Demo: <a target="_blank" rel="noopener" href="https://mimicproject.com/code/2fdd8ba2-3cb8-1838-49a5-fe9cfe6650ed">https://mimicproject.com/code/2fdd8ba2-3cb8-1838-49a5-fe9cfe6650ed</a></p>
+<p>This process can also allow you to find sounds in ways you could not before, and perform in ways you could not before.</p>
+<p>This allows us to use the body as an input without manually programming lots of mappings.</p>
+<p>And control lots of parameter at once (we only have two hands!).</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*eVT8VNgOkrly2bQZxAyjgA.png"></p>
+
+    </div>
+
+    <div class="about">
+        <h1>About this Post</h1>
+        <p>This post is written by Siqi Shu, licensed under <a
+                target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+    </div>
+</article>
+        <footer>
+    <div class="inner">
+        <div class="links">
+            
+            <div class="group">
+                <h4 class="title">深智一物 眾隱皆變</h4>
+                
+            </div>
+            
+        </div>
+        &copy; 2024 Siqi Shu<br />
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+</footer>
+
+
+        
+<script src="/js/main.js"></script>
+
+        
+<script src="/js/kursor.js"></script>
+
+        
+<script src="/js/run.js"></script>
+
+
+    </body>
+</html>

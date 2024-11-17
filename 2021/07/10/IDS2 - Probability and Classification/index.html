@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  
+  <title>IDS2 - Probability and Classification - Shu-Creative Computing</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+    <link rel='manifest' href='/manifest.json'>
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/cursor.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/components.css">
+
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+    <body>
+        <nav id="theme-nav">
+    <div class="inner">
+        <a class="title" href="/">Shu&#39;s Blog</a>
+        <div class="nav-arrow"></div>
+        <div class="nav-items">
+            <a class="nav-item nav-item-home" href="/">Home</a>
+            
+            
+            <a class="nav-item" href="/categories/essays">Thinking</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/pcomp">Pcomp&amp;AVCE</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/coding">Coding</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/portfolio">Portfolio</a>
+            
+            
+            
+            <a class="nav-item" href="/contact">About</a>
+            
+            
+            
+            <a class="nav-item nav-item-github nav-item-icon" href="https://github.com/ShuSQ" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-codepen nav-item-icon" href="https://codepen.io/shusq" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-patreon nav-item-icon" href="https://www.instagram.com/cheese_shu/" target="_blank">&nbsp;</a>
+            
+            
+        </div>
+    </div>
+</nav>
+        <article class="post">
+    <div class="meta">
+        
+        <div class="date" id="date">
+            
+            
+            
+            
+            
+            
+            
+            <span>July</span>
+            
+            
+            
+            
+            
+            
+            <span>10,</span>
+            <span>2021</span>
+        </div>
+        
+
+        <h2 class="title">IDS2 - Probability and Classification</h2>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="content">
+        <h3 id="Probability"><a href="#Probability" class="headerlink" title="Probability"></a>Probability</h3><p>Basic probability underpins a lot of what we say as Data Scientists. Given some data we have, what can we say about the probability of things happening in the future? How certain can you be about something? That an event will happen? About a choice you are recommending? About a prediction you have made? How are probabilities effected by observations(e.g. more data)? How can we use these observations and probabilities to make predictions about new data?</p>
+<h3 id="Event"><a href="#Event" class="headerlink" title="Event"></a>Event</h3><p>We commonly want to analyse incertain phenomena, such as the result of rolling a die, tomorrow’s weather, the winner of Drag Race 2021. To this end we model the phenomenon of interest as an experiment with several (possibly infinite) mutually exclusive outcomes.</p>
+<p>One possible outcome is called an <strong>event</strong>, e.g. Tomorrow will be sunny, I will win Drag Race.</p>
+<p>P(E) is the probability of an <strong>event</strong> happening, P(Sunny)=0.5, P(DR=I)=0.0001</p>
+<p>P(E) is alwats between 0 and 1, P(not E)=1 - P(E)</p>
+<h3 id="Dependence-and-Independence"><a href="#Dependence-and-Independence" class="headerlink" title="Dependence and Independence"></a>Dependence and Independence</h3><p>Events can considered dependent if knowing about the outcome of one effects the probability of another happening.</p>
+<p>The probability of me eating lunch on time(P(L)), is effected by the number of meetings I’ve had in the morning(P(M)). These are dependent events.</p>
+<p>In coin toss world, the probability of tossing a coin twice and getting two heads is effected by the result of the first toss. These are dependent events.</p>
+<p>Otherwise, they are independent. The probability that I win Winner of the Year 2021(P(W)), is not efeected by knowing the outcome of sports match Sheffield Utyd .vs Wolves next Sunday, these are independent events.</p>
+<p>In coin toss world, the probability of tossing a coin twice and getting a head on the second toss is not effected by the result of the first toss. These are independent events.</p>
+<h3 id="Calculating-the-Probability-of-Independent-Event"><a href="#Calculating-the-Probability-of-Independent-Event" class="headerlink" title="Calculating the Probability of Independent Event"></a>Calculating the Probability of Independent Event</h3><p>P(A,B)=P(A)*P(B)</p>
+<p>The probability of independent events A and B happening is the probability of a multiplied by the probability of B. Known as the Product Rule. If probability of getting a either result in a coin toss is 0.5, then the probabilty of getting two heads is 0.25.</p>
+<h3 id="Conditional-Events"><a href="#Conditional-Events" class="headerlink" title="Conditional Events"></a>Conditional Events</h3><p>Conditional probabilities are an essential part of statistics because they allow us to demonstrate how information changes out initial assumptions.</p>
+<p>Written as P(A|B), the probability of A, given B.</p>
+<p>Probability of seeing the moon, given it is past 6pm. Probability of passing this class, given you have attended all the lectures.</p>
+<p>Important to consider the difference between the two:</p>
+<ul>
+<li><p>P(A,B) =&gt; The probability that two events will occur</p>
+</li>
+<li><p>P(A|B) =&gt; The probability that one event will occur, given that another has occurred</p>
+</li>
+</ul>
+<p>P(A,B) = P(A|B)P(B)</p>
+<p>The probability of dependent events A and B is equal to the probability of A given B, multiplied by the probability of B.</p>
+<h3 id="Bayes-Theorem"><a href="#Bayes-Theorem" class="headerlink" title="Bayes Theorem"></a>Bayes Theorem</h3><p>With Bayes’ theorem, we can reverse conditional probabilites - so when we know the probability P(B|A), we can work out P(A|B).</p>
+<p>For example, I might want to know what the probability there is a staff party happening, given there are balloons in the cafeteria. I have recorded every time they have had balloons in the cafeteria, and how often this was party related; there were 300 balloon sightings over 2600 work days, and 250 parties, 200 with balloons.</p>
+<ul>
+<li><p>P(A|B)=P(B|A)P(A)/P(B)</p>
+</li>
+<li><p>P(outcome|data)=P(data|outcome)P(outcome)/P(data)</p>
+</li>
+<li><p>P(party|balloons)=P(balloons|party)P(party)/P(balloons)</p>
+</li>
+</ul>
+<p><code>P(outcome|data) &amp; P(A|B) &amp; P(party|balloons)</code> is called the posterior. This is what we are trying to estimate and is the probability of a party given we’ve seen balloons.</p>
+<p><code>P(data|outcome) &amp; P(B|A) &amp; P(balloons|party)</code> is called the likelihood. This is the probability of the new data, given our initial hypothesis. This is the probability of seeing balloons, given a party is happening.</p>
+<p><code>P(A) &amp; P(outcome) &amp; P(party)</code> is called the prior. This is the probability of our hypothesis without any additional prior information. This is the probability of there being a party, not considering any observations.</p>
+<p><code>P(B) &amp; P(data) &amp; P(balloons)</code> is called the marginal likelihood. This is the total probability of observing the evidence.</p>
+<p>So, the final result is P(party|balloons) = 2/3</p>
+<h3 id="Calculating-the-Likelihood"><a href="#Calculating-the-Likelihood" class="headerlink" title="Calculating the Likelihood"></a>Calculating the Likelihood</h3><p>How do we get rom our dataset to calculating the likelihood of some data, given a known outcome?</p>
+<p>e.g. 200 days with parties and balloons, 250 days with parties: 200/250.</p>
+<p>If we wanted to know the probability of a party given 4 balloons, we can see that 47 parties had 4 balloons, so P(4 balloons|party)=47/250.</p>
+<p><img src="https://miro.medium.com/max/936/1*kMbscb5bzsiFDR0hTt7AVA.png"></p>
+<p>If its continuous data (e.g. measurement, time, temperature…), it’s a little trickier. Consider the probability of a party, given the size of the balloons(e.g. 90cm), as opposed to just their presence.</p>
+<ul>
+<li>P(party|90cmballoons)=P(90cmballoons|party)P(party)/P(90cmballoons)</li>
+</ul>
+<p>As the size is continuous, we can not just look up the value in histogram to find its likelihood; we can keep making the bins size smaller, until eventually, we get a smooth line, or continuous function.</p>
+<p><img src="https://miro.medium.com/max/1924/1*kMlytaDE7hKjfepSulUNyA.png"></p>
+<p>As the size is continuous, we can keep making the bin size smaller, until eventually, we get a smooth line, or continuous function.</p>
+<p><img src="https://miro.medium.com/max/794/1*-5GxX2wwB3k2oHkX-7VDLQ.png"></p>
+<p>And this known as a probability density function. We can use this to look up the probability of a certain piece of data, given a class; e.g. What is the probability of having balloons that are 90cm diameter, given there’s a party?</p>
+<p><img src="https://miro.medium.com/max/742/1*EMwV7LYsWSxPjZ0L7pe4oA.png"></p>
+<h3 id="Normal-Distribution"><a href="#Normal-Distribution" class="headerlink" title="Normal Distribution"></a>Normal Distribution</h3><p>How can we get this function, given our data? Luckily, if we know the mean and the standard deviation, we are able to fit a normal distribution. Is is a good shape for most naturally occuring data. The normal distribution is a bell shape, cented around the mean; the standard deviation of the data determines the spread, area under the curve is 1.</p>
+<p><img src="https://miro.medium.com/max/912/1*zj61hWwati3Go_hluDCDxw.png"></p>
+<p><img src="https://miro.medium.com/max/2000/1*l_aLh6Ct5kktkZ3Ut7Xpsg.png"></p>
+<p><img src="https://miro.medium.com/max/1914/1*bpXt2ZROHhg82mEG4jbaOg.png"></p>
+<h3 id="Naive-Bayes"><a href="#Naive-Bayes" class="headerlink" title="Naive Bayes"></a>Naive Bayes</h3><p>We can use this approach, and Bayes Theorem, to address classification problems. Consider a typical classification dataset:</p>
+<p>For each example, we have a number of observations (the inputs) and an outcome (the class label); this means for a new example, we can take each observation and work out the probability of it being part of each class, given a value of that new observation.</p>
+<ul>
+<li>P(class|data)=P(data|class)P(class)/P(data)</li>
+</ul>
+<p>If we have multiple observations about each example, we simply get a probability for each one; and this is where the naive comes in, because we assume each observation is an independent event and just use the Product Rule and multiply all the probabilities together.</p>
+<ul>
+<li>P(A,B)=P(A)P(B)</li>
+</ul>
+<p>However, in reality, each observation may, or may, actually be independent, however, the maths still works quite well often and we have a multi-input, multi-class, probabilistic classifier!</p>
+
+    </div>
+
+    <div class="about">
+        <h1>About this Post</h1>
+        <p>This post is written by Siqi Shu, licensed under <a
+                target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+    </div>
+</article>
+        <footer>
+    <div class="inner">
+        <div class="links">
+            
+            <div class="group">
+                <h4 class="title">深智一物 眾隱皆變</h4>
+                
+            </div>
+            
+        </div>
+        &copy; 2024 Siqi Shu<br />
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+</footer>
+
+
+        
+<script src="/js/main.js"></script>
+
+        
+<script src="/js/kursor.js"></script>
+
+        
+<script src="/js/run.js"></script>
+
+
+    </body>
+</html>

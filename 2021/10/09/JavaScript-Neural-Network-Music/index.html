@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  
+  <title>JavaScript - Neural Network Music - Shu-Creative Computing</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+    <link rel='manifest' href='/manifest.json'>
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/cursor.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/components.css">
+
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+    <body>
+        <nav id="theme-nav">
+    <div class="inner">
+        <a class="title" href="/">Shu&#39;s Blog</a>
+        <div class="nav-arrow"></div>
+        <div class="nav-items">
+            <a class="nav-item nav-item-home" href="/">Home</a>
+            
+            
+            <a class="nav-item" href="/categories/essays">Thinking</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/pcomp">Pcomp&amp;AVCE</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/coding">Coding</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/portfolio">Portfolio</a>
+            
+            
+            
+            <a class="nav-item" href="/contact">About</a>
+            
+            
+            
+            <a class="nav-item nav-item-github nav-item-icon" href="https://github.com/ShuSQ" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-codepen nav-item-icon" href="https://codepen.io/shusq" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-patreon nav-item-icon" href="https://www.instagram.com/cheese_shu/" target="_blank">&nbsp;</a>
+            
+            
+        </div>
+    </div>
+</nav>
+        <article class="post">
+    <div class="meta">
+        
+        <div class="date" id="date">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <span>October</span>
+            
+            
+            
+            <span>9,</span>
+            <span>2021</span>
+        </div>
+        
+
+        <h2 class="title">JavaScript - Neural Network Music</h2>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="content">
+        <blockquote>
+<p>通过Magenta.js的RNN来生成web音乐。</p>
+</blockquote>
+<p>Recurrent Neural Networks(RNN)是一种考虑时间维度的神经网络训练方法。一般的神经网络，在输入映射到输出的过程关系，不会考虑输入的顺序。例如识别图像中的对象，就是这样的一个情况，因为每个case都是独立的事件。但是在有一些的    情况下，输入的顺序是重要的特征之一，例如机器翻译，单词的顺序很重要，所以一般的神经网络表现不理想。</p>
+<p>在本篇中，我们考虑通过LSTM考虑特定的事件顺序。然后探索Magenta.js的DrumRNN应用，生成不同的序列鼓声。</p>
+<h3 id="Step-1：理解神经网络和循环神经网络"><a href="#Step-1：理解神经网络和循环神经网络" class="headerlink" title="Step 1：理解神经网络和循环神经网络"></a>Step 1：理解神经网络和循环神经网络</h3><p>我们可以把神经网络看成是函数迫近器，如果神经网络足够复杂，可以用它来定义任何的函数。所以神经网络最简单的形式就是理解为感知器。它由以下几个部分组成：</p>
+<ul>
+<li><strong>Input：</strong>神经网络的输入内容</li>
+<li><strong>Weights：</strong>为每个输入的内容分配权重</li>
+<li><strong>Bias：</strong>添加到输入内容的常数</li>
+<li><strong>Actication function：</strong>输入和输出的映射关系</li>
+</ul>
+<p><img src="https://miro.medium.com/max/700/1*xf4PpCB6p138H_-wi2Qqdw.png"></p>
+<p><em>Perceptron (Image source: <a target="_blank" rel="noopener" href="https://www.researchgate.net/publication/327392288_A_Quantum_Model_for_Multilayer_Perceptron">https://www.researchgate.net/publication/327392288_A_Quantum_Model_for_Multilayer_Perceptron</a>)</em></p>
+<p>权重可以帮助我们分配区分主要的输入内容和其余内容。例如判断一个人是否能获得贷款，他的收入证明输入会比他的姓名资料有更高的权重。偏置的作用是，在相同给定输入的情况下，在输入中添加或减去一个常数值，让不同的感知器会有不同的输出，然后这个总输出会传递给激活函数。激活函数的工作是：将输入映射到输出。激活函数有很多种，适应不同的工作情况。</p>
+<p>本质上，这一个感知器也可以看作是一个 单层神经网络。当我们堆叠感知器的数量，并增加层数，就得到了一个深度神经网络。训练数据可以调整网络中每个感知器的参数，例如权重，偏置。接受输入数据的层被称为输入层，提供输出内容的层为输出层。中间的所有层为隐藏层。</p>
+<p><img src="https://miro.medium.com/max/700/1*kaxFfBnq9MvXQQ_b8alIxA.png"></p>
+<p><em>Neural Network (Image source: <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Artificial_neural_network">https://en.wikipedia.org/wiki/Artificial_neural_network</a>)</em></p>
+<p>回到循环神经网络，感知器的输入取决于特定时间的输入，由于是神经网络的构建块，所以神经网络的输出也取决于特定的时间输入。</p>
+<p><img src="https://miro.medium.com/max/229/1*vUfazfSJwrhklcpsUd9qDA.png"></p>
+<p><em>Recurrent Neural Network</em></p>
+<p>当前状态的输入在下一个状态期间内再次反馈给隐藏层。这样，网络就可以知道先前状态发生了什么，或最后一个输入何时通过网络。又因为前一个状态也有关于之前状态的信息，所以这个输入一定程度上代表了完整的输入历史。</p>
+<h3 id="Step-2-TensorFlow-js和Magenta-js"><a href="#Step-2-TensorFlow-js和Magenta-js" class="headerlink" title="Step 2: TensorFlow.js和Magenta.js"></a>Step 2: TensorFlow.js和Magenta.js</h3><p>Magenta是Google的一个开放项目，专注于在音乐和艺术领域使用神经网络。借助于TensorFlow来实现机器学习，可以通过Javascript来开发模型，在浏览器中训练并使用。</p>
+<p>首先创建一个<code>index.html</code>和<code>style.css</code>：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;style.css&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span> <span class="attr">class</span>=<span class="string">&quot;heading&quot;</span>&gt;</span>Synthetic Music with Neural Networks <span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;play&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;createAndPlayPattern(this)&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&#x27;pattern-container&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&#x27;https://code.jquery.com/jquery-3.3.1.slim.min.js&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&#x27;text/javascript&#x27;</span> <span class="attr">src</span>=<span class="string">&#x27;https://cdn.jsdelivr.net/npm/lodash@4.17.5/lodash.min.js&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&#x27;text/javascript&#x27;</span> <span class="attr">src</span>=<span class="string">&#x27;https://gogul09.github.io/js/tone.js&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&#x27;text/javascript&#x27;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">src</span>=<span class="string">&#x27;https://cdn.jsdelivr.net/npm/@magenta/music@0.0.8/dist/magentamusic.min.js&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">        <span class="comment">// Continue here...</span></span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>自定义一些css样式，在之后神经网络输出的音乐添加样式，还引用了<code>jQuery</code>的<code>loadash</code>整理代码，<code>tone.js</code>播放音调，再通过<code>magenta.js</code>生成音乐。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#f6f6f6</span>;</span><br><span class="line">    <span class="attribute">font-family</span>: sans-serif;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.play</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: fit-content;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">12px</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">2px</span> solid <span class="number">#323232</span>;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">50%</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.play</span> <span class="selector-tag">div</span> &#123;</span><br><span class="line">    <span class="attribute">border-top</span>: <span class="number">10px</span> solid transparent;</span><br><span class="line">    <span class="attribute">border-bottom</span>: <span class="number">10px</span> solid transparent;</span><br><span class="line">    <span class="attribute">border-left</span>: <span class="number">20px</span> solid <span class="number">#323232</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">0px</span>;</span><br><span class="line">    <span class="attribute">width</span>: fit-content;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.heading</span> &#123;</span><br><span class="line">    <span class="attribute">text-align</span>: center;</span><br><span class="line">    <span class="attribute">margin-top</span>: <span class="number">5rem</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#pattern-container</span> &#123;</span><br><span class="line">    <span class="attribute">margin-top</span>: <span class="number">2rem</span>;</span><br><span class="line">    <span class="attribute">width</span>: fit-content;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">5px</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.pattern-group</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: inline-block;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#e4f9f5</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">5px</span> <span class="number">6px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.pattern-group</span><span class="selector-class">.seed</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#a8e6cf</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.pattern</span><span class="selector-class">.active</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#11999e</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.pattern</span> &#123;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">5px</span>;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">5px</span> <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">3px</span>;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">4px</span>;</span><br><span class="line">    <span class="attribute">color</span>: transparent;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#cbf1f5</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Step-3-配置Tone-js"><a href="#Step-3-配置Tone-js" class="headerlink" title="Step 3: 配置Tone.js"></a>Step 3: 配置Tone.js</h3><p>首先，创建一个卷积器，来创建mix。将wet值设置为0.3，是指将30%应用在音调上。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> reverb = <span class="keyword">new</span> Tone.Convolver(<span class="string">&#x27;assets/small-drum-room.wav&#x27;</span>).toMaster();</span><br><span class="line">reverb.wet.value = <span class="number">0.3</span>;</span><br></pre></td></tr></table></figure>
+
+<p>然后创建鼓机的各个组件。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> drumKit = [</span><br><span class="line">    <span class="keyword">new</span> Tone.Player(<span class="string">`assets/808-kick-vh.mp3`</span>).toMaster(),</span><br><span class="line">    <span class="keyword">new</span> Tone.Player(<span class="string">`assets/flares-snare-vh.mp3`</span>).toMaster(),</span><br><span class="line">    <span class="keyword">new</span> Tone.Player(<span class="string">`assets/808-hihat-vh.mp3`</span>).connect(<span class="keyword">new</span> Tone.Panner(-<span class="number">0.5</span>).connect(reverb)),</span><br><span class="line">    <span class="keyword">new</span> Tone.Player(<span class="string">`assets/808-hihat-open-vh.mp3`</span>).connect(<span class="keyword">new</span> Tone.Panner(-<span class="number">0.5</span>).connect(reverb)),</span><br><span class="line">    <span class="keyword">new</span> Tone.Player(<span class="string">`assets/slamdam-tom-low-vh.mp3`</span>).connect(<span class="keyword">new</span> Tone.Panner(-<span class="number">0.4</span>).connect(reverb)),</span><br><span class="line">    <span class="keyword">new</span> Tone.Player(<span class="string">`assets/slamdam-tom-mid-vh.mp3`</span>).connect(reverb),</span><br><span class="line">    <span class="keyword">new</span> Tone.Player(<span class="string">`assets/slamdam-tom-high-vh.mp3`</span>).connect(<span class="keyword">new</span> Tone.Panner(<span class="number">0.4</span>).connect(reverb)),</span><br><span class="line">    <span class="keyword">new</span> Tone.Player(<span class="string">`assets/909-clap-vh.mp3`</span>).connect(<span class="keyword">new</span> Tone.Panner(<span class="number">0.5</span>).connect(reverb)),</span><br><span class="line">    <span class="keyword">new</span> Tone.Player(<span class="string">`assets/909-rim-vh.wav`</span>).connect(<span class="keyword">new</span> Tone.Panner(<span class="number">0.5</span>).connect(reverb))</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+
+<p>为每一个声音连接到音频，创建Panner平移，产生立体声效果。</p>
+<h3 id="Step-4-配置Magenta-js"><a href="#Step-4-配置Magenta-js" class="headerlink" title="Step 4: 配置Magenta.js"></a>Step 4: 配置Magenta.js</h3><p>在这里我们通过神经网络创建种子模式，然后创建旋律音乐。在我们开始使用神经网络之前，我们需要设置一些基础的方法，将音乐notes转化为可以被理解的序列。同样的，将返回的序列转化为tone.js可以播放后的模型。</p>
+<p>为每一个tone的MIDI值创建映射关系。MIDI(Musical Instrument Digital Interface)是一个多设备处理音乐交流的协议。Magenta就是设计成这样的方式，让额外的设备可以更简单地直接播放。</p>
+<p>一个机器学习的模型在输入范围被定义之后，可以表现得最佳。因为我们创建了一个映射关系，从MIDI对应到工作的模型。使用下面的值可以创建这个映射：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> midiDrums = [<span class="number">36</span>, <span class="number">38</span>, <span class="number">42</span>, <span class="number">46</span>, <span class="number">41</span>, <span class="number">43</span>, <span class="number">45</span>, <span class="number">49</span>, <span class="number">51</span>];</span><br><span class="line"><span class="keyword">const</span> reverseMidiMapping = <span class="keyword">new</span> map([</span><br><span class="line">  </span><br><span class="line">    [<span class="number">36</span>, <span class="number">0</span>], [<span class="number">35</span>, <span class="number">0</span>], [<span class="number">38</span>, <span class="number">1</span>], [<span class="number">27</span>, <span class="number">1</span>], [<span class="number">28</span>, <span class="number">1</span>], [<span class="number">31</span>, <span class="number">1</span>], [<span class="number">32</span>, <span class="number">1</span>], [<span class="number">33</span>, <span class="number">1</span>],</span><br><span class="line">    [<span class="number">34</span>, <span class="number">1</span>], [<span class="number">37</span>, <span class="number">1</span>], [<span class="number">39</span>, <span class="number">1</span>], [<span class="number">40</span>, <span class="number">1</span>], [<span class="number">56</span>, <span class="number">1</span>], [<span class="number">65</span>, <span class="number">1</span>], [<span class="number">66</span>, <span class="number">1</span>], [<span class="number">75</span>, <span class="number">1</span>],</span><br><span class="line">    [<span class="number">85</span>, <span class="number">1</span>], [<span class="number">42</span>, <span class="number">2</span>], [<span class="number">44</span>, <span class="number">2</span>], [<span class="number">54</span>, <span class="number">2</span>], [<span class="number">68</span>, <span class="number">2</span>], [<span class="number">69</span>, <span class="number">2</span>], [<span class="number">70</span>, <span class="number">2</span>], [<span class="number">71</span>, <span class="number">2</span>],</span><br><span class="line">    [<span class="number">73</span>, <span class="number">2</span>], [<span class="number">78</span>, <span class="number">2</span>], [<span class="number">80</span>, <span class="number">2</span>], [<span class="number">46</span>, <span class="number">3</span>], [<span class="number">67</span>, <span class="number">3</span>], [<span class="number">72</span>, <span class="number">3</span>], [<span class="number">74</span>, <span class="number">3</span>], [<span class="number">79</span>, <span class="number">3</span>],</span><br><span class="line">    [<span class="number">81</span>, <span class="number">3</span>], [<span class="number">45</span>, <span class="number">4</span>], [<span class="number">29</span>, <span class="number">4</span>], [<span class="number">41</span>, <span class="number">4</span>], [<span class="number">61</span>, <span class="number">4</span>], [<span class="number">64</span>, <span class="number">4</span>], [<span class="number">84</span>, <span class="number">4</span>], [<span class="number">48</span>, <span class="number">5</span>],</span><br><span class="line">    [<span class="number">47</span>, <span class="number">5</span>], [<span class="number">60</span>, <span class="number">5</span>], [<span class="number">63</span>, <span class="number">5</span>], [<span class="number">77</span>, <span class="number">5</span>], [<span class="number">86</span>, <span class="number">5</span>], [<span class="number">87</span>, <span class="number">5</span>], [<span class="number">50</span>, <span class="number">6</span>], [<span class="number">30</span>, <span class="number">6</span>],</span><br><span class="line">    [<span class="number">43</span>, <span class="number">6</span>], [<span class="number">62</span>, <span class="number">6</span>], [<span class="number">76</span>, <span class="number">6</span>], [<span class="number">83</span>, <span class="number">6</span>], [<span class="number">49</span>, <span class="number">7</span>], [<span class="number">55</span>, <span class="number">7</span>], [<span class="number">57</span>, <span class="number">7</span>], [<span class="number">58</span>, <span class="number">7</span>],</span><br><span class="line">    [<span class="number">51</span>, <span class="number">8</span>], [<span class="number">52</span>, <span class="number">8</span>], [<span class="number">53</span>, <span class="number">8</span>], [<span class="number">59</span>, <span class="number">8</span>], [<span class="number">82</span>, <span class="number">8</span>]</span><br><span class="line">  </span><br><span class="line">]);</span><br></pre></td></tr></table></figure>
+
+<p>然后设置希望的参数，控制生成的强度：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> temperature = <span class="number">1.0</span>;</span><br><span class="line"><span class="keyword">const</span> patternLength = <span class="number">32</span>;</span><br></pre></td></tr></table></figure>
+
+<p>将notes转化为序列，我们使用下面的这个函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fromNoteSequence</span>(<span class="params">seq, patternLength</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> res = _.times(patternLength, <span class="function">() =&gt;</span> []);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> &#123; pitch, quantizedStartStep&#125; <span class="keyword">of</span> seq.notes) &#123;</span><br><span class="line">    res[quantizedStartStep].push(reverseMidiMapping.get(pitch));</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  它包含了两个输入，notes的序列还有模式长度。Loadash被用于创建一个长度列表，被<code>patternLength</code>定义组成的空列表，可以在下一步被填充。杜立德notes可以被迭代多次，再重新写入，通过使用已经定义的<code>reverseMidiMapping</code>。</p>
+<p>模型的输出现在可以被转化成序列，可以被用在鼓机里面播放的序列。通过下面的函数，将pattern序列转化为可以理解的note序列：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toNoteSequence</span>(<span class="params">pattern</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> mm.sequences.quantizeNotesequence(&#123;</span><br><span class="line">    ticksPerQuarter: <span class="number">220</span>,</span><br><span class="line">    totalTime: pattern.length / <span class="number">2</span>,</span><br><span class="line">    timeSignatures: [&#123;</span><br><span class="line">      time: <span class="number">0</span>,</span><br><span class="line">      numerator: <span class="number">4</span>,</span><br><span class="line">      denominator: <span class="number">4</span></span><br><span class="line">    &#125;],</span><br><span class="line">    tempos: [&#123;</span><br><span class="line">      time: <span class="number">0</span>,</span><br><span class="line">      qpm:<span class="number">120</span></span><br><span class="line">    &#125;],</span><br><span class="line">    notes: _.flatMap(pattern, <span class="function">(<span class="params">step, index</span>) =&gt;</span></span><br><span class="line">                    step.map(<span class="function"><span class="params">d</span> =&gt;</span> (&#123;</span><br><span class="line">      								pitch: midiDrums[d],</span><br><span class="line">      								startTime: index * <span class="number">0.5</span>,</span><br><span class="line">      								endTime: (index + <span class="number">1</span>) * <span class="number">0.5</span></span><br><span class="line">    								&#125;))</span><br><span class="line">      					)</span><br><span class="line">  &#125;, <span class="number">1</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>这里是一些被定义的属性细节的解释：</p>
+<p><code>ticksPerQuarter</code>: <code>ticks</code>是MIDI开始的单元事件。</p>
+<p><code>totalTime</code>: 序列的长度已经在<code>notes</code>属性中提供了，这个长度是测量序列化的steps。</p>
+<p><code>timeSignatures</code>: 这个定义的时间签名用在音乐标注上。</p>
+<p><code>tempos</code>: 定义了被使用在tone sequence的temps，提供<code>qpm</code>代表每分钟的notes。</p>
+<p><code>notes</code>: 这个代表了notes中每个音的音高和持续时间。</p>
+<p>当我们有了pattern序列之后，我们应该找到一个方法来播放它。我们会使用到创建的鼓机来播放。通过下面的方法获取pattern然后使用Tone.js来播放：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">playPattern</span>(<span class="params">pattern</span>) </span>&#123;</span><br><span class="line">  sequence = <span class="keyword">new</span> Tone.Sequence(</span><br><span class="line">  (time, &#123;drums, index&#125;) =&gt; &#123;</span><br><span class="line">    drums.forEach(<span class="function"><span class="params">d</span> =&gt;</span> &#123;</span><br><span class="line">      drumKit[d].start(time)</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;, </span><br><span class="line">  pattern.map(<span class="function">(<span class="params">drums, index</span>) =&gt;</span> (&#123; drums, index &#125;)),</span><br><span class="line">    <span class="string">&#x27;16n&#x27;</span></span><br><span class="line">    );</span><br><span class="line">  </span><br><span class="line">  Tone.context.resume();</span><br><span class="line">  Tone.Trasport.start();</span><br><span class="line">  sequence.start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>Tone.Sequence</code>被用来完成这一步。它包含了3个输入：</p>
+<p><code>callback</code>: 这个方法可以唤回每个事件</p>
+<p><code>event</code>: 这个序列中的独立事件。我们映射单个pattern作为一个鼓组件的对象播放<code>drum</code>和<code>stepId</code>的序列。</p>
+<p><code>subdivision</code>: 在事件<code>Tone.context.resume</code>的戏份，开始音频内容需要连接浏览器提供的音频接口。</p>
+<p><code>Tone.Transport</code>: 确保音乐与浏览器的的时间序列保持一致。<code>sequence.start</code>最后完成设置。</p>
+<p>通过这些你已经可以使用model来创建音乐了。在我们开始使用模型之前，我们可以看一看note pattern是什么样的。一个具体的pattern在pattern sequence是一个数组，从0-8序列，由9个鼓机组件组成。所以一个pattern[0, 2, 4]可以是播放Kick，Hi-hat closed 和 Tom low。</p>
+<p>我们可以使用一个种子pattern，然后我们的模型会由此发散。使用下面的种子模型：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> seedPattern = [</span><br><span class="line">    [<span class="number">0</span>, <span class="number">2</span>],</span><br><span class="line">    [<span class="number">0</span>],</span><br><span class="line">    [<span class="number">2</span>, <span class="number">5</span>, <span class="number">8</span>],</span><br><span class="line">    [],</span><br><span class="line">    [<span class="number">2</span>, <span class="number">5</span>, <span class="number">8</span>],</span><br><span class="line">    [],</span><br><span class="line">    [<span class="number">0</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">8</span>],</span><br><span class="line">    [<span class="number">4</span>, <span class="number">5</span>, <span class="number">8</span>],</span><br><span class="line">    [],</span><br><span class="line">    [<span class="number">0</span>, <span class="number">5</span>, <span class="number">8</span>]</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+
+<p>使用下面的片段定义函数，创建种子pattern然后创建pattern长度<code>patternLength</code>这个之前设置为32；</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> drumRnn = <span class="keyword">new</span></span><br><span class="line">mm.MusicRNN(<span class="string">&#x27;https://storage.googleapis.com/download.magenta.tensorflow.org/tfjs_checkpoints/music_rnn/drum_kit_rnn&#x27;</span>);</span><br><span class="line">drumRnn.initialize();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createAndPlayPattern</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  drumRnn</span><br><span class="line">  	.continueSequence(seedSeq, patternLength, temperature)</span><br><span class="line">  	.then(<span class="function"><span class="params">r</span> =&gt;</span> seedPattern.concat(fromNoteSequence(r, patternLength)))</span><br><span class="line">  	.then(displayPattern)</span><br><span class="line">  	.then(playPattern)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们首先开始加载DrumRNN模型，然后初始化它。我们然后创建函数使用这个模型，然后使用种子pattern来创建一个新的pattern，使用<code>continueSequence</code>方法。然后我们播放这个note序列，转化它到可以被鼓机播放的序列。我们已经链化<code>displayPattern</code>到可以被视觉化，然后通过<code>playPattern</code>方法来播放pattern。</p>
+<h3 id="添加可视化"><a href="#添加可视化" class="headerlink" title="添加可视化"></a>添加可视化</h3><p>接下来我们要为pattern创建可视化。现代的浏览器，例如Chrome需要用户在与页面互动之前，提供许可。这其实是一个可用性的功能。你可能不喜欢打开一个也没得时候就自动播放奇怪的音乐。我们会在HTML中添加一个播放按钮，添加<code>onclick</code>属性。这个方法参考了<code>createAndPlayPattern</code>我们在之前创建种子pattern的时候使用上了。我们不希望这个按钮在播放一次之后还可以继续访问，所以我们修改了<code>createAndPlayPattern</code>pattern来接受点击事件，然后删除页面的元素：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createAndPlayPattern</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">  $(e).remove()</span><br><span class="line">  <span class="keyword">let</span> seedSeq = toNoteSequence(seedPattern);</span><br><span class="line">  drumRnn</span><br><span class="line">  	.continueSequence(seedSeq, patternLength, temperature)</span><br><span class="line">  	.then(<span class="function"><span class="params">r</span> =&gt;</span> seedPattern.concat(fromNoteSequence(r, patternLength)))</span><br><span class="line">  	.then(displayPattern)</span><br><span class="line">  	.then(playPattern)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后添加<code>displayPattern</code>方法来可视化我们的pattern。在下面的方法中写入：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">displayPattern</span>(<span class="params">patterns</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> patternIndex = <span class="number">0</span>; patternIndex &lt; patterns.length; patternIndex++) &#123;</span><br><span class="line">    <span class="keyword">let</span> pattern = patterns[patternIndex];</span><br><span class="line">    patternBynGroup = $(<span class="string">&#x27;&lt;div&gt;&lt;/div&gt;&#x27;</span>).addClass(<span class="string">&#x27;pattern-group&#x27;</span>);</span><br><span class="line">    <span class="keyword">if</span> (patternIndex &lt;= seedPattern.length)</span><br><span class="line">        patternBtnGroup.addClass(<span class="string">&#x27;seed&#x27;</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i&lt; <span class="number">8</span>; i++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (pattern.includes(i))</span><br><span class="line">        	patternBtnGroup.append($(<span class="string">&#x27;&lt;span&gt;&lt;/span&gt;&#x27;</span>).addClass(<span class="string">&#x27;pattern active&#x27;</span>));</span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">        	patternBtnGroup.append($(<span class="string">&#x27;&lt;span&gt;&lt;/span&gt;&#x27;</span>).addClass(<span class="string">&#x27;pattern&#x27;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> patterns;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>它获取了pattern然后在页面上创建了多个<code>&lt;span&gt;</code>。每一个span对应鼓机里的组件，如果被激活或者播放他会是高亮的。同样的种子pattern也被高亮，很容易察觉到模型生成了什么。</p>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>Recurrent neural networks提供了一个机器输入的机制。这让RNN能够非常好的预测音乐，因为音乐是声调的序列，而且互相依赖。Magenta是一个好的起点来进行这样的工作。</p>
+
+    </div>
+
+    <div class="about">
+        <h1>About this Post</h1>
+        <p>This post is written by Siqi Shu, licensed under <a
+                target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+    </div>
+</article>
+        <footer>
+    <div class="inner">
+        <div class="links">
+            
+            <div class="group">
+                <h4 class="title">深智一物 眾隱皆變</h4>
+                
+            </div>
+            
+        </div>
+        &copy; 2024 Siqi Shu<br />
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+</footer>
+
+
+        
+<script src="/js/main.js"></script>
+
+        
+<script src="/js/kursor.js"></script>
+
+        
+<script src="/js/run.js"></script>
+
+
+    </body>
+</html>

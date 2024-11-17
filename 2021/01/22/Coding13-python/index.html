@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  
+  <title>Coding13 - Getting Started Using Python - Shu-Creative Computing</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+    <link rel='manifest' href='/manifest.json'>
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/cursor.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/components.css">
+
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+    <body>
+        <nav id="theme-nav">
+    <div class="inner">
+        <a class="title" href="/">Shu&#39;s Blog</a>
+        <div class="nav-arrow"></div>
+        <div class="nav-items">
+            <a class="nav-item nav-item-home" href="/">Home</a>
+            
+            
+            <a class="nav-item" href="/categories/essays">Thinking</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/pcomp">Pcomp&amp;AVCE</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/coding">Coding</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/portfolio">Portfolio</a>
+            
+            
+            
+            <a class="nav-item" href="/contact">About</a>
+            
+            
+            
+            <a class="nav-item nav-item-github nav-item-icon" href="https://github.com/ShuSQ" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-codepen nav-item-icon" href="https://codepen.io/shusq" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-patreon nav-item-icon" href="https://www.instagram.com/cheese_shu/" target="_blank">&nbsp;</a>
+            
+            
+        </div>
+    </div>
+</nav>
+        <article class="post">
+    <div class="meta">
+        
+        <div class="date" id="date">
+            
+            <span>January</span>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <span>22,</span>
+            <span>2021</span>
+        </div>
+        
+
+        <h2 class="title">Coding13 - Getting Started Using Python</h2>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="content">
+        <blockquote>
+<p>This is where Python comes in. Python is great for running computations where real-time performance doesn’t really matter. For example, if you’re trying to analyse and process large amounts of data - be it sounds, images, video, text, or interact with data from various data sources (e.g. websites), produce graphs, or train machine learning models, it can take a lot less time if you do it in Python. So with this in mind, we’re going to learn how to program in Python.</p>
+</blockquote>
+<h3 id="Getting-started"><a href="#Getting-started" class="headerlink" title="Getting started"></a>Getting started</h3><p>Python is a high-level programming language that is designed to simplify certain types of programming approaches. Python can do almost anything, mostly, Python interacts with native (C) code under the hood; it vastly simplifies many complex operations - specifically handing large amounts of data.</p>
+<p>However, it’s not very fast, and is useless for real-time, interactive applications.</p>
+<p><strong>When should I use Python?</strong></p>
+<p>It’s the most powerful way to create web applications; it’s the easiest way to begin to understand Data Science and Machine Learning, because it makes managing data much easier; it’s a great way to connect things together to build prototypes without requiring large amounts of programming skill.</p>
+<p><strong>What is a Python ‘Environment’?</strong></p>
+<p>Because Python has a huge number of libraries and packages, sometimes they conflict / break each other. We can have different Python environments, each with different versions of software in them. Anaconda (and conda) can take care of this for us; if you use PIP to install something, it ends up in every environment you have. The easiest way to get around this is to not use ‘pip’ to install packages until you know what you are doing, and to use ‘conda’ instead.</p>
+<p><strong>What is Python2? Should I care?</strong></p>
+<p>Python is annoying because: Python2 is a bit easier to learn than Python3, but Python2 is no longer in use; luckily the differences are not actually that hard to get your head round, some of the most useful objects have been renamed: xrange is now called range.(it generates a range of numbers, e.g.1~100)</p>
+<p>String concatenation and substitution has chaged a bit and is not really standardized. You will see people using different approaches:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="string">&quot;awesome&quot;</span></span><br><span class="line">print(<span class="string">&quot;Python is&quot;</span> + x) <span class="comment"># very similar to JS</span></span><br></pre></td></tr></table></figure>
+
+<p>You can use the .format method and this alwats works.</p>
+<p>e.g. print(“{}, it;s {}”.format(“hey”, “ok”))</p>
+<p>Variables don’t need to be declared. </p>
+<p>Four different types of arrays:</p>
+<ul>
+<li>List is a collection which is ordered and changeable. Allows duplicate members.</li>
+<li>Tuple is a collection which is ordered and unchangeable. Allows duplicate members.</li>
+<li>Set is a collection which is unordered and unindexed. No duplicate members.</li>
+<li>Dictionary is a collection which is unordered and changeable. No duplicate members.</li>
+</ul>
+<h3 id="Core-libraries"><a href="#Core-libraries" class="headerlink" title="Core libraries"></a>Core libraries</h3><p><strong>matplotlib</strong></p>
+<p>Matplotlib is a library for plotting data using an approach similar to that which can be found in the popular research software Matlab. It is designed to allow you to create plots that are publication quality, but in general, it’s just a great tool for seeing what you are doing.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># this is a bit weird and easy to forget.</span></span><br><span class="line"><span class="comment"># here we are importing the pyplot functions as plt.</span></span><br><span class="line"><span class="comment"># we are also importing math so we can do some trig.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> math </span><br><span class="line"></span><br><span class="line">x = <span class="built_in">range</span>(<span class="number">100</span>)</span><br><span class="line">y = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> value <span class="keyword">in</span> x:</span><br><span class="line">  y.append(math.sin(value * <span class="number">0.1</span>))</span><br><span class="line">  </span><br><span class="line">plt.plot(y)</span><br></pre></td></tr></table></figure>
+
+<p>There are lots of important core plotting features, including bar charts, pie charts, scatter plots etc. Take a look:</p>
+<p><a target="_blank" rel="noopener" href="https://matplotlib.org/gallery/index.html">https://matplotlib.org/gallery/index.html</a></p>
+<p><strong>Nunpy</strong></p>
+<p><a target="_blank" rel="noopener" href="https://numpy.org/">https://numpy.org/</a></p>
+<p>Numpy is one of the most powerful and important Python packages. It is excellent for handing multidimensional arrays - e.g. large blocks of data - and has some impressive built in functions for doing vector processing and linear algebra. In general, if you are wanting to process large blocks of numbers, you should be using Numpy.</p>
+<p>Numpy arrays are much more powerful that Python lists. They allow you to create and manipulate arrays of information, such as large blocks of image data, and process it quickly.</p>
+<p>Quick intro to Numpy:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># creates an empty 1D array with 100 elements.</span></span><br><span class="line">i = np.zeros([<span class="number">100</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># creates an empty 3D array with 5 * 5 * 5 elements</span></span><br><span class="line">x = np.zeros([<span class="number">5</span>, <span class="number">5</span>, <span class="number">5</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># creates a multidimensional array 3 * 2 by 2 blocks</span></span><br><span class="line">y = np.zeros([<span class="number">2</span>, <span class="number">2</span>]*<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">print(<span class="string">&quot;the shape of this array is &quot;</span>, np.shape(i))</span><br><span class="line">print(i)</span><br><span class="line"></span><br><span class="line">print(<span class="string">&quot;the shape of this array is &quot;</span>, np.shape(x))</span><br><span class="line">print(x)</span><br><span class="line"></span><br><span class="line">print(<span class="string">&quot;the shape of this array is &quot;</span>, np.shape(y))</span><br><span class="line">print(y)</span><br><span class="line"></span><br><span class="line">z = np.arange(<span class="number">100</span>).reshape(<span class="number">2</span>, <span class="number">5</span>, <span class="number">10</span>)</span><br><span class="line">print(z)</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>pandas</strong></p>
+<p>To be honest, the main reason people use pandas is because it can read in Microsoft excel files and csv files. This makes it handy for people who naturally use excel to collect and organise data.</p>
+<p>There’s a good tutorial on how to import and use excel documents in to Python here:</p>
+<p><a target="_blank" rel="noopener" href="https://www.dataquest.io/blog/excel-and-pandas/">https://www.dataquest.io/blog/excel-and-pandas/</a></p>
+<p>And this cheatsheet is pretty great.</p>
+<p><a target="_blank" rel="noopener" href="https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf">https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf</a></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://pandas.pydata.org/docs/index.html">https://pandas.pydata.org/docs/index.html</a></li>
+</ul>
+<p><strong>urllib</strong></p>
+<p><a target="_blank" rel="noopener" href="https://pythonspot.com/urllib-tutorial-python-3/">https://pythonspot.com/urllib-tutorial-python-3/</a></p>
+<p>This is a really essential library for Python that you are going to use a lot. You can do lots of cool things that make scraping data much easier, including specifying your user agent, which basically means pretending to be any browser that you like.</p>
+<p>It’s super easy to use url lib to grab a webpage:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"></span><br><span class="line">html = urllib.request.urlopen(<span class="string">&#x27;https://www.arts.ac.uk&#x27;</span>).read()</span><br><span class="line">print(html)</span><br></pre></td></tr></table></figure>
+
+<p>the ‘html’ variable / object in the above example now has all the data from the web page in it. But parsing HTML is not easy to do at all. Wouldn’t it be great if there was some kind of library for parsing HTML easily? That would just be amazing.</p>
+<p><strong>bs4</strong></p>
+<p>bs4, or “Beautiful Soup” is a great html parser, and the basis of a very large number of web scraping softwares. If you’re building a scraper, you should start with bs4. Here’ an example of a script that grabs some webpage data and iterates through it using bs4.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Get all the links from reddit world news.</span></span><br><span class="line"><span class="comment"># Can you spider those links?</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"></span><br><span class="line">html = urllib.request.urlopen(<span class="string">&#x27;http://www.reddit.com/r/worldnews&#x27;</span>).read()</span><br><span class="line">soup = BeautifulSoup(html)</span><br><span class="line"></span><br><span class="line"><span class="comment"># just get all the links. Links are &#x27;a&#x27; (as in &lt;a href = &quot;&quot;&gt;)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> link <span class="keyword">in</span> soup.find_all(<span class="string">&#x27;a&#x27;</span>):</span><br><span class="line">  print(link.get(<span class="string">&#x27;href&#x27;</span>))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>bokeh</strong></p>
+<p>Bokeh is a great way of creating interactive plots. matplotlib isn’t designed for interactive plot generation - it’s for generating plots for books and academic papers. Bokeh on the other hand makes it super easy to make a plot that you can interact with on a webpage. Like this :</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> bokeh.plotting <span class="keyword">import</span> figure, output_file, show</span><br><span class="line"></span><br><span class="line"><span class="comment"># prepare some data</span></span><br><span class="line">x = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line">y = [<span class="number">6</span>, <span class="number">7</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># output to static HTML file</span></span><br><span class="line">output_file(<span class="string">&quot;lines.html&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># create a new plot with a title and axis labels</span></span><br><span class="line">p = figure(title = <span class="string">&quot;simple line example&quot;</span>, x_axis_label = <span class="string">&#x27;x&#x27;</span>, y_axis_label= <span class="string">&#x27;y&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># add a line renderer with legend and line thickness</span></span><br><span class="line">p.line(x, y, legend=<span class="string">&quot;Temp.&quot;</span>, line_width=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># show the results</span></span><br><span class="line">show(p)</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://docs.bokeh.org/en/latest/docs/user_guide/quickstart.html#userguide-quickstart">https://docs.bokeh.org/en/latest/docs/user_guide/quickstart.html#userguide-quickstart</a></p>
+<p><strong>gensim</strong></p>
+<p><a target="_blank" rel="noopener" href="https://radimrehurek.com/gensim/">https://radimrehurek.com/gensim/</a></p>
+<p>Gensim is incredibly powerful. It is a general purpose Topic modelling and natural language processing library with cutting edge features, including auto-summarisation, sentiment analysis, word-vectors, and lots of very useful topic modelling toolkits, such as Latent Semantic Analysis (LSA) and Latent Dirichlit Allocation (LDA - <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation">https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation</a>).</p>
+<p>For example, if you want to summarise a document, it’s a single line of code.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> gensim.summarization <span class="keyword">import</span> summarize</span><br><span class="line"></span><br><span class="line">print(mySummary = summarize(text, word_count=<span class="number">150</span>))</span><br></pre></td></tr></table></figure>
+
+<p>Of all the libraries we’ve just looked at, Gensim has possibly the most meaningful and fun set of tutorials and examples, available here:</p>
+<p><a target="_blank" rel="noopener" href="https://radimrehurek.com/gensim/auto_examples/index.html">https://radimrehurek.com/gensim/auto_examples/index.html</a></p>
+
+    </div>
+
+    <div class="about">
+        <h1>About this Post</h1>
+        <p>This post is written by Siqi Shu, licensed under <a
+                target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+    </div>
+</article>
+        <footer>
+    <div class="inner">
+        <div class="links">
+            
+            <div class="group">
+                <h4 class="title">深智一物 眾隱皆變</h4>
+                
+            </div>
+            
+        </div>
+        &copy; 2024 Siqi Shu<br />
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+</footer>
+
+
+        
+<script src="/js/main.js"></script>
+
+        
+<script src="/js/kursor.js"></script>
+
+        
+<script src="/js/run.js"></script>
+
+
+    </body>
+</html>

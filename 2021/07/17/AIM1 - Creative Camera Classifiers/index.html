@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  
+  <title>AIM1 - Creative Camera Classifiers - Shu-Creative Computing</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+    <link rel='manifest' href='/manifest.json'>
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/cursor.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/components.css">
+
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+    <body>
+        <nav id="theme-nav">
+    <div class="inner">
+        <a class="title" href="/">Shu&#39;s Blog</a>
+        <div class="nav-arrow"></div>
+        <div class="nav-items">
+            <a class="nav-item nav-item-home" href="/">Home</a>
+            
+            
+            <a class="nav-item" href="/categories/essays">Thinking</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/pcomp">Pcomp&amp;AVCE</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/coding">Coding</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/portfolio">Portfolio</a>
+            
+            
+            
+            <a class="nav-item" href="/contact">About</a>
+            
+            
+            
+            <a class="nav-item nav-item-github nav-item-icon" href="https://github.com/ShuSQ" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-codepen nav-item-icon" href="https://codepen.io/shusq" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-patreon nav-item-icon" href="https://www.instagram.com/cheese_shu/" target="_blank">&nbsp;</a>
+            
+            
+        </div>
+    </div>
+</nav>
+        <article class="post">
+    <div class="meta">
+        
+        <div class="date" id="date">
+            
+            
+            
+            
+            
+            
+            
+            <span>July</span>
+            
+            
+            
+            
+            
+            
+            <span>17,</span>
+            <span>2021</span>
+        </div>
+        
+
+        <h2 class="title">AIM1 - Creative Camera Classifiers</h2>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="content">
+        <blockquote>
+<p>Mimicproject is an online platform to build interactive creative programs with machine learning.</p>
+</blockquote>
+<p>Its all about labelled data. Build models that predict new values, based on previous examples of input - output pairs.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*zbSrkPP7coa3x3P16wmsEg.png"></p>
+<p>We don’t have to program them ourselves, just provide labelled examples.</p>
+<p>We show the learning algorithm pictures of cats, and pictures of dogs. It learns the difference between cats and dogs. The model can label new pictures.</p>
+<p>We show the learning algorithm different dance poses, it learns the difference between them. We can use the model to trigger things in a performance.</p>
+<h5 id="Simple-Object-Recogniser"><a href="#Simple-Object-Recogniser" class="headerlink" title="Simple Object Recogniser"></a>Simple Object Recogniser</h5><p>Demo: <a target="_blank" rel="noopener" href="https://mimicproject.com/code/546bd3c7-31ad-c1aa-e8eb-989e91b1f2e9?embed=true">https://mimicproject.com/code/546bd3c7-31ad-c1aa-e8eb-989e91b1f2e9?embed=true</a></p>
+<p>Building an image classifier, classifiers mean the labels are discrete. Background classes can be useful.</p>
+<p>How many examples do we need? More examples = Better Model.</p>
+<p>If we want our model to be able to distinguish between things based on a certain characteristic, we need to show it examples of that.</p>
+<p>Representation is important.</p>
+<p>MobileNet gives the probability of 1000 different objects being in the frame. All the pixel values would be too a huge number of features, the is better. Only works for things that are in the original 1000 object dataset (ImageNet).</p>
+<p>This is a complex demo: <a target="_blank" rel="noopener" href="https://mimicproject.com/code/c6bffe36-65db-4d3d-d162-3ae7a52bbc32">https://mimicproject.com/code/c6bffe36-65db-4d3d-d162-3ae7a52bbc32</a></p>
+<h5 id="Why-doesn’t-my-model-work"><a href="#Why-doesn’t-my-model-work" class="headerlink" title="Why doesn’t my model work?"></a>Why doesn’t my model work?</h5><blockquote>
+<p>Goal not specific enough</p>
+</blockquote>
+<p>In a famous example, a researcher is training a small whelled robot to avoid objects based on sensors on the front. The requirements for success? Reduce collisions. After training the control system, they upload it to the machine and wait expectantly. Nothing happens. They check the batteries and everything seems fine. It becomes apparent that the algorithm has decided the best strategy to avoid collisions is to just remain perfectly still.</p>
+<p>Updates the rules and sets off to train a system that doesn’t have collisions, and also moves around a lot. Unfortunately, all they manage to create is a robot that spins around on the spot.</p>
+<blockquote>
+<p>Data not specific enough</p>
+</blockquote>
+<p>A model trained to identify cancerous growths actually learnt to identify rulers, as these were often present alongside the tumours.</p>
+<p>Image description models will often report sheep in pictures containing grass, even when there are none. Because all of the pictures of sheep it had seen were surrounded by fields, and our model had learnt to identify the scenery, not the animal.</p>
+<blockquote>
+<p>Imbalanced data</p>
+</blockquote>
+<p>If you have lots of examples of one class, and few of another, sometimes the model will just learn to pick the common class (allowing high accuracy) and not have to learn anything about the problem.</p>
+<blockquote>
+<p>Not all bad</p>
+</blockquote>
+<p>Researcher Adrian Thompson was using machine learning techniques to iteratively build circuits using real live hardware. The solution he arrived at seemed to make no sense, with 5 logic gates seemingly disconnected from the rest. After much head scratching, it became apparent that the algorithm had made use of a previously unknown property of silicon to reach an unorthodox, but fully functional solution.</p>
+<p>Machine learning may not take the path you planned and this may end up with something you did not want, or it may end up finding a great solution you would not have arrived at in a million years.</p>
+<h5 id="Making-an-instrument"><a href="#Making-an-instrument" class="headerlink" title="Making an instrument"></a>Making an instrument</h5><p>Demo: <a target="_blank" rel="noopener" href="https://mimicproject.com/code/7d93308a-83e1-ead3-180a-d84900ffe874">https://mimicproject.com/code/7d93308a-83e1-ead3-180a-d84900ffe874</a></p>
+<p>A great example of using camera classification to control audio output is Anna Ridler’s Drawing with Sound. Here, she trains a model to recognise common forms she draws. As a feed from a camera embedded in her glasses is analysed as she paints, recordings from sonatas are triggered.</p>
+<h5 id="Making-a-project"><a href="#Making-a-project" class="headerlink" title="Making a project"></a>Making a project</h5><p>Once you have logged in MIMIC, you can select the my projects dropdown from the main navigation bar and click the plus button to make a new document.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>My First Heading<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>My first paragraph.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>HTML stands for Hyper Text Markup Language, is the standard markup language for creating Web pages, describes the structure of a Web page, consists of a series of elements, HTML elements tell the browser how to display the content, elements label pieces of content such as “this is a heading”, “this is a paragraph”, “this is a link”, etc.</p>
+<p>All HTML documents must start with a document type declaration: <code>&lt;!DUCTYPE html&gt;</code>.</p>
+<p>The HTML document itself begin with <code>&lt;html&gt;</code>and ends with <code>&lt;/html&gt;</code>.</p>
+<p>The visible part of the HTML document is between <code>&lt;body&gt;</code> and <code>&lt;/body&gt;</code>.</p>
+<p>Having made a new project, you will be taken to the main editor and viewer for that project. On the left is the output of your program, and on the right is the code editor. The code editor can be dragged across to be smaller or larger.</p>
+<p>The root document is a HTML page. If you are familar with web development, think of it as an “index.html”. As such you can build up your HTML elements here and include Javascript in.</p>
+<h5 id="p5-js-and-Functions"><a href="#p5-js-and-Functions" class="headerlink" title="p5.js and Functions"></a>p5.js and Functions</h5><p>Functions in Javascript can aloso be stred in variables.</p>
+<p>And like Python, they named arguments in around brackets</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> add = <span class="function"><span class="keyword">function</span>(<span class="params">num1, num2</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> num1 + num2</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">add(<span class="number">3</span>,<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Demo: <a target="_blank" rel="noopener" href="https://mimicproject.com/code/ff7ffb97-ff0f-ae93-0204-8c410e32182b">https://mimicproject.com/code/ff7ffb97-ff0f-ae93-0204-8c410e32182b</a></p>
+<p>Two most important parts of a p5.js sketch are:</p>
+<ul>
+<li>function <code>setup()&#123;&#125;</code> - called once at the start</li>
+<li>function <code>draw()&#123;&#125;</code> - called on every frame</li>
+</ul>
+<p>Variables are where we store thing.</p>
+<p>In Python, variables have no prefix, we just put the name.</p>
+<p>In Javascript, you need to prefix with <code>var</code> or <code>let</code>.</p>
+<p>p5.js has lots of built in functions for drawing shapes. <a target="_blank" rel="noopener" href="https://p5js.org/zh-Hans/reference/">https://p5js.org/zh-Hans/reference/</a>, here we see how we can store the positions and dimensions of shapes we want to draw in variables.</p>
+<p>FrameCount stores a counter that goes up every frame.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">if</span>(<span class="params">a&gt;<span class="number">3</span></span>)</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;a is bigger than 3&quot;</span>)</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;a is less than or exactly 3&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>We can use <code>stroke()</code> and <code>fill()</code> to colour the middle and borders of our shape.</p>
+<ul>
+<li>‘rgb(0,0,0)’</li>
+</ul>
+<p>We can use the conditional (if statement) to pick the colour based on the mouse position.</p>
+<ul>
+<li>mouseX</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">for</span>(<span class="params"><span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">5</span>; i=i+<span class="number">1</span></span>)</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(i)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// print out 0,1,2,3,4</span></span><br></pre></td></tr></table></figure>
+
+<p>Arrays in Javascript are the same as Python:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line"><span class="function"><span class="title">for</span>(<span class="params"><span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">5</span>; i++</span>)</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(a[i])</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// print out 1,2,3,4,5</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*zbSrkPP7coa3x3P16wmsEg.png"></p>
+<p>We have a library, Learner.js, that lets you add all this functionality into a project with minimal fuss.</p>
+<p>Gives you a nice GUI to handle all the main machine learning functionality. All you have to do is hook up the inputs and outputs.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*w1MUq15k9HH1ajC10XVSvw.png"></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*NfEWpOIwhtXNmCFK9PXApw.png"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> learner = <span class="keyword">new</span> Learner();</span><br><span class="line">learneraddGUI(<span class="built_in">document</span>.getElementById(<span class="string">&quot;learner&quot;</span>));</span><br><span class="line">learner.addClassifier(<span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn-images-1.medium.com/max/800/1*c2_AaL2t47MeZQr5DaqU_w.png"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">learner.newExample(</span><br><span class="line">[event.clientX, event.clientY],</span><br><span class="line">learner.y);</span><br></pre></td></tr></table></figure>
+
+<p>It is important to note that one piece of code above serves two purposes. If you are recording, every time you add a new example, the pairing is stored in the dataset. If you are running, just the input is used and given to the model, which then provides a new output based on the data it has seen.</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*Kk52fAsTsLlwaZEx96v1rA.png"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">learner.onOutput = <span class="function">(<span class="params">output</span>)=&gt;</span> &#123;</span><br><span class="line">  <span class="function"><span class="title">if</span>(<span class="params">output[<span class="number">0</span>]==<span class="number">0</span></span>)</span> &#123;</span><br><span class="line">    colour = <span class="string">&#x27;rgb(255,0,0)&#x27;</span></span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (output[<span class="number">0</span>]==<span class="number">1</span>) &#123;</span><br><span class="line">    colour = <span class="string">&#x27;rgb(0,255,0)&#x27;</span></span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    colour = <span class="string">&#x27;rgb(0,0,255)&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h5 id="Body-Particles"><a href="#Body-Particles" class="headerlink" title="Body Particles"></a>Body Particles</h5><p>You will also note an additional feature of Learner.js here as there is a slight delay(three seconds) in recording allowing you to get into position. The recording also stops after three seconds and both these time limits can be controlled in the code. There is an important reason for why this is a useful tool when recording in your own datasets, especially in the case of body tracking camera input.</p>
+<p>If recording begins immediately when you have pressed the button on your computer, it may take you a few video frames to adopt the position for that class. This means there will be several examples in your dataset which are not information about your particular body parts when in a particular class, but just how your body happens to be as you enter that position. Having this mislabelled, erroneous data in will make the learning algorithms job harder, and will almost certainly make your model’s performance worse.</p>
+
+    </div>
+
+    <div class="about">
+        <h1>About this Post</h1>
+        <p>This post is written by Siqi Shu, licensed under <a
+                target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+    </div>
+</article>
+        <footer>
+    <div class="inner">
+        <div class="links">
+            
+            <div class="group">
+                <h4 class="title">深智一物 眾隱皆變</h4>
+                
+            </div>
+            
+        </div>
+        &copy; 2024 Siqi Shu<br />
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+</footer>
+
+
+        
+<script src="/js/main.js"></script>
+
+        
+<script src="/js/kursor.js"></script>
+
+        
+<script src="/js/run.js"></script>
+
+
+    </body>
+</html>

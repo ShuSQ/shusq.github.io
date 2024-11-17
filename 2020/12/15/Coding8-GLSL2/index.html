@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  
+  <title>Coding8 - GLSL2 - Shu-Creative Computing</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+    <link rel='manifest' href='/manifest.json'>
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/cursor.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/components.css">
+
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+    <body>
+        <nav id="theme-nav">
+    <div class="inner">
+        <a class="title" href="/">Shu&#39;s Blog</a>
+        <div class="nav-arrow"></div>
+        <div class="nav-items">
+            <a class="nav-item nav-item-home" href="/">Home</a>
+            
+            
+            <a class="nav-item" href="/categories/essays">Thinking</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/pcomp">Pcomp&amp;AVCE</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/coding">Coding</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/portfolio">Portfolio</a>
+            
+            
+            
+            <a class="nav-item" href="/contact">About</a>
+            
+            
+            
+            <a class="nav-item nav-item-github nav-item-icon" href="https://github.com/ShuSQ" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-codepen nav-item-icon" href="https://codepen.io/shusq" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-patreon nav-item-icon" href="https://www.instagram.com/cheese_shu/" target="_blank">&nbsp;</a>
+            
+            
+        </div>
+    </div>
+</nav>
+        <article class="post">
+    <div class="meta">
+        
+        <div class="date" id="date">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <span>December</span>
+            
+            <span>15,</span>
+            <span>2020</span>
+        </div>
+        
+
+        <h2 class="title">Coding8 - GLSL2</h2>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="content">
+        <blockquote>
+<p> We will be looking at noise generators and Vertex shaders in detail. The main technical learning we are reinforcing are GLSL shader language operators, and functions, because we need to use functions alot in GLSL to simplify things, like how to generate random numbers in a shader; will explore how we use these to make interesting textures.</p>
+</blockquote>
+<br/>
+
+<h3 id="1-Noise"><a href="#1-Noise" class="headerlink" title="1.Noise"></a>1.Noise</h3><p>In computer graphics we use noise all the time, it is an essential part of making everything look and feel more natural. We use noise in textures, objects, lighting and simulations, including most forms of AI.</p>
+<p>In order to use noise in our shaders, we need to be able to calculate randomness. There may well be no such thing as ‘RANDOM’, when something is random, this just means we can not detect a pattern; this makes the whole problem of noise much easier to grasp, it also helps us understand the world a lot better!</p>
+<p>White noise is a signal where there is equal energy in all frequencies. This means that every frequency is represented by the signal, and we do not associate it with any form of order. </p>
+<p>We can also ‘shape’ noise in different ways; there are many different types of ‘noise’ distributions, and they have different trade offs. Throwing two dice is a good example - this generates a ‘normal’ distribution, but to model this, we need a generator. Brown noise, pink noise - 1/f noise can all generate interesting noise - sometimes fractal in nature. 1/f noise is a good model of natural variatiom.</p>
+<p>So, logically, we can use techniques from radio to generate noise signals. We can use analogue radio modelling to create random number generators; these are really great random number gens but they are not talked about much.</p>
+<p>Two common methods for radio transmission are AM and FM:</p>
+<ul>
+<li>AM = Amplitude modulation</li>
+<li>FM = Frequency modulation</li>
+</ul>
+<p>Both methods require the following:</p>
+<ul>
+<li>A carrier (a sine wave)</li>
+<li>A modulator (a modulating wave)</li>
+<li>A modulation index(the amplitude of the modulator)</li>
+</ul>
+<p>Both the carrier and the modulator have a frequency; in amplitude modulation, we modulate the amplitude of the carrier by the frequency of the modulator. In frequency modulation we modulate the frequency of the carrier by the frequency of the modulator.</p>
+<p>Let’s take a look at an example using FM to generate randomness in a shader:</p>
+<div align="center"><iframe width="64%" height="500" src="//jsfiddle.net/SQShu/6j7y8vur/embedded/result,html/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe></div>
+
+<p>Now let’s look at methods for 2D noise generation using FM:</p>
+<div align="center"><iframe width="64%" height="500" src="//jsfiddle.net/SQShu/0kgem13s/embedded/result,html/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe></div>
+
+<p>We can do very interesting things by using the integer or fractional parts of our coordinate systems. By using both at the same time, we can have randomness, and order, both at the same time; this is powerful - and what you need to do in order to create more natural looking images.</p>
+<p>The problem with 1D noise approaches is that they do not calculate noise across both xy dimensions, so you can see lines and repetitions on both axes. By using the dot product (again), we can get noise values for fragments based on their magnitude; dot product takes 2D input and provides 1D output; if we use it as the input to our FM generator, it produces interesting oeffects in 2D.</p>
+<div align="center"><iframe width="64%" height="500" src="//jsfiddle.net/SQShu/t1bgmz4v/embedded/result,html/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe></div>
+
+
+
+<h3 id="2-Vertex-Shaders"><a href="#2-Vertex-Shaders" class="headerlink" title="2.Vertex Shaders"></a>2.Vertex Shaders</h3><p>Let’s take a look at the vertex shader example:</p>
+<div align="center"><iframe width="64%" height="500" src="//jsfiddle.net/SQShu/sb3rkgyv/embedded/result,html/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe></div>
+
+<p>In summary, we have two interacting shaders:</p>
+<ul>
+<li>Vertex shader</li>
+<li>Fragment shader</li>
+</ul>
+<p>Together they are used to create a ‘materal’.</p>
+<p>The vertex shader allows us to pass on and modify aspects of openGL meshes; the final output is <code>gl_Position()</code>, gl_Position is a vec4 xyzw; w is hte ‘homogenous’ coordinate, we divide xyzzy by w, it is very useful.]</p>
+<p>Materials are bound to a specific mesh; so ,our shaders get bound to a specific mesh, such as our model, plane or sphere - as part of the material; we can have quite a lot of shaders in memory, but only one is active at any one time - this impacts how we use them.</p>
+<p>All our meshes can be processed procedurally without issue inside the draw loop:</p>
+<ul>
+<li>Bind our material to our mesh</li>
+<li>Draw the mesh </li>
+<li>Unbind our material</li>
+<li>Bind a new material to new geometry</li>
+<li>Draw a new mesh, Unbind…</li>
+</ul>
+<p>Vertex shaders have the same uniforms as fragments shaders, we should use high precision uniforms when sharing them between frag and vert shaders; otherwise our shader code might not run.</p>
+<p>Some programmers just write one big vertex and freag shader pair. They then specify a variable that sets which part of both shaders should be active for each piece of geometry. They bind just that single pair of shaders to a single material for all the geometry; then pass a uniform in to select which part of each shader should be active, then draw the specific geometry, then change the active shader sections, then draw the next bit of geometry..etc.</p>
+<p>Vertex shaders can have ‘varing’ variables, these can be passed to fragment shaders, they need to be defined in both the vertex and the fragment shader in order for this to work.</p>
+<p>Varyings are deprecated in openGL 4, have been replaced by ‘in’ and ‘out’; both methods are actually used all the time. Attributes are the vertex shader inputs; essentially, these are the elements of the vertex buffer object(VBO), the VBO contains the elements of the mesh that you ahve bound to the material. They get passed to the GPU and can be accessed as vertex shader attributes. This means we can get all the data streams from the mesh as attributes, modify them, and replace them with new data.</p>
+<p>in: link to shader from previous stage in pipeline</p>
+<p>out: link out of a shader to next stage in pipeline</p>
+<p>attribute: same a in for vertex shader</p>
+<p>varying: same as out for vertex shader, same as in for fragment shader</p>
+<p>We can get the normals out of the vertex buffer and use them to set the colour of fragment shader at any position; this is super easy and you already know how to do it.</p>
+<p>Using a varying to create a light:</p>
+<div align="center"><iframe width="64%" height="500" src="//jsfiddle.net/SQShu/mbfLvso7/embedded/result,html/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe></div>
+
+<p>Try to understand the idea of how to generate lighting effects using normals, feel confident that we can generate noise using simple approaches.</p>
+
+    </div>
+
+    <div class="about">
+        <h1>About this Post</h1>
+        <p>This post is written by Siqi Shu, licensed under <a
+                target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+    </div>
+</article>
+        <footer>
+    <div class="inner">
+        <div class="links">
+            
+            <div class="group">
+                <h4 class="title">深智一物 眾隱皆變</h4>
+                
+            </div>
+            
+        </div>
+        &copy; 2024 Siqi Shu<br />
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+</footer>
+
+
+        
+<script src="/js/main.js"></script>
+
+        
+<script src="/js/kursor.js"></script>
+
+        
+<script src="/js/run.js"></script>
+
+
+    </body>
+</html>

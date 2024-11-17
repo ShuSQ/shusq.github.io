@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  
+  <title>Coding9 - Audio Visualization - Shu-Creative Computing</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+    <link rel='manifest' href='/manifest.json'>
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/cursor.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/components.css">
+
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+    <body>
+        <nav id="theme-nav">
+    <div class="inner">
+        <a class="title" href="/">Shu&#39;s Blog</a>
+        <div class="nav-arrow"></div>
+        <div class="nav-items">
+            <a class="nav-item nav-item-home" href="/">Home</a>
+            
+            
+            <a class="nav-item" href="/categories/essays">Thinking</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/pcomp">Pcomp&amp;AVCE</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/coding">Coding</a>
+            
+            
+            
+            <a class="nav-item" href="/categories/portfolio">Portfolio</a>
+            
+            
+            
+            <a class="nav-item" href="/contact">About</a>
+            
+            
+            
+            <a class="nav-item nav-item-github nav-item-icon" href="https://github.com/ShuSQ" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-codepen nav-item-icon" href="https://codepen.io/shusq" target="_blank">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-patreon nav-item-icon" href="https://www.instagram.com/cheese_shu/" target="_blank">&nbsp;</a>
+            
+            
+        </div>
+    </div>
+</nav>
+        <article class="post">
+    <div class="meta">
+        
+        <div class="date" id="date">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <span>December</span>
+            
+            <span>28,</span>
+            <span>2020</span>
+        </div>
+        
+
+        <h2 class="title">Coding9 - Audio Visualization</h2>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="content">
+        <blockquote>
+<p>Summary: My final project is a web tool for audio visualization. It reads audio data through the Web Audio API and converts it into an array. The array is mapped as a variable to the 3D object created by three.js to achieve dynamic effects; Maximilian.js passed Oscwave to the shader as a uniform float, and the noise function is added to create a new visual effect; dat.gui.js is added, allowing users to adjust the parameters in three.js to make it more interesting!</p>
+</blockquote>
+<p>You can find my project on GitHub:</p>
+<h5 id="👓-CCI-ACC-FP-audioVisualiser-repository"><a href="#👓-CCI-ACC-FP-audioVisualiser-repository" class="headerlink" title="👓 CCI_ACC_FP_audioVisualiser_repository"></a><a target="_blank" rel="noopener" href="https://github.com/ShuSQ/CCI_ACC_FP_coding">👓 CCI_ACC_FP_audioVisualiser_repository</a></h5><p>You can also view my demo on Youtube:</p>
+<h5 id="📹-CCI-ACC-FP-audioVisualiser"><a href="#📹-CCI-ACC-FP-audioVisualiser" class="headerlink" title="📹 CCI_ACC_FP_audioVisualiser"></a><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=2ZJa9D-FDN8">📹 CCI_ACC_FP_audioVisualiser</a></h5><p>You can also view two versions of my code on jsfiddle: </p>
+<h5 id="🧩-CCI-ACC-FP-audioVisualiser-withoutNoise-amp-Osc"><a href="#🧩-CCI-ACC-FP-audioVisualiser-withoutNoise-amp-Osc" class="headerlink" title="🧩 CCI_ACC_FP_audioVisualiser (withoutNoise&amp;Osc)"></a><a target="_blank" rel="noopener" href="https://jsfiddle.net/SQShu/68w9fmhg/12/">🧩 CCI_ACC_FP_audioVisualiser (withoutNoise&amp;Osc)</a></h5><p>“withoutNoise&amp;Osc” example:</p>
+<p><img src="https://miro.medium.com/max/1000/1*LA4ctG8OS3qURz5RVWQurg.gif"></p>
+<h5 id="🧩-CCI-ACC-FP-audioVisualiser-Noise-amp-Osc"><a href="#🧩-CCI-ACC-FP-audioVisualiser-Noise-amp-Osc" class="headerlink" title="🧩 CCI_ACC_FP_audioVisualiser (Noise&amp;Osc)"></a><a target="_blank" rel="noopener" href="https://jsfiddle.net/SQShu/n1pd8abk/15/">🧩 CCI_ACC_FP_audioVisualiser (Noise&amp;Osc)</a></h5><p>“Noise&amp;Osc” example:</p>
+<p><img src="https://miro.medium.com/max/1000/1*OBz8m0Q7J12iiVvgmohNLg.gif"></p>
+</br>
+
+<h3 id="0-Why-did-I-do-this-project-🧐"><a href="#0-Why-did-I-do-this-project-🧐" class="headerlink" title="0.Why did I do this project? 🧐"></a>0.Why did I do this project? 🧐</h3><p>The work of audio visualization can be found in many electronic MVs and interactive art. I am also interested in the direction of visualization. After I saw <a target="_blank" rel="noopener" href="https://www.vertexshaderart.com/art/nNYZMHxiLMR2xAncW">a great work in vertexshaderart</a> (this is really a cool particle sphere), I decided to try to do the challenge of visual audio. Before that, I didn’t have much experience, but in the end, I did it. Cheers!</p>
+<p>Learn more about visualization:</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://blog.prototypr.io/get-started-with-the-web-audio-api-for-music-visualization-b6f594416a16">Top music visualization resources for web audio API</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/willianjusten/awesome-audio-visualization/blob/master/Readme.md">Awesome Audio Visualization</a></p>
+</li>
+</ul>
+</br>
+
+<h3 id="1-Use-of-Web-Audio-API-🎧"><a href="#1-Use-of-Web-Audio-API-🎧" class="headerlink" title="1.Use of Web Audio API 🎧"></a>1.Use of Web Audio API 🎧</h3><p>Idea Realization: Web receive audio -&gt; decode audio/create array/categorical array -&gt; assign array to variable (did in three.js render() )</p>
+<p>Create <code>input</code> and <code>audio</code> in HTML to allow uploading audio, we can use the AudioContext method to audioNode and decode audio data;</p>
+<p><img src="https://www.html5rocks.com/en/tutorials/webaudio/intro/diagrams/gain.png" alt="img"></p>
+<p><em>By <a target="_blank" rel="noopener" href="https://www.html5rocks.com/profiles/#smus">Boris Smus</a></em></p>
+<p>Divide the audio data into multiple arrays through multiple types of filters, and the array of filters is the available variable.</p>
+<p>The following articles are very helpful for learning Web Audio API:</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://www.html5rocks.com/en/tutorials/webaudio/intro/">Getting Started with Web Audio API</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API">Mozilla_Web Audio API</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Using_Web_Audio_API">Mozilla_Using Web Audio API</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Visualizations_with_Web_Audio_API">Mozilla_Visualizations with Web Audio API</a></p>
+</li>
+</ul>
+</br>
+
+<h3 id="2-Three-js-creates-scenes-and-objects-💠"><a href="#2-Three-js-creates-scenes-and-objects-💠" class="headerlink" title="2.Three.js creates scenes and objects 💠"></a>2.Three.js creates scenes and objects 💠</h3><p>Idea Realization: create elements -&gt; use array variables -&gt; create dat.gui.js control panel (optional)</p>
+<p>Create 3D scenes, cameras, light sources and objects through three.js, pay attention to selecting the shaderMaterial() type when selecting the material, and then you need to colour the object through GLSL ES; pass the filtered array to the makeRoughBall() function to create the surface undulations; I used dat.gui.js, which can control the rotation speed of the object in three directions in the scene, and adjust it to the suitable angle to better view the model.</p>
+<p><img src="https://cdn-images-1.medium.com/max/2400/1*DsxFhGQ5YXRmkOrcheQx5Q.png"><br><em>After rendering the scene, you will see a sphere that can be colored</em></p>
+<p><img src="https://cdn-images-1.medium.com/max/2400/1*U-JUIqQP8w52Hs9hTPhMMw.png"><br><em>The shader can fill the sphere with a variety of custom materials</em></p>
+<p>Learn more technical details:</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://www.programmersought.com/article/563055099/">Music visualization with Web Audio and three.js</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://blog.cjgammon.com/threejs-custom-shader-material">Three.js Custom Materials with ShaderMaterial</a></p>
+</li>
+</ul>
+</br>
+
+<h3 id="3-Add-shaders-noise-and-external-variables-🌈"><a href="#3-Add-shaders-noise-and-external-variables-🌈" class="headerlink" title="3. Add shaders, noise and external variables 🌈"></a>3. Add shaders, noise and external variables 🌈</h3><p>Idea Realization: create vertexShader and fragmentShader -&gt; add noise / introduce external variables</p>
+<p>There are a lot of thorny issues in this part, but it is also very exciting. After trying different combinations, I finally chose the style of ripple diffusion; in the part of creating noise, I referred to <a target="_blank" rel="noopener" href="https://github.com/ashima/webgl-noise">ASHIMA’s code</a> and used its effect is very good. The noise is passed to fragmentShader through varying float noise, which creates a rugged surface effect when the audio is not loaded; the variable Oscwave of Maximilian.js is passed to the shader, returned to three.js to declare and define myWave, and use external variables to make the shader effect more powerful. Through the following picture, you can understand how noise affects the outer surface of an object.</p>
+<p><img src="https://miro.medium.com/max/1360/1*Ygksr_MmvR7jSMuG0zB1Vg.jpeg" alt="Image for post"></p>
+<p><em>by <a target="_blank" rel="noopener" href="https://www.clicktorelease.com/">Jaume Sanchez</a></em></p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*p2xkutGZAnXcbe3OOaSOqQ.gif"><br><em>After adding noise, you will see the surface change</em></p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*CLSuBprEObYcdRIOr6GjFw.gif"><br><em>After adding Oscwave</em></p>
+<p>The sphere will be displaced according to Osc, that is, we do not play audio. If you are in use, you can hear the beat sound provided by Oscwave. You can hear the wave sound in my JSFiddle example and YouTube video, or you can follow any Method to adjust the pitch and amplitude of this sound, but because I will upload audio, I set it very small, more like a beat.</p>
+<p>I learned a lot from these articles:</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://www.clicktorelease.com/blog/vertex-displacement-noise-3d-webgl-glsl-three-js/">Vertex displacement with a noise function using GLSL and three.js</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/55850554/how-can-i-pass-the-mouse-positions-from-js-to-shader-through-a-uniform">How can I pass the mouse positions from JS to shader through a uniform?</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://medium.com/@sidiousvic/how-to-use-shaders-as-materials-in-three-js-660d4cc3f12a">How to Use Shaders as Materials in Three.js (with Uniforms)</a></p>
+</li>
+</ul>
+</br>
+
+<h3 id="4-Check-and-adjust-🩺"><a href="#4-Check-and-adjust-🩺" class="headerlink" title="4.Check and adjust 🩺"></a>4.Check and adjust 🩺</h3><p>Some minor optimizations are made to the Web GUI, the MajorMonoDisplay font is introduced, the click animation of the upload button is adjusted, and the color and spacing of some elements are adjusted to make the Web experience more comfortable and smooth.<br></br></p>
+<h3 id="5-Can-do-more-🔋"><a href="#5-Can-do-more-🔋" class="headerlink" title="5.Can do more 🔋"></a>5.Can do more 🔋</h3><p>I also want to try to transfer more physical world data to virtual objects, to achieve richer interaction. When preparing this project, I also saw more excellent cases, such as <a target="_blank" rel="noopener" href="https://tympanus.net/codrops/2019/09/06/how-to-create-a-webcam-audio-visualizer-with-three-js/">How to Create a Webcam Audio Visualizer with Three.js</a> and <a target="_blank" rel="noopener" href="https://experiments.withgoogle.com/webgl-particle-audio-visualizer">WebGL Particle Audio In Visualzer</a>, the data collected by the camera and the microphone are transferred to the computer to produce interesting interaction. I also consider that in future projects, Learn in these directions.</p>
+
+    </div>
+
+    <div class="about">
+        <h1>About this Post</h1>
+        <p>This post is written by Siqi Shu, licensed under <a
+                target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+    </div>
+</article>
+        <footer>
+    <div class="inner">
+        <div class="links">
+            
+            <div class="group">
+                <h4 class="title">深智一物 眾隱皆變</h4>
+                
+            </div>
+            
+        </div>
+        &copy; 2024 Siqi Shu<br />
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+</footer>
+
+
+        
+<script src="/js/main.js"></script>
+
+        
+<script src="/js/kursor.js"></script>
+
+        
+<script src="/js/run.js"></script>
+
+
+    </body>
+</html>
